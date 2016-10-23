@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -15,8 +16,10 @@ namespace Tetris.Helpers
         {
             Canvas canvas=new Canvas();
 
-            int partWidth = canvasWidth/maxWidth;
-            int partHeight = canvasHeight/maxHeight;
+            canvas.Margin = new Thickness(5, 5, 5, 5);
+
+            int partWidth = (canvasWidth-10)/maxWidth;
+            int partHeight = (canvasHeight-10) / maxHeight;
 
             int startWidth = (maxWidth - brick.Width)/2;
             int startHeight = (maxHeight - brick.Height)/2;
