@@ -7,6 +7,10 @@
              xmlns:local="clr-namespace:Tetris.View.Windows"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter
+         x:Key="btvc"  />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -88,7 +92,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Podaj szerokość studni:" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" FontWeight="Medium"/>
                     <Controls:NumericUpDown Minimum="1" Name="WellWidthNumericUpDown" Grid.Row="1" Value="10" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
-                    <Button Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10, 0, 0, 0">Rozpocznij obliczenie algorytmu</Button>
+                    <Button Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Command ="{Binding StartComputationsCommand}" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10, 0, 0, 0">
+                        Rozpocznij obliczenie algorytmu
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
@@ -97,8 +103,8 @@
                 <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White">
                     <iconPacks:PackIconModern Kind="RedoPoint" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
                 </Button>
-                <TextBlock FontSize="13" FontWeight="Light" VerticalAlignment="Center" Foreground="White">
-                        Wczytaj zapisany stan algorytmu
+                <TextBlock FontSize="13" FontWeight="Light" VerticalAlignment="Center" Foreground="White" >
+                Wczytaj zapisany stan algorytmu
                 </TextBlock>
             </StackPanel>
         </Border>

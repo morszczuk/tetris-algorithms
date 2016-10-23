@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
-using Tetris.ViewModel;
 
-namespace Tetris.View
+namespace Tetris.View.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RunningAlgorithm.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class RunningAlgorithm : UserControl
     {
-        public MainWindow()
+        public RunningAlgorithm()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
         }
     }
 }

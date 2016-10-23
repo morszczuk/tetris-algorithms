@@ -8,10 +8,17 @@
         xmlns:wnds="clr-namespace:Tetris.View.Windows"
         mc:Ignorable="d"
         Title="Tetris Algorithms" Height="400" Width="800" WindowState="Maximized">
+    <Window.Resources>
+        <BooleanToVisibilityConverter
+         x:Key="btvc"  />
+    </Window.Resources>
+    
     <Grid >
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <wnds:AlgorithmLaunch />
+        <wnds:AlgorithmLaunch Visibility="{Binding IsAlgorithmLaunchWindowShowed, Converter={StaticResource btvc}}" />
+        <wnds:RunningAlgorithm Visibility="{Binding IsRunningAlgorithmWindowShowed, Converter={StaticResource btvc}}" />
     </Grid>
 </Controls:MetroWindow>

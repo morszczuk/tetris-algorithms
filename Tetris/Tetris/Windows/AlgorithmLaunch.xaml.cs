@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using Tetris.Helpers;
 using Tetris.Windows;
+using Tetris.ViewModel;
 
 namespace Tetris.View.Windows
 {
