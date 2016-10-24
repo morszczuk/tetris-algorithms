@@ -38,8 +38,8 @@ namespace Tetris.View.Windows
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                var loader =new BricksLoader(new StreamReader(openFileDialog.FileName));
-                var result=loader.ReadFile();
+                var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
+                var result = loader.ReadFile();
                 _bricks = result.Bricks;
                 _wellWidth = result.WellWidth;
                 WellWidthNumericUpDown.Value = _wellWidth;

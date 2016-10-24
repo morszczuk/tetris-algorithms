@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}</ProjectGuid>
+    <ProjectGuid>{5A847605-48B9-4679-BCD3-07266A8EAD73}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tetris.ViewModel</RootNamespace>
-    <AssemblyName>Tetris.ViewModel</AssemblyName>
+    <RootNamespace>Tetris.Model</RootNamespace>
+    <AssemblyName>Tetris.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,37 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\BricksGenerator.cs" />
-    <Compile Include="Helpers\BricksLoader.cs" />
-    <Compile Include="Helpers\BricksSaver.cs" />
-    <Compile Include="Helpers\DrawHelper.cs" />
-    <Compile Include="Helpers\MathHelper.cs" />
-    <Compile Include="ViewModels\AlgorithmLaunchViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Models\Brick.cs" />
+    <Compile Include="Enums\RotateEnum.cs" />
+    <Compile Include="Models\FileInputResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tetris.Model\Tetris.Model.csproj">
-      <Project>{5a847605-48b9-4679-bcd3-07266a8ead73}</Project>
-      <Name>Tetris.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

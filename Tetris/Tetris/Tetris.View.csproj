@@ -69,14 +69,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Brick.cs" />
-    <Compile Include="Helpers\BricksGenerator.cs" />
-    <Compile Include="Helpers\BricksLoader.cs" />
-    <Compile Include="FileInputResult.cs" />
-    <Compile Include="Helpers\BricksSaver.cs" />
-    <Compile Include="Helpers\DrawHelper.cs" />
-    <Compile Include="Helpers\MathHelper.cs" />
-    <Compile Include="Enums\RotateEnum.cs" />
     <Compile Include="Windows\AlgorithmLaunch.xaml.cs">
       <DependentUpon>AlgorithmLaunch.xaml</DependentUpon>
     </Compile>
@@ -140,6 +132,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tetris.Model\Tetris.Model.csproj">
+      <Project>{5a847605-48b9-4679-bcd3-07266a8ead73}</Project>
+      <Name>Tetris.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tetris.ViewModel\Tetris.ViewModel.csproj">
       <Project>{a5a780d5-f2aa-4103-a040-4b8d6909c2d6}</Project>
       <Name>Tetris.ViewModel</Name>

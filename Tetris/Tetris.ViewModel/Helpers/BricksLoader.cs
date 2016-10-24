@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Tetris.Helpers
 {
-    class BricksLoader
+    public class BricksLoader
     {
         private char _separator = ' ';
 

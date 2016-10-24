@@ -12,9 +12,8 @@
         <BooleanToVisibilityConverter
          x:Key="btvc"  />
     </Window.Resources>
-    
+
     <Grid >
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>

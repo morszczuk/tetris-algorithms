@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Helpers
 {
-    class MathHelper
+    public class MathHelper
     {
         public static void CountGridCellsNo(out int gridWidth, out int gridHeight, int bricksNo)
         {

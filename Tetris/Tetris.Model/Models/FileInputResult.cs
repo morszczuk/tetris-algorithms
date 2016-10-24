@@ -2,7 +2,7 @@
 
 namespace Tetris
 {
-    class FileInputResult
+    public class FileInputResult
     {
         public int WellWidth  { get; set; }
 
