@@ -18,16 +18,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Background="DimGray">
-                <Grid>
-                    <Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
                     <RowDefinition Height="3*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
                 <Button Grid.Row="0" Grid.Column="0" Click="LoadBricks_OnClick" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
                     <iconPacks:PackIconModern Kind="BoxUnfolded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Foreground="LightBlue"/>
                 </Button>
@@ -35,28 +35,13 @@
                     Wgraj plik ze zdefiniowanymi kostkami
                 </TextBlock>
 
-                <Button Name="LibraryButton" IsEnabled="False" Grid.Row="0" Grid.Column="1" Click="BrowseBricks_OnClick" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
+                <Button Name="LibraryButton" Visibility="Collapsed" Grid.Row="0" Grid.Column="1" Click="BrowseBricks_OnClick" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
                     <iconPacks:PackIconModern Kind="Brick" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Foreground="LightBlue"/>
                 </Button>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Foreground="LightBlue" Margin="0, 10, 0, 0">
-                    Przeglądaj kolekcje 
+                <TextBlock Name="LibraryText"  Visibility="Collapsed" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Foreground="LightBlue" Margin="0, 10, 0, 0">
+                    Przeglądaj kolekcje
                 </TextBlock>
             </Grid>
-            <!--
-            <Grid Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition MinWidth="200"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Grid.Row="1" MinWidth="200">Otwórz plik z klockami</Button>
-            </Grid>
-            -->
         </Border>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
