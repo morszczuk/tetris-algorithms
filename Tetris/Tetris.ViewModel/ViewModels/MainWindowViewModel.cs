@@ -65,7 +65,7 @@ namespace Tetris.ViewModel
         {
             get
             {
-                return _areComputationsRunning ? "STOP" : "KONTYNUUJ";
+                return _areComputationsRunning ? "TimerPause" : "TimerPlay";
             }
         }
 
