@@ -1,83 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Tetris.ViewModel.Helpers;
 
 namespace Tetris.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public bool IsAlgorithmActive => IsRunningAlgorithmWindowShowed;
 
-        private bool _isAlgorithmActive = false;
-        private bool _areComputationsRunning = false;
+        public bool IsAlgorithmLaunchWindowShowed => !IsRunningAlgorithmWindowShowed;
 
-        public bool IsAlgorithmActive
-        {
-            get
-            { 
-                return _isAlgorithmActive;
-            }
-        }
+        public bool IsRunningAlgorithmWindowShowed { get; private set; } = false;
 
-        public bool IsAlgorithmLaunchWindowShowed
-        {
-            get
-            {
-                return !_isAlgorithmActive;
-            }
-        }
-
-        public bool IsRunningAlgorithmWindowShowed
-        {
-            get
-            {
-                return _isAlgorithmActive;
-            }
-        }
-
-        public bool AreComputationsRunning
-        {
-            get
-            {
-                return _areComputationsRunning;
-            }
-        }
+        public bool AreComputationsRunning { get; private set; } = false;
 
         public bool AreComputationsPaused
         {
             get
             {
-                return !_areComputationsRunning;
+                return !AreComputationsRunning;
             }
             set
             {
-                _areComputationsRunning = !value;
+                AreComputationsRunning = !value;
                 OnPropertyChanged("AreComputationsRunning");
                 OnPropertyChanged("AreComputationsPaused");
                 OnPropertyChanged("ComputationsButtonComunicate");
             }
         }
 
-        public string ComputationsButtonComunicate
-        {
-            get
-            {
-                return _areComputationsRunning ? "STOP" : "KONTYNUUJ";
-            }
-        }
+        public string ComputationsButtonComunicate => AreComputationsRunning ? "STOP" : "KONTYNUUJ";
 
-        public ICommand StartComputationsCommand
-        {
-            get { return new RelayCommand((x) => this.StartComputations(x)); }
-        }
+        public int WellWidth { get; private set; }
 
-        public void StartComputations(object parameter)
+        public List<Brick> Bricks { get; private set; }
+
+        public bool IsLibraryShowed => Bricks != null && Bricks.Count > 0;
+
+    #region Commands
+
+        public ICommand StartComputationsCommand => new RelayCommand(this.StartComputations);
+        
+        private void StartComputations(object parameter)
         {
-            _isAlgorithmActive = true;
-            _areComputationsRunning = true;
+            IsRunningAlgorithmWindowShowed = true;
+            AreComputationsRunning = true;
 
             OnPropertyChanged("IsAlgorithmLaunchWindowShowed");
             OnPropertyChanged("IsRunningAlgorithmWindowShowed");
@@ -87,31 +61,41 @@ namespace Tetris.ViewModel
             OnPropertyChanged("IsAlgorithmActive");
         }
 
-        public ICommand ChangeComputationsStatusCommand
+        public ICommand ChangeComputationsStatusCommand => new RelayCommand(this.ChangeComputationsStatus);
+
+        private void ChangeComputationsStatus(object parameter)
         {
-            get { return new RelayCommand((x) => this.ChangeComputationsStatus(x)); }
-        }
-        
-        void ChangeComputationsStatus(object parameter)
-        {
-            _areComputationsRunning = !_areComputationsRunning;
+            AreComputationsRunning = !AreComputationsRunning;
             OnPropertyChanged("AreComputationsRunning");
             OnPropertyChanged("AreComputationsPaused");
             OnPropertyChanged("ComputationsButtonComunicate");
         }
 
-        public ICommand EndComputationsCommand
-        {
-            get { return new RelayCommand((x) => this.EndComputations(x)); }
-        }
+        public ICommand EndComputationsCommand => new RelayCommand(this.EndComputations);
 
-        void EndComputations(object parameter)
+        private void EndComputations(object parameter)
         {
-            _isAlgorithmActive = false;
+            IsRunningAlgorithmWindowShowed = false;
             OnPropertyChanged("IsAlgorithmActive");
             OnPropertyChanged("IsAlgorithmLaunchWindowShowed");
             OnPropertyChanged("IsRunningAlgorithmWindowShowed");
         }
-        
+
+        public ICommand LoadBricksCommand => new RelayCommand(this.LoadBricks);
+
+        private void LoadBricks(object parameter)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
+            var result = loader.ReadFile();
+            Bricks = result.Bricks;
+            WellWidth = result.WellWidth;
+            OnPropertyChanged("Bricks");
+            OnPropertyChanged("WellWidth");
+            OnPropertyChanged("IsLibraryShowed");
+        }
+
+    #endregion
     }
 }

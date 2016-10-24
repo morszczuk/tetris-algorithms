@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Tetris.Helpers
+namespace Tetris.ViewModel.Helpers
 {
     class BricksGenerator
     {
@@ -47,10 +44,7 @@ namespace Tetris.Helpers
         {
             if (!ValidateConsistency(brick)) return false;
 
-            if (!ValidateSize(brick)) return false;
-
-            return ValidateEqualitySameSizes(brick, collection);
-
+            return ValidateSize(brick) && ValidateEqualitySameSizes(brick, collection);
         }
 
         private bool ValidateEqualitySameSizes(Brick brick, List<Brick> collection)

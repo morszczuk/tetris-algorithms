@@ -9,8 +9,7 @@
         mc:Ignorable="d"
         Title="Tetris Algorithms" Height="400" Width="800" WindowState="Maximized">
     <Window.Resources>
-        <BooleanToVisibilityConverter
-         x:Key="btvc"  />
+        <BooleanToVisibilityConverter x:Key="btvc" />
     </Window.Resources>
 
     <Grid >

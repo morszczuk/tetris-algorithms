@@ -69,15 +69,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\BricksLibrary.xaml.cs">
+      <DependentUpon>BricksLibrary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AlgorithmLaunch.xaml.cs">
       <DependentUpon>AlgorithmLaunch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\BricksLibrary.xaml.cs">
-      <DependentUpon>BricksLibrary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\RunningAlgorithm.xaml.cs">
       <DependentUpon>RunningAlgorithm.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialogs\BricksLibrary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,10 +95,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\AlgorithmLaunch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\BricksLibrary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +141,7 @@
       <Name>Tetris.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Tetris.Helpers
+namespace Tetris.ViewModel.Helpers
 {
     public class BricksLoader
     {
