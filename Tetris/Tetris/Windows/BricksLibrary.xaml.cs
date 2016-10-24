@@ -24,6 +24,7 @@ namespace Tetris.Windows
         private readonly List<Brick> _bricks;
         private NumericUpDown[] _numerics;
 
+
         public BricksLibrary(List<Brick> bricks)
         {
             _bricks = bricks;
@@ -41,6 +42,7 @@ namespace Tetris.Windows
             int gridWidth, gridHeight;
             MathHelper.CountGridCellsNo(out gridWidth,out gridHeight,_bricks.Count);
 
+
             GenerateGrid(gridWidth,gridHeight);
             int bricksCounter = 0;
             int maxWidth = _bricks.OrderByDescending(e => e.Width).First().Width;
@@ -51,14 +53,21 @@ namespace Tetris.Windows
                 for (int j = 0; j < gridWidth; j++)
                 {
                     if (bricksCounter == _bricks.Count) break;
-                    Grid cellGrid =new Grid();
+
+                    int gridCellSize =(int)(BricksGrid.ActualWidth/ gridWidth);
+
+                    Grid cellGrid = new Grid
+                    {
+                        Width = gridCellSize,
+                        Height = gridCellSize
+                    };
 
                     GenerateCellGrid(cellGrid,bricksCounter);
 
-                    var canvasHeight = ((BricksGrid.ActualHeight/gridHeight)*5)/6;
+                    var canvasHeight = (gridCellSize * 5)/6;
                    
                     var canvas = DrawHelper.GetCanvasWidthBrick(_bricks[bricksCounter], maxWidth, maxHeight,
-                        (int) BricksGrid.ActualWidth/gridWidth, (int)canvasHeight);
+                        gridCellSize, (int)canvasHeight);
 
                     Grid.SetColumn(cellGrid, j);
                     Grid.SetRow(cellGrid, i);

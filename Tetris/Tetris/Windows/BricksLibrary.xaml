@@ -11,11 +11,10 @@
                       
        BorderThickness="0" 
        GlowBrush="Black"
-       ResizeMode="NoResize"
        WindowStartupLocation="CenterScreen"
 
        WindowTransitionsEnabled="False"
-       Title="Klocki" Height="900" Width="900">
+       Title="Klocki" Height="500" Width="500" MinHeight="500" MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"></RowDefinition>
@@ -25,9 +24,12 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Background="DimGray" Name="BricksGrid" Grid.ColumnSpan="2">
+        <ScrollViewer  Grid.ColumnSpan="2">
+            <Grid Background="DimGray" Name="BricksGrid"></Grid>
+        </ScrollViewer>
+        
 
-        </Grid>
+        
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"></RowDefinition>
