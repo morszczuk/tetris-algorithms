@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Tetris.Model.Models;
 
 namespace Tetris.ViewModel.Helpers
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Tetris.Model.Models;
 
 namespace Tetris.ViewModel.Helpers
 {

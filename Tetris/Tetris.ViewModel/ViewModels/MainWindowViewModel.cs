@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Tetris.Model.Models;
 using Tetris.ViewModel.Helpers;
 
 namespace Tetris.ViewModel
@@ -38,7 +39,9 @@ namespace Tetris.ViewModel
 
         public string ComputationsButtonComunicate => AreComputationsRunning ? "STOP" : "KONTYNUUJ";
 
-        public int WellWidth { get; private set; }
+        public Well Well { get; private set; }
+
+        public int WellWidth => Well?.Width ?? 0;
 
         public List<Brick> Bricks { get; private set; }
 
@@ -91,18 +94,15 @@ namespace Tetris.ViewModel
                 var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
                 var result = loader.ReadFile();
                 Bricks = result.Bricks;
-                WellWidth = result.WellWidth;
+                Well = new Well(result.WellWidth);
                 OnPropertyChanged("Bricks");
+                OnPropertyChanged("Well");
                 OnPropertyChanged("WellWidth");
                 OnPropertyChanged("IsLibraryShowed");
             }
         }
 
-        public ICommand ShowLibraryCommand => new RelayCommand(this.ShowLibrary);
-
-        private void ShowLibrary(object parameter)
-        {
-        }
+        
 
     #endregion
     }

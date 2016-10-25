@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
+using Tetris.Model.Models;
 using Tetris.ViewModel.Helpers;
 
 namespace Tetris.Dialogs
