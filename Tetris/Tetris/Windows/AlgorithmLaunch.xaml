@@ -14,24 +14,22 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Background="DimGray">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
-                <Button Grid.Row="0" Grid.Column="0" Command="{Binding LoadBricksCommand}" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
+                <Button Grid.Column="0" Command="{Binding LoadBricksCommand}" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <iconPacks:PackIconModern Kind="BoxUnfolded" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Foreground="LightBlue"/>
                 </Button>
+                <ScrollViewer Grid.Column="1">
+                    
+                </ScrollViewer>
+                <!--
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Foreground="LightBlue" Margin="0, 10, 0, 0">
                     Wgraj plik ze zdefiniowanymi kostkami
                 </TextBlock>
@@ -42,57 +40,32 @@
                 <TextBlock Name="LibraryText" Visibility="{Binding IsLibraryShowed, Converter={StaticResource btvc}}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Foreground="LightBlue" Margin="0, 10, 0, 0">
                     Przeglądaj kolekcje
                 </TextBlock>
+                -->
             </Grid>
         </Border>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Margin="0, 10, 0, 10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Podaj k:" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" FontWeight="Medium"/>
-                    <Controls:NumericUpDown Minimum="1" Grid.Row="1" Value="2" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
-                    <Button Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Style="{DynamicResource SquareButtonStyle}" Margin="0, 0, 10, 0">Rozpocznij obliczenie algorytmu krokowo</Button>
-                </Grid>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Margin="0, 10, 0, 10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="Szerokość studni:" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" FontWeight="Medium"/>
-                    <Controls:NumericUpDown Grid.Row="1" Value="{Binding WellWidth, Mode=OneWay}" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100" IsReadOnly="True" HideUpDownButtons="True"/>
-                    <Button Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Command ="{Binding StartComputationsCommand}" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10, 0, 0, 0">
+        <Border Background="SkyBlue" Grid.Row="1">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="20, 0, 0, 0">
+                    <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White">
+                        <iconPacks:PackIconModern Kind="RedoPoint" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                    </Button>
+                    <TextBlock FontSize="13" FontWeight="Light" VerticalAlignment="Center" Foreground="White" >
+                    Wczytaj zapisany stan algorytmu
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0, 0, 10, 0">
+                    <TextBlock Text="Szerokość studni:" VerticalAlignment="Center" FontSize="13" FontWeight="Medium" Margin="0, 0, 5, 0"/>
+                    <Controls:NumericUpDown Value="{Binding WellWidth, Mode=OneWay}" MaxHeight="30" MinWidth="100" IsReadOnly="True" HideUpDownButtons="True" Margin="0, 0, 15, 0"/>
+                    <TextBlock Text="Podaj k:" FontSize="13" FontWeight="Medium" VerticalAlignment="Center" Margin="0, 0, 5, 0"/>
+                    <Controls:NumericUpDown Minimum="1" Value="2" MaxHeight="30" MinWidth="100" Margin="0, 0, 50, 0"/>
+                    <Button MaxHeight="50" Style="{DynamicResource SquareButtonStyle}" Margin="0, 0, 10, 0">
+                        Rozpocznij obliczenie algorytmu krokowo
+                    </Button>
+                    <Button MaxHeight="50" Command ="{Binding StartComputationsCommand}" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0, 0, 0, 0">
                         Rozpocznij obliczenie algorytmu
                     </Button>
-                </Grid>
+                </StackPanel>
             </Grid>
-        </Grid>
-        <Border Background="SkyBlue" Grid.Row="2">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White">
-                    <iconPacks:PackIconModern Kind="RedoPoint" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
-                </Button>
-                <TextBlock FontSize="13" FontWeight="Light" VerticalAlignment="Center" Foreground="White" >
-                Wczytaj zapisany stan algorytmu
-                </TextBlock>
-            </StackPanel>
         </Border>
     </Grid>
 </UserControl>
