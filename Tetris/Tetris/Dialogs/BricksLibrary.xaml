@@ -4,16 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        mc:Ignorable="d"
-        Loaded="BricksLibrary_OnLoaded"
-                      
-       BorderThickness="0" 
-       GlowBrush="Black"
-       WindowStartupLocation="CenterScreen"
-
-       WindowTransitionsEnabled="False"
-       Title="Klocki" Height="500" Width="500" MinHeight="500" MinWidth="500">
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"  
+        BorderThickness="0" 
+        GlowBrush="Black"
+        WindowStartupLocation="CenterScreen"
+        WindowTransitionsEnabled="False"
+        Title="Klocki" Height="500" Width="500" MinHeight="500" MinWidth="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"></RowDefinition>

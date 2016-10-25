@@ -15,11 +15,10 @@ namespace Tetris.Dialogs
         private readonly List<Brick> _bricks;
         private NumericUpDown[] _numerics;
 
-
-        public BricksLibrary(List<Brick> bricks)
+        public BricksLibrary()
         {
-            _bricks = bricks;
             InitializeComponent();
+            _bricks = null;
         }
 
         private void DrawBricks()

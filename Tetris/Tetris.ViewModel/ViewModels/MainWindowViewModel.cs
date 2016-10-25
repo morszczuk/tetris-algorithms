@@ -86,14 +86,22 @@ namespace Tetris.ViewModel
         private void LoadBricks(object parameter)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.ShowDialog();
-            var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
-            var result = loader.ReadFile();
-            Bricks = result.Bricks;
-            WellWidth = result.WellWidth;
-            OnPropertyChanged("Bricks");
-            OnPropertyChanged("WellWidth");
-            OnPropertyChanged("IsLibraryShowed");
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
+                var result = loader.ReadFile();
+                Bricks = result.Bricks;
+                WellWidth = result.WellWidth;
+                OnPropertyChanged("Bricks");
+                OnPropertyChanged("WellWidth");
+                OnPropertyChanged("IsLibraryShowed");
+            }
+        }
+
+        public ICommand ShowLibraryCommand => new RelayCommand(this.ShowLibrary);
+
+        private void ShowLibrary(object parameter)
+        {
         }
 
     #endregion

@@ -25,18 +25,9 @@ namespace Tetris.View.Windows
     /// </summary>
     public partial class AlgorithmLaunch : UserControl
     {
-        private List<Brick> _bricks;
-        private int _wellWidth;
-
         public AlgorithmLaunch()
         {
             InitializeComponent();
-        }
-
-        private void BrowseBricks_OnClick(object sender, RoutedEventArgs e)
-        {
-            var window=new BricksLibrary(_bricks);
-            window.ShowDialog();
         }
     }
 }

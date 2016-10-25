@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tetris.View.Windows"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:dialogs="clr-namespace:Tetris.Dialogs"
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="btvc"  />
@@ -35,7 +36,7 @@
                     Wgraj plik ze zdefiniowanymi kostkami
                 </TextBlock>
 
-                <Button Name="LibraryButton" Visibility="{Binding IsLibraryShowed, Converter={StaticResource btvc}}" Grid.Row="0" Grid.Column="1" Click="BrowseBricks_OnClick" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
+                <Button Name="LibraryButton" Visibility="{Binding IsLibraryShowed, Converter={StaticResource btvc}}" Grid.Row="0" Grid.Column="1" Width="100" Height="100" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="5">
                     <iconPacks:PackIconModern Kind="Brick" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Foreground="LightBlue"/>
                 </Button>
                 <TextBlock Name="LibraryText" Visibility="{Binding IsLibraryShowed, Converter={StaticResource btvc}}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="DemiBold" Foreground="LightBlue" Margin="0, 10, 0, 0">

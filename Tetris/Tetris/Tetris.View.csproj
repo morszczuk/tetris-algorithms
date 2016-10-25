@@ -72,6 +72,7 @@
     <Compile Include="Dialogs\BricksLibrary.xaml.cs">
       <DependentUpon>BricksLibrary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Windows\AlgorithmLaunch.xaml.cs">
       <DependentUpon>AlgorithmLaunch.xaml</DependentUpon>
     </Compile>
