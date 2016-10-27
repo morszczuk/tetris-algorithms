@@ -83,6 +83,9 @@
     <Compile Include="Windows\BricksLibrary.xaml.cs">
       <DependentUpon>BricksLibrary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\RunningAlgorithm.xaml.cs">
+      <DependentUpon>RunningAlgorithm.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\BricksLibrary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RunningAlgorithm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,6 +138,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tetris.ViewModel\Tetris.ViewModel.csproj">
+      <Project>{a5a780d5-f2aa-4103-a040-4b8d6909c2d6}</Project>
+      <Name>Tetris.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

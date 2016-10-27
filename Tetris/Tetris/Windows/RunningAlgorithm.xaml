@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Tetris.View.Windows.RunningAlgorithm"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tetris.View.Windows"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             Loaded="UserControl_Loaded"
+             IsVisibleChanged="UserControl_IsVisibleChanged">
+
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter
+         x:Key="btvc"  />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="LightBlue">
+            <Button Command="{Binding EndComputationsCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 5 0 0"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                <iconPacks:PackIconModern Kind="TimerStop" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
+            </Button>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Controls:NumericUpDown Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}" Minimum="1" Value="1" Height="40" Width="100"/>
+                <Button Margin="10 0 0 0" Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                    <iconPacks:PackIconModern Kind="TimerForward" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
+                </Button>
+            </StackPanel>
+            <Button Command="{Binding ChangeComputationsStatusCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonComunicate}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+            <!-- Studnie mają tutaj siedzieć -->
+            <Grid Name="Wells"></Grid>
+        </ScrollViewer>
+        <Controls:FlyoutsControl Grid.Row="1">
+            <Controls:Flyout Position="Right" Width="400" IsOpen="{Binding AreComputationsPaused}" Theme="Accent" Header="Algorytm zastopowany">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                        <Button Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
+                            <iconPacks:PackIconModern Kind="Disk" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="LightBlue"/>
+                        </Button>
+                        <TextBlock FontSize="16" FontWeight="Light" Foreground="White" Margin="0, 0, 0, 10">
+                            Zapisz aktualny stan algorytmu
+                        </TextBlock>
+                    </StackPanel>
+                    <!--
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                        <Button Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
+                            <iconPacks:PackIconModern Kind="Timer1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="LightBlue"/>
+                        </Button>
+                        <TextBlock FontSize="16" FontWeight="Light" Foreground="White" Margin="0, 0, 0, 10">
+                            Przejdź na algorytm krokowy
+                        </TextBlock>
+                    </StackPanel>
+                    -->
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Grid>
+</UserControl>

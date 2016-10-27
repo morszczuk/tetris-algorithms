@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using Tetris.Helpers;
 using Tetris.Windows;
+using Tetris.ViewModel;
 
 namespace Tetris.View.Windows
 {
@@ -42,7 +43,11 @@ namespace Tetris.View.Windows
                 _bricks = result.Bricks;
                 _wellWidth = result.WellWidth;
                 WellWidthNumericUpDown.Value = _wellWidth;
-                LibraryButton.IsEnabled = true;
+                LibraryButton.Visibility = Visibility.Visible;
+                LibraryText.Visibility = Visibility.Visible;
+                Start1.IsEnabled = true;
+                Start2.IsEnabled = true;
+
             }
 
         }
