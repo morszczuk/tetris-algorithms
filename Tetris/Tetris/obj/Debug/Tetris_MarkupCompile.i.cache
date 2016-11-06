@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Dope\Documents\tetris-algorithms\Tetris\Tetris\App.xaml
-4-558540540
+51649631532
 
-201389686527
-19580718334
-MainWindow.xaml;Windows\AlgorithmLaunch.xaml;Windows\BricksLibrary.xaml;Windows\RunningAlgorithm.xaml;
+29610995988
+761758770436
+Views\MainWindowView.xaml;Resources\Icons.xaml;Views\BrowseBricksView.xaml;Views\RunningAlgorithmView.xaml;Views\ShellView.xaml;
 
-True
+False
 

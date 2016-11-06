@@ -1,0 +1,18 @@
+﻿<controls:MetroWindow x:Class="Tetris.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:model="clr-namespace:Tetris.ViewModels"
+        Title="MainWindowContainer" Height="600" Width="800"
+        
+       >
+
+    <Grid>
+        <ContentControl x:Name="ActiveItem" />
+    </Grid>
+</controls:MetroWindow>

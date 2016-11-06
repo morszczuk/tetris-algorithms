@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-h:\Windows7\Desktop\tetris-algorithms-master\tetris-algorithms-master\Tetris\Tetris\obj\Debug\
+C:\Users\Dope\Documents\tetris-algorithms\Tetris\Tetris\obj\Debug\
 Tetris
 none
 false
 DEBUG;TRACE
-h:\Windows7\Desktop\tetris-algorithms-master\tetris-algorithms-master\Tetris\Tetris\App.xaml
-4-558540540
+C:\Users\Dope\Documents\tetris-algorithms\Tetris\Tetris\App.xaml
+51649631532
 
-16-889979136
-19-1840722318
-MainWindow.xaml;Windows\AlgorithmLaunch.xaml;Windows\BricksLibrary.xaml;Windows\RunningAlgorithm.xaml;
+25-1668669675
+761758770436
+Views\MainWindowView.xaml;Resources\Icons.xaml;Views\BrowseBricksView.xaml;Views\RunningAlgorithmView.xaml;Views\ShellView.xaml;
 
 False
 

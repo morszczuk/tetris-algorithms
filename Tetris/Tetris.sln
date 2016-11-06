@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.View", "Tetris\Tetris.View.csproj", "{34280401-7A30-4120-AF36-89CA883C1173}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.ViewModel", "Tetris.ViewModel\Tetris.ViewModel.csproj", "{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{34280401-7A30-4120-AF36-89CA883C1173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34280401-7A30-4120-AF36-89CA883C1173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34280401-7A30-4120-AF36-89CA883C1173}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5A780D5-F2AA-4103-A040-4B8D6909C2D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
