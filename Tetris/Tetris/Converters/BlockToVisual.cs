@@ -13,24 +13,24 @@ namespace Tetris.Converters
 {
     class BlockToVisual : IValueConverter
     {
-        private static int _blocksMaxHeight = 8;
-        private static int _blocksMaxWidth = 8;
+        private const int BlocksMaxHeight = 8;
+        private const int BlocksMaxWidth = 8;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var item = value as bool[,];
 
-            List<System.Windows.Shapes.Rectangle> parts=new List<System.Windows.Shapes.Rectangle>();
+            var parts = new List<System.Windows.Shapes.Rectangle>();
 
-            int partWidth = (200) / _blocksMaxWidth;
-            int partHeight = (200) / _blocksMaxHeight;
+            var partWidth = (200) / BlocksMaxWidth;
+            var partHeight = (200) / BlocksMaxHeight;
 
-            int startWidth = (_blocksMaxWidth - item.GetLength(1)) / 2;
-            int startHeight = (_blocksMaxHeight - item.GetLength(0)) / 2;
+            var startWidth = (BlocksMaxWidth - item.GetLength(1)) / 2;
+            var startHeight = (BlocksMaxHeight - item.GetLength(0)) / 2;
 
-            for (int i = 0; i < item.GetLength(0); i++)
+            for (var i = 0; i < item.GetLength(0); i++)
             {
-                for (int j = 0; j < item.GetLength(1); j++)
+                for (var j = 0; j < item.GetLength(1); j++)
                 {
                     if (item[i, j])
                     {
