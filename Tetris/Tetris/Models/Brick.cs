@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tetris
+namespace Tetris.Models
 {
     public class Brick
     {
@@ -15,6 +15,7 @@ namespace Tetris
         {
             Cardinality = 1;
         }
+
         public Brick Rotate(RotateEnum rotate)
         {
             switch (rotate)

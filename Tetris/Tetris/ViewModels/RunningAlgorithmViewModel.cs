@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using Tetris.AlgorithmLogic;
 using Tetris.Enums;
+using Tetris.Models;
 
 namespace Tetris.ViewModels
 {

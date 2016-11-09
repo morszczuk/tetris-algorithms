@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using Tetris.Models;
 
 namespace Tetris.ViewModels
 {

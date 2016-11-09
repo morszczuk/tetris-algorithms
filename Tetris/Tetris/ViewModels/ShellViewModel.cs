@@ -9,6 +9,7 @@ using System.Windows;
 using Caliburn.Micro;
 using Microsoft.Win32;
 using Tetris.Helpers;
+using Tetris.Models;
 
 namespace Tetris.ViewModels
 {
