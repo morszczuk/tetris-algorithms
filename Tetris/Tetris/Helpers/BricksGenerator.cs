@@ -77,7 +77,7 @@ namespace Tetris.Helpers
             {
                 for (int j = 0; j < brick.Width; j++)
                 {
-                    if (brick.Body[i, j] != 0)
+                    if (brick.Body[i, j])
                     {
                         if (rowMax < i) rowMax = i;
                         if (colMax < j) colMax = j;
@@ -106,7 +106,7 @@ namespace Tetris.Helpers
             {
                 for (int j = 0; j < brick.Width; j++)
                 {
-                    if (brick.Body[i, j] != 0)
+                    if (brick.Body[i, j])
                     {
                         row = i;
                         col = j;
@@ -125,7 +125,7 @@ namespace Tetris.Helpers
 
                 if (i > 0)
                 {
-                    if (brick.Body[i - 1, j] != 0 && !visited[i - 1, j])
+                    if (brick.Body[i - 1, j] && !visited[i - 1, j])
                     {
                         stack.Push(new KeyValuePair<int, int>(i - 1, j));
                         visited[i - 1, j] = true;
@@ -133,7 +133,7 @@ namespace Tetris.Helpers
                 }
                 if (j > 0)
                 {
-                    if (brick.Body[i, j - 1] != 0 && !visited[i, j - 1])
+                    if (brick.Body[i, j - 1] && !visited[i, j - 1])
                     {
                         stack.Push(new KeyValuePair<int, int>(i, j - 1));
 
@@ -142,7 +142,7 @@ namespace Tetris.Helpers
                 }
                 if (j + 1 < brick.Width)
                 {
-                    if (brick.Body[i, j + 1] != 0 && !visited[i, j + 1])
+                    if (brick.Body[i, j + 1] && !visited[i, j + 1])
                     {
                         stack.Push(new KeyValuePair<int, int>(i, j + 1));
                         visited[i, j + 1] = true;
@@ -152,7 +152,7 @@ namespace Tetris.Helpers
                 }
                 if (i + 1 < brick.Height)
                 {
-                    if (brick.Body[i + 1, j] != 0 && !visited[i + 1, j])
+                    if (brick.Body[i + 1, j] && !visited[i + 1, j])
                     {
                         stack.Push(new KeyValuePair<int, int>(i + 1, j));
                         visited[i + 1, j] = true;
@@ -170,7 +170,7 @@ namespace Tetris.Helpers
         {
             Random r = new Random();
 
-            int[,] body = new int[_maxHeight, _maxWidth];
+            bool[,] body = new bool[_maxHeight, _maxWidth];
 
             int field = _field;
 
@@ -179,12 +179,12 @@ namespace Tetris.Helpers
             {
                 int row = r.Next(_maxHeight);
                 int col = r.Next(_maxWidth);
-                while (body[row, col] != 0)
+                while (body[row, col])
                 {
                     row = r.Next(_maxHeight);
                     col = r.Next(_maxWidth);
                 }
-                body[row, col] = 1;
+                body[row, col] = true;
                 field--;
             }
 

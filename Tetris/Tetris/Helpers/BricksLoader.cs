@@ -22,7 +22,7 @@ namespace Tetris.Helpers
         {          
             ProcessLineZero();
             Brick brick;
-            List<Brick> bricks=new List<Brick>();
+            var bricks=new List<Brick>();
 
             while ((brick = ProcessBrick()) != null)
             {
@@ -49,10 +49,10 @@ namespace Tetris.Helpers
             var line = GetLine();
             if (line == null) return null;
             var values = line.Split(_separator);
-            int width = Convert.ToInt32(values[0]);
-            int height = Convert.ToInt32(values[1]);
+            var width = Convert.ToInt32(values[0]);
+            var height = Convert.ToInt32(values[1]);
 
-            bool [,] brickBody=new bool[height,width];
+            var brickBody = new bool[height,width];
 
             for (var i = 0; i < height; i++)
             {

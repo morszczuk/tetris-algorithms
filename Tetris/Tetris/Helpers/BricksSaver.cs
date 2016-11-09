@@ -23,7 +23,7 @@ namespace Tetris.Helpers
                 {
                     for (int j = 0; j < br.Width; j++)
                     {
-                        if (br.Body[i, j] != 0)
+                        if (br.Body[i, j])
                         {
                             sb.Append("1");
                         }

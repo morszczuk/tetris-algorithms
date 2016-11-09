@@ -18,7 +18,7 @@ namespace Tetris.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as int[,];
+            var item = value as bool[,];
 
             List<System.Windows.Shapes.Rectangle> parts=new List<System.Windows.Shapes.Rectangle>();
 
@@ -32,7 +32,7 @@ namespace Tetris.Converters
             {
                 for (int j = 0; j < item.GetLength(1); j++)
                 {
-                    if (item[i, j] == 1)
+                    if (item[i, j])
                     {
                         System.Windows.Shapes.Rectangle rect = new System.Windows.Shapes.Rectangle
                         {

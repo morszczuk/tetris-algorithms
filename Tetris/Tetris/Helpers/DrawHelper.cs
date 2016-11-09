@@ -29,7 +29,7 @@ namespace Tetris.Helpers
             {
                 for (int j = 0; j < brick.Width; j++)
                 {
-                    if (brick.Body[i, j] == 1)
+                    if (brick.Body[i, j])
                     {
                         System.Windows.Shapes.Rectangle rect = new System.Windows.Shapes.Rectangle
                         {
