@@ -52,14 +52,14 @@ namespace Tetris.Helpers
             int width = Convert.ToInt32(values[0]);
             int height = Convert.ToInt32(values[1]);
 
-            int [,] brickBody=new int[height,width];
+            bool [,] brickBody=new bool[height,width];
 
-            for (int i = 0; i < height; i++)
+            for (var i = 0; i < height; i++)
             {
                 var row = GetLine().Split(_separator);
-                for (int j = 0; j < row.Length; j++)
+                for (var j = 0; j < row.Length; j++)
                 {
-                    brickBody[i, j] = Convert.ToInt32(row[j]);
+                    brickBody[i, j] = row[j].Equals("1");
                 }
             }
 

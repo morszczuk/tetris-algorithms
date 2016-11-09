@@ -7,7 +7,7 @@ namespace Tetris.Models
         public int Width => Body.GetLength(1);
 
         public int Height => Body.GetLength(0);
-        public int[,] Body { get; set; }
+        public bool[,] Body { get; set; }
 
         public int Cardinality { get; set; }
 
@@ -32,10 +32,10 @@ namespace Tetris.Models
 
         private Brick Rotate90Right()
         {
-            int[,] newBody = new int[this.Width, this.Height];
-            for (int i = 0; i < this.Height; i++)
+            bool[,] newBody = new bool[this.Width, this.Height];
+            for (var i = 0; i < this.Height; i++)
             {
-                for (int j = 0; j < this.Width; j++)
+                for (var j = 0; j < this.Width; j++)
                 {
                     newBody[j, this.Height - i - 1] = this.Body[i, j];
                 }
