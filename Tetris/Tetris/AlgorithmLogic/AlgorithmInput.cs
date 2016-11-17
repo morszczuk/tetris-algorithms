@@ -11,7 +11,7 @@ namespace Tetris.AlgorithmLogic
 {
     public class AlgorithmInput
     {
-        public List<Brick> Bricks { get; set; }
+        public BricksShelf BricksShelf { get; set; }
 
         public int WellNo { get; set; }
 
@@ -19,9 +19,9 @@ namespace Tetris.AlgorithmLogic
 
         public AlgorithmsEnum AlgorithmType { get; set; }
 
-        public AlgorithmInput(IEnumerable<Brick> bricks,int wellNo,int wellWidth,AlgorithmsEnum type)
+        public AlgorithmInput(BricksShelf bricksShelf, int wellNo, int wellWidth, AlgorithmsEnum type)
         {
-            Bricks = new List<Brick>(bricks);
+            BricksShelf = bricksShelf;
             WellWidth = wellWidth;
             WellNo = wellNo;
             AlgorithmType = type;

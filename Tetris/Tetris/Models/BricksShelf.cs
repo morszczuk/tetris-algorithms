@@ -7,7 +7,6 @@ namespace Tetris.Models
     public class BricksShelf
     {
         public Dictionary<Brick, int> Bricks { get; }
-
         public BricksShelf(IEnumerable<Brick> bricks)
         {
             Bricks = new Dictionary<Brick, int>();
