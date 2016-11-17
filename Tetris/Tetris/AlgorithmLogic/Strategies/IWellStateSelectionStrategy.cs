@@ -5,6 +5,6 @@ namespace Tetris.AlgorithmLogic.Strategies
 {
     interface IWellStateSelectionStrategy
     {
-        IEnumerable<WellState> Select(IEnumerable<WellState> wellStates);
+        List<WellState> Select(List<WellState> wellStates);
     }
 }

@@ -26,7 +26,7 @@ namespace Tetris.ViewModels
             _windowManager = windowManager;
             _mainWindowViewModel = mainWindowViewModel;
 
-            _algorithmParameters=new AlgorithmInput(bricks,wellNo,wellWidth,isStep?AlgorithmsEnum.Step : AlgorithmsEnum.Continuous);
+            _algorithmParameters=new AlgorithmInput(new BricksShelf(bricks) ,wellNo,wellWidth,isStep?AlgorithmsEnum.Step : AlgorithmsEnum.Continuous);
 
         }
 
