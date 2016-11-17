@@ -27,7 +27,7 @@ namespace Tetris.AlgorithmLogic
                 ActiveStates.Add(initialState);
 
             IBrickPositioner positioner = new BasicBottomLeftPositioner();
-            IWellStateEvaluator evaluator = new HeightEvaluator();
+            IWellStateEvaluator evaluator = new FillEvaluator();
             IWellStateSelectionStrategy selectionStrategy = new TopKStates(Settings.WellNo, evaluator);
 
             while (ActiveStates.Any(s => s.BricksShelf.AvailableBricks().Any()))

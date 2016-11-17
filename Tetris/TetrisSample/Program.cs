@@ -76,9 +76,9 @@ namespace TetrisSample
 
             var bricks = new List<Brick>()
             {
-                CreateBrick(b1),
-                CreateBrick(b2),
-                CreateBrick(b3)
+                new Brick(b1),
+                new Brick(b2),
+                new Brick(b3)
             };
             var shelf = new BricksShelf(bricks);
 
@@ -87,13 +87,6 @@ namespace TetrisSample
             shelf.Bricks[bricks[2]] = 3;
 
             return shelf;
-        }
-
-        private static Brick CreateBrick(bool[,] body)
-        {
-            var bricks = new Brick();
-            bricks.Body = body;
-            return bricks;
         }
     }
 }

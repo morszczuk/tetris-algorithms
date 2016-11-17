@@ -189,7 +189,7 @@ namespace Tetris.Helpers
             }
 
 
-            return new Brick() { Body = body };
+            return new Brick(body);
 
         }
     }

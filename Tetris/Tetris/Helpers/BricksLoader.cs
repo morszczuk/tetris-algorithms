@@ -63,10 +63,7 @@ namespace Tetris.Helpers
                 }
             }
 
-            return new Brick()
-            {
-                Body = brickBody
-            };      
+            return new Brick(brickBody);
         }
         
 

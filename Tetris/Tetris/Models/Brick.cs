@@ -7,13 +7,17 @@ namespace Tetris.Models
         public int Width => Body.GetLength(1);
 
         public int Height => Body.GetLength(0);
-        public bool[,] Body { get; set; }
 
-        public int Cardinality { get; set; }
+        public bool[,] Body { get; }
+        public int TilesCount { get; }
 
-        public Brick()
+        public Brick(bool[,] body)
         {
-            Cardinality = 1;
+            Body = body;
+            TilesCount = 0;
+            for (var i=0;i<body.GetLength(0);i++)
+                for (var j = 0; j < body.GetLength(1); j++)
+                    if (body[i, j]) TilesCount++;
         }
 
         public Brick Rotate(RotateEnum rotate)
@@ -41,7 +45,7 @@ namespace Tetris.Models
                 }
             }
 
-            return new Brick() { Body = newBody };
+            return new Brick(newBody);
         }
 
         public static bool operator !=(Brick b1, Brick b2)

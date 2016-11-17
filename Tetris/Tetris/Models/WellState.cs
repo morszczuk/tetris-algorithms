@@ -10,6 +10,7 @@ namespace Tetris.Models
         public List<BrickPosition> Bricks { get; }
         public List<bool[]> Fill { get; }
         public int FullRows { get; private set; }
+        public int TilesCount { get; private set; }
 
         public WellState(Well well, BricksShelf bricksShelf)
         {
@@ -32,6 +33,7 @@ namespace Tetris.Models
         public bool AddBrick(Brick brick, int x, int y)
         {
             if (IsIntersecting(brick, x, y)) return false;
+            TilesCount += brick.TilesCount;
             Bricks.Add(new BrickPosition(brick, x, y));
             for (var n = 0; n < brick.Height; n++) 
             {
