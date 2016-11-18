@@ -48,7 +48,7 @@
                                 Converter={StaticResource WellStateToVisual}}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <Grid  helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
+                                    <Grid Background="LightBlue" helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
                                                 helpers:GridHelpers.ColumnCount="{Binding Path=Well.Width}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
