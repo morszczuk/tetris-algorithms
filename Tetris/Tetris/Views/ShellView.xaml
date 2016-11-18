@@ -62,7 +62,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Podaj k:" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" FontWeight="Medium"/>
-                    <controls:NumericUpDown Minimum="1" Grid.Row="1" Value="2" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
+                    <controls:NumericUpDown Minimum="1" Grid.Row="1" Value="{Binding WellNo}" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
                     <Button Visibility="{Binding LibraryIsVisible, Converter={StaticResource btvc}}" x:Name="GoAlgorithmByStep" Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Style="{DynamicResource SquareButtonStyle}" Margin="0, 0, 10, 0">Rozpocznij obliczenie algorytmu krokowo</Button>
                 </Grid>
             </Grid>
@@ -78,7 +78,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Podaj szerokość studni:" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="13" FontWeight="Medium"/>
-                    <controls:NumericUpDown Minimum="1" Name="WellWidthNumericUpDown" Grid.Row="1" Value="10" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
+                    <controls:NumericUpDown Minimum="1" Name="WellWidthNumericUpDown" Grid.Row="1" Value="{Binding WellWidth}" MaxHeight="40" HorizontalAlignment="Center" MinWidth="100"/>
                     <Button Visibility="{Binding LibraryIsVisible, Converter={StaticResource btvc}}" x:Name="GoAlgorithm" Grid.Row="2" MaxHeight="50" HorizontalAlignment="Center" Command ="{Binding StartComputationsCommand}" Style="{StaticResource AccentedSquareButtonStyle}" Margin="10, 0, 0, 0">
                         Rozpocznij obliczenie algorytmu
                     </Button>

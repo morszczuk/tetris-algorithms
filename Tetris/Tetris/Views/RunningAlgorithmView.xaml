@@ -6,11 +6,14 @@
              xmlns:local="clr-namespace:Tetris.Views"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:Tetris.Converters"
+             xmlns:helpers="clr-namespace:Tetris.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <BooleanToVisibilityConverter
          x:Key="btvc"  />
+        <converters:WellStateToVisual x:Key="WellStateToVisual"></converters:WellStateToVisual>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -18,7 +21,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="LightBlue">
-            <Button Command="{Binding EndComputationsCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 5 0 0"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+            <Button x:Name="EndComputationOnClick" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10 5 0 0"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                 <iconPacks:PackIconModern Kind="TimerStop" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
             </Button>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -27,13 +30,32 @@
                     <iconPacks:PackIconModern Kind="TimerForward" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
                 </Button>
             </StackPanel>
-            <Button Command="{Binding ChangeComputationsStatusCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
-                <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonComunicate}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
+            <Button x:Name="PlayPauseOnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonName}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
             </Button>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
             <!-- Studnie mają tutaj siedzieć -->
-            <Grid Name="Wells"></Grid>
+            <ItemsControl ItemsSource="{Binding Executor.ActiveStates}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding Executor.Settings.WellNo}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl  ItemsSource="{Binding 
+                                Converter={StaticResource WellStateToVisual}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid  helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
+                                                helpers:GridHelpers.ColumnCount="{Binding Path=Well.Width}" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
         <controls:FlyoutsControl Grid.Row="1">
             <controls:Flyout Position="Right" Width="400" IsOpen="{Binding AreComputationsPaused}" Theme="Accent" Header="Algorytm zastopowany">

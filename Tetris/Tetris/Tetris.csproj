@@ -105,6 +105,8 @@
     <Compile Include="AlgorithmLogic\Strategies\TopKStates.cs" />
     <Compile Include="Bootstrapper\AppWindowManager.cs" />
     <Compile Include="Bootstrapper\Bootstrapper.cs" />
+    <Compile Include="Converters\WellStateToVisual.cs" />
+    <Compile Include="Helpers\GridHelpers.cs" />
     <Compile Include="Models\Brick.cs" />
     <Compile Include="Converters\BlockToVisual.cs" />
     <Compile Include="Enums\AlgorithmsEnum.cs" />
