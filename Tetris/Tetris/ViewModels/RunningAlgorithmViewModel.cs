@@ -71,15 +71,17 @@ namespace Tetris.ViewModels
 
         public void PlayPauseOnClick()
         {
-            AreComputationsRunning = !AreComputationsRunning;
+            if (AreComputationsRunning = !AreComputationsRunning)
+            {
+                var executor = new AlgorithmExecutor(_algorithmParameters);
+                executor.Run();
 
-            Executor= new AlgorithmExecutor(_algorithmParameters);
-
-            var executor = new AlgorithmExecutor(_algorithmParameters);
-            executor.Run();
-
-            Executor = executor;
-
+                Executor = executor;
+            }
+            else
+            {
+                Executor = null;
+            }
         }
 
         public void EndComputationOnClick()

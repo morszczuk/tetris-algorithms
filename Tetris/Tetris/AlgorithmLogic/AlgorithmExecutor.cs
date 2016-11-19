@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Documents;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.AlgorithmLogic.Positioners;
 using Tetris.AlgorithmLogic.Strategies;
@@ -10,32 +13,29 @@ namespace Tetris.AlgorithmLogic
 {
     public class AlgorithmExecutor
     {
-        public AlgorithmInput Settings { get; }
         public List<WellState> ActiveStates { get; private set; }
-
-        private IBrickPositioner _positioner;
-        private IWellStateEvaluator _evaluator;
-        private IWellStateSelectionStrategy _selectionStrategy;
+        
+        private readonly IWellStateSelectionStrategy _selectionStrategy;
+        private readonly StatesGenerator _statesGenerator;
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
-            Settings = settings;
-            Init();
+            IWellStateEvaluator evaluator = new ColumnFillEvaluator();
+            IBrickPositioner positioner = new BasicBottomLeftPositioner();
+
+            _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
+            _statesGenerator = new StatesGenerator(positioner);
+
+            InitializeActiveStates(settings);
         }
 
-        public void Init()
+        private void InitializeActiveStates(AlgorithmInput settings)
         {
-            var well = new Well(Settings.WellWidth);
-            var initialState = new WellState(well, Settings.BricksShelf);
-
+            var well = new Well(settings.WellWidth);
+            var initialState = new WellState(well, settings.BricksShelf);
             ActiveStates = new List<WellState>();
-            for (var i = 0; i < Settings.WellNo; i++)
+            for (var i = 0; i < settings.WellNo; i++)
                 ActiveStates.Add(initialState);
-
-            _positioner = new BasicBottomLeftPositioner();
-            //_evaluator = new PointEvaluator();
-            _evaluator = new HeightEvaluator();
-            _selectionStrategy = new TopKStates(Settings.WellNo, _evaluator);
         }
 
         public void Run()
@@ -48,20 +48,12 @@ namespace Tetris.AlgorithmLogic
 
         public void MakeStep()
         {
-            var newStates = new List<WellState>();
+            var generatedStates = new List<WellState>();
             foreach (var state in ActiveStates)
             {
-                foreach (var brick in state.BricksShelf.AvailableBricks())
-                {
-                    foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
-                    {
-                        var tmpState = new WellState(state);
-                        tmpState.BricksShelf.Bricks[brick]--;
-                        newStates.AddRange(_positioner.PlaceBrick(tmpState, brick.Rotate(rotation)));
-                    }
-                }
+                generatedStates.AddRange(_statesGenerator.Generate(state));
             }
-            ActiveStates = _selectionStrategy.Select(newStates);
+            ActiveStates = _selectionStrategy.Select(generatedStates);
         }
 
         public bool IsFinished()

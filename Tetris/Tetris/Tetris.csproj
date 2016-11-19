@@ -94,8 +94,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AlgorithmLogic\StatesGenerator.cs" />
     <Compile Include="AlgorithmLogic\AlgorithmExecutor.cs" />
     <Compile Include="AlgorithmLogic\AlgorithmInput.cs" />
+    <Compile Include="AlgorithmLogic\Evaluators\ColumnFillEvaluator.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\FillEvaluator.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\FillWithoutTopNEvaluator.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\IWellStateEvaluator.cs" />
