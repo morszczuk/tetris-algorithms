@@ -11,10 +11,13 @@ namespace Tetris.Models
         public bool[,] Body { get; }
         public int TilesCount { get; }
 
+        public int Cardinality { get; set; }
+
         public Brick(bool[,] body)
         {
             Body = body;
             TilesCount = 0;
+            Cardinality = 1;
             for (var i=0;i<body.GetLength(0);i++)
                 for (var j = 0; j < body.GetLength(1); j++)
                     if (body[i, j]) TilesCount++;

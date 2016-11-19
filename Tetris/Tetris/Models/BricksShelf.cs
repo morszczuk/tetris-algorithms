@@ -12,7 +12,7 @@ namespace Tetris.Models
             Bricks = new Dictionary<Brick, int>();
             foreach (var brick in bricks)
             {
-                Bricks.Add(brick, 0);
+                Bricks.Add(brick, brick.Cardinality);
             }
         }
 
