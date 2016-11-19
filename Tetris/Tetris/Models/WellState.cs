@@ -43,7 +43,8 @@ namespace Tetris.Models
                 for (var m = 0; m < brick.Width; m++)
                 {
                     // We have to insert the brick in the reverse order
-                    Fill[y + n][x + m] = brick.Body[brick.Height - n - 1, m];
+                    if (brick.Body[brick.Height - n - 1, m]) Fill[y + n][x + m] = true;
+                    //Fill[y + n][x + m] = brick.Body[brick.Height - n - 1, m];
                 }
                 // Set index of the last full row
                 if (Fill[y + n].All(el => el)) FullRows++;
@@ -55,11 +56,11 @@ namespace Tetris.Models
         {
             for (var n = 0; n < brick.Height; n++)
             {
-                if (y + n >= Fill.Count) return false;
+                if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
 
                 for (var m = 0; m < brick.Width; m++)
                 {
-                    if (x + m >= Well.Width || (Fill[y + n][x + m] && brick.Body[brick.Height - n - 1, m]))
+                    if (x + m >= Well.Width || Fill[y + n][x + m] && brick.Body[brick.Height - n - 1, m])
                         return true;
                 }
             }

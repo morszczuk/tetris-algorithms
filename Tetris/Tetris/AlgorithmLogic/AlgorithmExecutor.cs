@@ -33,8 +33,8 @@ namespace Tetris.AlgorithmLogic
                 ActiveStates.Add(initialState);
 
             _positioner = new BasicBottomLeftPositioner();
-            _evaluator = new PointEvaluator();
-           // _evaluator = new HeightEvaluator();
+            //_evaluator = new PointEvaluator();
+            _evaluator = new HeightEvaluator();
             _selectionStrategy = new TopKStates(Settings.WellNo, _evaluator);
         }
 

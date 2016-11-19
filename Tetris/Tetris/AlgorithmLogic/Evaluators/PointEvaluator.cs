@@ -13,12 +13,17 @@ namespace Tetris.AlgorithmLogic.Evaluators
         private int _startWallPoint = 2;
         private int _startNeightBourPoint = 3;
 
+
+        List<int> pointsGiven = new List<int>();
+
+
         public int Evaluate(WellState wellState)
         {
             var addedBrick = wellState.Bricks[wellState.Bricks.Count - 1];
 
             var points = CountPoints(wellState, addedBrick);
 
+            pointsGiven.Add((int)points);
             return (int)points;
         }
 
@@ -97,8 +102,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return p;
         }
 
-
-
         private List<SideEnum> GetPossibleNeighbours(int row, int column, BrickPosition brickPos)
         {
             var brick = brickPos.Brick;
@@ -139,7 +142,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                                 if (wellState.Fill[rowY - 1][column])
                                 {
                                     result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour));
-                                    points += GetNeightbourPoints(rowY);
                                 }
                             }
                             break;
@@ -151,7 +153,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                             {
                                 result.Add(new PointCords(columnX, rowY + 1, PointEnum.Neighbour));
 
-                                points += GetNeightbourPoints(rowY);
                             }
 
                             break;
@@ -160,16 +161,13 @@ namespace Tetris.AlgorithmLogic.Evaluators
                         {
                             if (columnX == 0)
                             {
-                                points += GetWallPoints(rowY);
                                 result.Add(new PointCords(columnX - 1, rowY, PointEnum.Wall));
                             }
                             else
                             {
                                 if (wellState.Fill[rowY][columnX - 1])
                                 {
-                                    points += GetNeightbourPoints(rowY);
                                     result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour));
-
                                 }
                             }
                             break;
@@ -178,7 +176,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                         {
                             if (columnX == wellState.Well.Width - 1)
                             {
-                                points += GetWallPoints(rowY);
                                 result.Add(new PointCords(columnX + 1, rowY, PointEnum.Wall));
 
                             }
@@ -186,7 +183,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                             {
                                 if (wellState.Fill[rowY][columnX + 1])
                                 {
-                                    points += GetWallPoints(rowY);
                                     result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour));
                                 }
                             }
@@ -196,17 +192,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
             }
             return result;
         }
-
-        private double GetWallPoints(int row)
-        {
-            return 1.0;
-        }
-
-        private double GetNeightbourPoints(int row)
-        {
-            return 1.0;
-        }
-
         private double GetPoints(int row, PointEnum pointEnum)
         {
             switch (pointEnum)
@@ -221,6 +206,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                         if (row == 0) return _startNeightBourPoint;
                         return (1 / row) * _startWallPoint;
                     }
+
             }
             throw new Exception();
         }
