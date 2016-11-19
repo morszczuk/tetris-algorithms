@@ -41,7 +41,6 @@ namespace Tetris.Helpers
         {
             var values = GetLine().Split(_separator);
             _wellWidth = Convert.ToInt32(values[0]);
-
         }
 
         private Brick ProcessBrick()
