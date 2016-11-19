@@ -17,7 +17,7 @@ namespace Tetris.Models
         {
             Body = body;
             TilesCount = 0;
-            Cardinality = 1;
+            Cardinality = 0;
             for (var i=0;i<body.GetLength(0);i++)
                 for (var j = 0; j < body.GetLength(1); j++)
                     if (body[i, j]) TilesCount++;

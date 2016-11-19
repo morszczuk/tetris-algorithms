@@ -26,8 +26,8 @@ namespace Tetris.Models
             Well = wellState.Well;
             Bricks = new List<BrickPosition>(wellState.Bricks);
             Fill = new List<bool[]>(wellState.Fill.Count);
-            for(var i = 0; i < wellState.Fill.Count; i++)
-                Fill.Add((bool[]) wellState.Fill[0].Clone());
+            for (var i = 0; i < wellState.Fill.Count; i++)
+                Fill.Add((bool[])wellState.Fill[i].Clone());
             FullRows = wellState.FullRows;
             BricksShelf = new BricksShelf(wellState.BricksShelf);
         }
@@ -37,9 +37,9 @@ namespace Tetris.Models
             if (IsIntersecting(brick, x, y)) return false;
             TilesCount += brick.TilesCount;
             Bricks.Add(new BrickPosition(brick, x, y));
-            for (var n = 0; n < brick.Height; n++) 
+            for (var n = 0; n < brick.Height; n++)
             {
-                if(y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
+                if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
                 for (var m = 0; m < brick.Width; m++)
                 {
                     // We have to insert the brick in the reverse order
@@ -66,5 +66,5 @@ namespace Tetris.Models
             return false;
         }
     }
-    
+
 }
