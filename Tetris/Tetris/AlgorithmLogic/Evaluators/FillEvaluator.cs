@@ -7,8 +7,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
     {
         public static readonly int MaxValue = 10000;
 
-        public FillEvaluator() { }
-
         public int Evaluate(WellState wellState)
         {
             if (wellState.Fill.Count == 0) return 0;

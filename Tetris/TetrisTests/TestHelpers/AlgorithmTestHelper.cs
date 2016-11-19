@@ -7,7 +7,7 @@ using Tetris.Models;
 
 namespace TetrisTests.TestHelpers
 {
-    class AlgorithmTestsHelper
+    class AlgorithmTestHelper
     {
 
         public static WellState CreateEmptyWellState(int width)

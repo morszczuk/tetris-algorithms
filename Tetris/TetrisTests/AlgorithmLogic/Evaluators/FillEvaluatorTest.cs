@@ -14,7 +14,7 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         public void Evaluate_WithEmptyWellState_ReturnsZero()
         {
             var evaluator = new FillEvaluator();
-            var emptyWellState = AlgorithmTestsHelper.CreateEmptyWellState(10);
+            var emptyWellState = AlgorithmTestHelper.CreateEmptyWellState(10);
             Assert.AreEqual(0, evaluator.Evaluate(emptyWellState));
         }
 
@@ -22,7 +22,7 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         public void Evaluate_WithFullWell_ReturnsMaxValue()
         {
             var evaluator = new FillEvaluator();
-            var fullWellState = AlgorithmTestsHelper.CreateFullWellState(10, 5);
+            var fullWellState = AlgorithmTestHelper.CreateFullWellState(10, 5);
             Assert.AreEqual(FillEvaluator.MaxValue, evaluator.Evaluate(fullWellState));
         }
 
@@ -30,9 +30,9 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         public void Evaluate_WithUnequalFill_ReturnsValidResult()
         {
             var evaluator = new FillEvaluator();
-            var fullWellState = AlgorithmTestsHelper.CreateFullWellState(10, 4);
-            fullWellState.AddBrick(AlgorithmTestsHelper.CreateRectangleBrick(5, 2), 0, 4);
-            fullWellState.AddBrick(AlgorithmTestsHelper.CreateRectangleBrick(5, 2), 2, 6);
+            var fullWellState = AlgorithmTestHelper.CreateFullWellState(10, 4);
+            fullWellState.AddBrick(AlgorithmTestHelper.CreateRectangleBrick(5, 2), 0, 4);
+            fullWellState.AddBrick(AlgorithmTestHelper.CreateRectangleBrick(5, 2), 2, 6);
             Assert.AreEqual(0.75 * FillEvaluator.MaxValue, evaluator.Evaluate(fullWellState));
         }
     }
