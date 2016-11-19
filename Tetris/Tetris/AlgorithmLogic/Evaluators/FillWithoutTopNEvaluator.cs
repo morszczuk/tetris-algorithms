@@ -19,7 +19,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
             var tiles = wellState.TilesCount;
             for (var i = 0; i < n; i++)
                 tiles -= wellState.Fill[wellState.Fill.Count-i-1].Count(t => t);
-            var ratio = tiles / ((wellState.Fill.Count - n) * wellState.Well.Width);
+            var ratio = (float)tiles / (float)((wellState.Fill.Count - n) * wellState.Well.Width);
             return Convert.ToInt32(ratio * 10000);
         }
     }

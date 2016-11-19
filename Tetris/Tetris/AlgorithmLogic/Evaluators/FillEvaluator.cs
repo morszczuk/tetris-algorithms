@@ -9,7 +9,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
 
         public int Evaluate(WellState wellState)
         {
-            var ratio = wellState.TilesCount/(wellState.Fill.Count*wellState.Well.Width);
+            var ratio = (float)wellState.TilesCount / (float)(wellState.Fill.Count*wellState.Well.Width);
             return Convert.ToInt32(ratio * 10000);
         }
 
