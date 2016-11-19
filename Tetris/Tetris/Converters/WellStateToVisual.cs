@@ -32,7 +32,6 @@ namespace Tetris.Converters
 
             for (int i = 0; i < item.Bricks.Count; i++)
             {
-
                 var brick = item.Bricks[i].Brick;
                 if (_colorStep * colorCounter > 255) colorCounter -= i;
                 byte c = (byte)(_colorStep * colorCounter);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.Models;
 
@@ -20,6 +21,8 @@ namespace Tetris.AlgorithmLogic.Strategies
             wellStates.Sort(Comparator);
             return wellStates.GetRange(0, K);
         }
+
+        
 
         private int Comparator(WellState s1, WellState s2)
         {

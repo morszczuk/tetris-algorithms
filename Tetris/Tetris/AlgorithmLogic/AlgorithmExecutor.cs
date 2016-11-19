@@ -39,7 +39,7 @@ namespace Tetris.AlgorithmLogic
 
         public void Run()
         {
-            while (!IsFinished())
+            while (IsFinished())
             {
                 MakeStep();
             }
