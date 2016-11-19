@@ -12,14 +12,13 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using Tetris.Models;
 using Color = System.Windows.Media.Color;
-using System.Drawing;
 
 namespace Tetris.Converters
 {
     class WellStateToVisual : IValueConverter
     {
 
-        private readonly int _colorStep = 10;
+        private readonly int _colorStep = 30;
         
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -32,7 +31,6 @@ namespace Tetris.Converters
 
             for (int i = 0; i < item.Bricks.Count; i++)
             {
-
                 var brick = item.Bricks[i].Brick;
                 if (_colorStep * colorCounter > 255) colorCounter -= i;
                 byte c = (byte)(_colorStep * colorCounter);
@@ -47,7 +45,16 @@ namespace Tetris.Converters
                             {
                                 Background = new SolidColorBrush(colour)
                             };
-                            Grid.SetRow(b, item.Fill.Count - 1 - item.Bricks[i].Y + j);
+
+                            Binding binding = new Binding()
+                            {
+                                Path = new PropertyPath("ActualWidth"),
+                                Source = b
+                            };
+                            BindingOperations.SetBinding(b, Button.HeightProperty, binding);
+
+                            var bottomRow = item.Fill.Count - 1 - item.Bricks[i].Y;
+                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j);
                             Grid.SetColumn(b, item.Bricks[i].X + k);
                             buttons.Add(b);
                         }   

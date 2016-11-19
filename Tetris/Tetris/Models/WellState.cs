@@ -25,7 +25,9 @@ namespace Tetris.Models
         {
             Well = wellState.Well;
             Bricks = new List<BrickPosition>(wellState.Bricks);
-            Fill = new List<bool[]>(wellState.Fill);
+            Fill = new List<bool[]>(wellState.Fill.Count);
+            for(var i = 0; i < wellState.Fill.Count; i++)
+                Fill.Add((bool[]) wellState.Fill[0].Clone());
             FullRows = wellState.FullRows;
             BricksShelf = new BricksShelf(wellState.BricksShelf);
         }

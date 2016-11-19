@@ -33,7 +33,7 @@ namespace Tetris.AlgorithmLogic
                 ActiveStates.Add(initialState);
 
             _positioner = new BasicBottomLeftPositioner();
-            _evaluator = new FillEvaluator();
+            _evaluator = new HeightEvaluator();
             _selectionStrategy = new TopKStates(Settings.WellNo, _evaluator);
         }
 
@@ -52,12 +52,11 @@ namespace Tetris.AlgorithmLogic
             {
                 foreach (var brick in state.BricksShelf.AvailableBricks())
                 {
-                    var tmpState = new WellState(state);
-                    tmpState.BricksShelf.Bricks[brick]--;
-
                     foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
                     {
-                        newStates.AddRange(_positioner.PlaceBrick(tmpState, brick));
+                        var tmpState = new WellState(state);
+                        tmpState.BricksShelf.Bricks[brick]--;
+                        newStates.AddRange(_positioner.PlaceBrick(tmpState, brick.Rotate(rotation)));
                     }
                 }
             }
@@ -66,7 +65,7 @@ namespace Tetris.AlgorithmLogic
 
         public bool IsFinished()
         {
-            return ActiveStates.Any(s => s.BricksShelf.AvailableBricks().Any());
+            return ActiveStates.All(s => !s.BricksShelf.AvailableBricks().Any());
         }
 
     }

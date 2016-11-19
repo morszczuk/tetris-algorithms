@@ -87,7 +87,7 @@ namespace Tetris.Helpers
 
             for (int i = 0; i < (int)e.NewValue; i++)
                 grid.ColumnDefinitions.Add(
-                    new ColumnDefinition() { Width = GridLength.Auto });
+                    new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
 
             SetStarColumns(grid);
         }
