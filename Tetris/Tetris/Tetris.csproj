@@ -97,6 +97,7 @@
     <Compile Include="AlgorithmLogic\AlgorithmExecutor.cs" />
     <Compile Include="AlgorithmLogic\AlgorithmInput.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\FillEvaluator.cs" />
+    <Compile Include="AlgorithmLogic\Evaluators\FillWithoutTopNEvaluator.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\IWellStateEvaluator.cs" />
     <Compile Include="AlgorithmLogic\Positioners\BasicBottomLeftPositioner.cs" />
     <Compile Include="AlgorithmLogic\Positioners\IBrickPositioner.cs" />

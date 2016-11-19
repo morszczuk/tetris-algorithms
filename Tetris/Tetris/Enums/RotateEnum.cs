@@ -8,6 +8,6 @@ namespace Tetris
 {
     public enum RotateEnum
     {
-        Right90, Right180, Right270
+        Right0, Right90, Right180, Right270
     }
 }

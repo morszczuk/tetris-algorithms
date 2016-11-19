@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.AlgorithmLogic.Positioners;
@@ -12,12 +13,17 @@ namespace Tetris.AlgorithmLogic
         public AlgorithmInput Settings { get; }
         public List<WellState> ActiveStates { get; private set; }
 
+        private IBrickPositioner _positioner;
+        private IWellStateEvaluator _evaluator;
+        private IWellStateSelectionStrategy _selectionStrategy;
+
         public AlgorithmExecutor(AlgorithmInput settings)
         {
             Settings = settings;
+            Init();
         }
 
-        public void Run()
+        public void Init()
         {
             var well = new Well(Settings.WellWidth);
             var initialState = new WellState(well, Settings.BricksShelf);
@@ -26,25 +32,41 @@ namespace Tetris.AlgorithmLogic
             for (var i = 0; i < Settings.WellNo; i++)
                 ActiveStates.Add(initialState);
 
-            IBrickPositioner positioner = new BasicBottomLeftPositioner();
-            IWellStateEvaluator evaluator = new FillEvaluator();
-            IWellStateSelectionStrategy selectionStrategy = new TopKStates(Settings.WellNo, evaluator);
+            _positioner = new BasicBottomLeftPositioner();
+            _evaluator = new FillEvaluator();
+            _selectionStrategy = new TopKStates(Settings.WellNo, _evaluator);
+        }
 
-            while (ActiveStates.Any(s => s.BricksShelf.AvailableBricks().Any()))
+        public void Run()
+        {
+            while (!IsFinished())
             {
-                var newStates = new List<WellState>();
-                foreach (var state in ActiveStates)
-                {
-                    foreach (var brick in state.BricksShelf.AvailableBricks())
-                    {
-                        var tmpState = new WellState(state);
-                        tmpState.BricksShelf.Bricks[brick]--;
+                MakeStep();
+            }
+        }
 
-                        newStates.AddRange(positioner.PlaceBrick(tmpState, brick));
+        public void MakeStep()
+        {
+            var newStates = new List<WellState>();
+            foreach (var state in ActiveStates)
+            {
+                foreach (var brick in state.BricksShelf.AvailableBricks())
+                {
+                    var tmpState = new WellState(state);
+                    tmpState.BricksShelf.Bricks[brick]--;
+
+                    foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
+                    {
+                        newStates.AddRange(_positioner.PlaceBrick(tmpState, brick));
                     }
                 }
-                ActiveStates = selectionStrategy.Select(newStates);
             }
+            ActiveStates = _selectionStrategy.Select(newStates);
+        }
+
+        public bool IsFinished()
+        {
+            return ActiveStates.Any(s => s.BricksShelf.AvailableBricks().Any());
         }
 
     }

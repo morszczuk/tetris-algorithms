@@ -24,6 +24,8 @@ namespace Tetris.Models
         {
             switch (rotate)
             {
+                case RotateEnum.Right0:
+                    return new Brick(Body);
                 case RotateEnum.Right90:
                     return Rotate90Right();
                 case RotateEnum.Right180:
