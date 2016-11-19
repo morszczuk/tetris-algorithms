@@ -29,6 +29,14 @@ namespace Tetris.AlgorithmLogic
             InitializeActiveStates(settings);
         }
 
+        public AlgorithmExecutor(AlgorithmInput settings, IWellStateEvaluator evaluator, IBrickPositioner positioner)
+        {
+            _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
+            _statesGenerator = new StatesGenerator(positioner);
+
+            InitializeActiveStates(settings);
+        }
+
         private void InitializeActiveStates(AlgorithmInput settings)
         {
             var well = new Well(settings.WellWidth);
