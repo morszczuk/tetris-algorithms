@@ -3,7 +3,7 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Strategies
 {
-    interface IWellStateSelectionStrategy
+    public interface IWellStateSelectionStrategy
     {
         List<WellState> Select(List<WellState> wellStates);
     }
