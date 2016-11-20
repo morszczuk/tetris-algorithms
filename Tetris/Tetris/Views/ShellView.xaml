@@ -83,6 +83,9 @@
                         Rozpocznij obliczenie algorytmu
                     </Button>
                 </Grid>
+                <Grid Grid.Column="1">
+                    <ComboBox Height="30" Width="100" ItemsSource="{Binding Evaluators}" SelectedItem="{Binding SelectedEvaluator}"></ComboBox>
+                </Grid>
             </Grid>
         </Grid>
         <Border Background="SkyBlue" Grid.Row="2">

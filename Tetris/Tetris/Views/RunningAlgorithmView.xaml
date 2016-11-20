@@ -14,6 +14,7 @@
         <BooleanToVisibilityConverter
          x:Key="btvc"  />
         <converters:WellStateToVisual x:Key="WellStateToVisual"></converters:WellStateToVisual>
+        <converters:MathConverter x:Key="MathConverter"></converters:MathConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -49,7 +50,9 @@
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <Grid Background="LightBlue" 
-                                          helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
+                                          helpers:GridHelpers.RowCount="{Binding Path=Fill.Count, 
+                                          Converter={StaticResource MathConverter},
+                                           ConverterParameter=@VALUE+1}"
                                           helpers:GridHelpers.ColumnCount="{Binding Path=Well.Width}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>

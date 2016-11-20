@@ -14,14 +14,14 @@ namespace Tetris.Converters
     {
 
         private readonly int _colorStep = 30;
-        
+
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
             var item = value as WellState;
 
-            var buttons = new List<Button>();
+            var buttons = new List<FrameworkElement>();
             int colorCounter = 0;
 
             for (int i = 0; i < item.Bricks.Count; i++)
@@ -49,14 +49,27 @@ namespace Tetris.Converters
                             BindingOperations.SetBinding(b, Button.HeightProperty, binding);
 
                             var bottomRow = item.Fill.Count - 1 - item.Bricks[i].Y;
-                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j);
+                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j +1);
                             Grid.SetColumn(b, item.Bricks[i].X + k);
                             buttons.Add(b);
-                        }   
+                        }
                     }
                 }
                 colorCounter++;
             }
+            TextBlock percentageFilled = new TextBlock
+            {
+                Text = $"Well width: {item.Well.Width}, height: {item.Fill.Count} space covered {item.PercentageFilled}%",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontWeight = FontWeights.DemiBold
+            };
+            Grid.SetRow(percentageFilled, 0);
+            Grid.SetColumnSpan(percentageFilled, item.Well.Width);
+            Grid.SetColumn(percentageFilled, 0);
+
+
+            buttons.Add(percentageFilled);
             return buttons;
 
         }
