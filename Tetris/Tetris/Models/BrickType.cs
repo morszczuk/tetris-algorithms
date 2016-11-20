@@ -18,7 +18,7 @@ namespace Tetris.Models
 
         public BrickType(bool[,] body)
         {
-            DefaultCount = 0;
+            DefaultCount = 1;
             var brick = new Brick(body, this);
             _rotations = new Dictionary<RotateEnum, Brick>(4);
             foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))

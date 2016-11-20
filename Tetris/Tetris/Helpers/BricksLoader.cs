@@ -56,7 +56,7 @@ namespace Tetris.Helpers
 
             for (var i = 0; i < height; i++)
             {
-                var row = GetLine().Split(_separator);
+                var row = GetLine().Split(new []{_separator},StringSplitOptions.RemoveEmptyEntries);
                 for (var j = 0; j < row.Length; j++)
                 {
                     brickBody[i, j] = row[j].Equals("1");

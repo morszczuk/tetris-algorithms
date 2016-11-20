@@ -121,8 +121,6 @@
     <Compile Include="Helpers\BricksLoader.cs" />
     <Compile Include="Models\FileInputResult.cs" />
     <Compile Include="Helpers\BricksSaver.cs" />
-    <Compile Include="Helpers\DrawHelper.cs" />
-    <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Enums\RotateEnum.cs" />
     <Compile Include="Models\BrickPosition.cs" />
     <Compile Include="Models\BricksShelf.cs" />
