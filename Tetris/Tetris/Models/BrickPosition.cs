@@ -1,5 +1,8 @@
-﻿namespace Tetris.Models
+﻿using System;
+
+namespace Tetris.Models
 {
+    [Serializable]
     public class BrickPosition
     {
         public int X { get; set; }

@@ -76,7 +76,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-                        <Button Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
+                        <Button x:Name="SaveAlgorithmStateOnClick" Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
                             <iconPacks:PackIconModern Kind="Disk" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="LightBlue"/>
                         </Button>
                         <TextBlock FontSize="16" FontWeight="Light" Foreground="White" Margin="0, 0, 0, 10">

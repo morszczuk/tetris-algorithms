@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Tetris.Models
 {
+    [Serializable]
     public class BricksShelf
     {
         public Dictionary<BrickType, int> Bricks { get; }

@@ -112,6 +112,7 @@
     <Compile Include="Bootstrapper\Bootstrapper.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="Converters\WellStateToVisual.cs" />
+    <Compile Include="Helpers\BinarySerializer.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
     <Compile Include="Models\Brick.cs" />
     <Compile Include="Converters\BlockToVisual.cs" />

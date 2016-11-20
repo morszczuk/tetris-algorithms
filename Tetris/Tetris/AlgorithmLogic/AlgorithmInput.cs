@@ -4,6 +4,7 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic
 {
+    [Serializable]
     public class AlgorithmInput
     {
         public BricksShelf BricksShelf { get; set; }

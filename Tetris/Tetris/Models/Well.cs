@@ -1,5 +1,8 @@
-﻿namespace Tetris.Models
+﻿using System;
+
+namespace Tetris.Models
 {
+    [Serializable]
     public class Well
     {
         public int Width { get; }
