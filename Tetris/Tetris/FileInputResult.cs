@@ -9,9 +9,9 @@ namespace Tetris
 
         public int BricksNumber => Bricks.Count;
 
-        public List<Brick> Bricks { get; set; }
+        public List<BrickType> Bricks { get; set; }
 
-        public FileInputResult(int wellWidth, List<Brick> bricks)
+        public FileInputResult(int wellWidth, List<BrickType> bricks)
         {
             Bricks = bricks;
             WellWidth = wellWidth;

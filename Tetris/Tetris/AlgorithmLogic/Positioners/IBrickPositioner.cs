@@ -5,6 +5,6 @@ namespace Tetris.AlgorithmLogic.Positioners
 {
     public interface IBrickPositioner
     {
-        IEnumerable<WellState> PlaceBrick(WellState wellState, Brick brick);
+        IEnumerable<WellState> PlaceBrick(WellState wellState, BrickType brick);
     }
 }

@@ -23,12 +23,9 @@ namespace Tetris.AlgorithmLogic
             var newStates = new List<WellState>();
             foreach (var brick in wellState.BricksShelf.AvailableBricks())
             {
-                foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
-                {
-                    var tmpState = new WellState(wellState);
-                    tmpState.BricksShelf.Bricks[brick]--;
-                    newStates.AddRange(_positioner.PlaceBrick(tmpState, brick.Rotate(rotation)));
-                }
+                var tmpState = new WellState(wellState);
+                tmpState.BricksShelf.Bricks[brick]--;
+                newStates.AddRange(_positioner.PlaceBrick(tmpState, brick));
             }
             return newStates;
         }

@@ -31,7 +31,7 @@ namespace Tetris.ViewModels
             ActivatgeShellView();
         }
 
-        public string DisplayName
+        public override string DisplayName
         {
             get { return _displayName; }
             set { _displayName = value; }

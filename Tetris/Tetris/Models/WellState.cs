@@ -32,19 +32,21 @@ namespace Tetris.Models
             BricksShelf = new BricksShelf(wellState.BricksShelf);
         }
 
-        public bool AddBrick(Brick brick, int x, int y)
+        public bool AddBrick(BrickType brick, int x, int y, RotateEnum rotation = RotateEnum.Right0)
         {
-            if (IsIntersecting(brick, x, y)) return false;
+            var brickBody = brick.Body(rotation);
+
+            if (IsIntersecting(brickBody, x, y)) return false;
+
             TilesCount += brick.TilesCount;
-            Bricks.Add(new BrickPosition(brick, x, y));
-            for (var n = 0; n < brick.Height; n++)
+            Bricks.Add(new BrickPosition(brick, x, y, rotation));
+            for (var n = 0; n < brickBody.Height; n++)
             {
                 if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
-                for (var m = 0; m < brick.Width; m++)
+                for (var m = 0; m < brickBody.Width; m++)
                 {
                     // We have to insert the brick in the reverse order
-                    if (brick.Body[brick.Height - n - 1, m]) Fill[y + n][x + m] = true;
-                    //Fill[y + n][x + m] = brick.Body[brick.Height - n - 1, m];
+                    if (brickBody.Body[brickBody.Height - n - 1, m]) Fill[y + n][x + m] = true;
                 }
                 // Set index of the last full row
                 if (Fill[y + n].All(el => el)) FullRows++;
@@ -52,15 +54,15 @@ namespace Tetris.Models
             return true;
         }
 
-        public bool IsIntersecting(Brick brick, int x, int y)
+        public bool IsIntersecting(BrickBody brickBody, int x, int y)
         {
-            for (var n = 0; n < brick.Height; n++)
+            for (var n = 0; n < brickBody.Height; n++)
             {
                 if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
 
-                for (var m = 0; m < brick.Width; m++)
+                for (var m = 0; m < brickBody.Width; m++)
                 {
-                    if (x + m >= Well.Width || Fill[y + n][x + m] && brick.Body[brick.Height - n - 1, m])
+                    if (x + m >= Well.Width || Fill[y + n][x + m] && brickBody.Body[brickBody.Height - n - 1, m])
                         return true;
                 }
             }

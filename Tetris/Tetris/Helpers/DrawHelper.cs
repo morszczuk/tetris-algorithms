@@ -13,7 +13,7 @@ namespace Tetris.Helpers
 {
     public class DrawHelper
     {
-        public static Canvas GetCanvasWidthBrick(Brick brick, int maxWidth, int maxHeight, int canvasWidth, int canvasHeight)
+        public static Canvas GetCanvasWidthBrick(BrickBody brick, int maxWidth, int maxHeight, int canvasWidth, int canvasHeight)
         {
             Canvas canvas = new Canvas();
 

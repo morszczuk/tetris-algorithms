@@ -26,16 +26,16 @@ namespace TetrisTests.TestHelpers
 
         public static BricksShelf EmptyBrickShelf()
         {
-            return new BricksShelf(new List<Brick>());
+            return new BricksShelf(new List<BrickType>());
         }
 
-        public static Brick CreateRectangleBrick(int w, int h)
+        public static BrickType CreateRectangleBrick(int w, int h)
         {
             var body = new bool[h,w];
             for(var y=0; y < h; y++)
                 for (var x = 0; x < w; x++)
                     body[y,x] = true;
-            return new Brick(body);
+            return new BrickType(body);
         }
        
     }

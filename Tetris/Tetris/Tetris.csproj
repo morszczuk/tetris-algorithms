@@ -109,10 +109,9 @@
     <Compile Include="AlgorithmLogic\Strategies\TopKStates.cs" />
     <Compile Include="Bootstrapper\AppWindowManager.cs" />
     <Compile Include="Bootstrapper\Bootstrapper.cs" />
-    <Compile Include="Builders\BrickBuilder.cs" />
     <Compile Include="Converters\WellStateToVisual.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
-    <Compile Include="Models\Brick.cs" />
+    <Compile Include="Models\BrickType.cs" />
     <Compile Include="Converters\BlockToVisual.cs" />
     <Compile Include="Enums\AlgorithmsEnum.cs" />
     <Compile Include="Helpers\BricksGenerator.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Helpers\DrawHelper.cs" />
     <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Enums\RotateEnum.cs" />
+    <Compile Include="Models\BrickBody.cs" />
     <Compile Include="Models\BrickPosition.cs" />
     <Compile Include="Models\BricksShelf.cs" />
     <Compile Include="Models\Well.cs" />

@@ -31,15 +31,15 @@ namespace Tetris.Converters
 
             for (int i = 0; i < item.Bricks.Count; i++)
             {
-                var brick = item.Bricks[i].Brick;
+                var brickBody = item.Bricks[i].Body;
                 if (_colorStep * colorCounter > 255) colorCounter -= i;
                 byte c = (byte)(_colorStep * colorCounter);
                 var colour = Color.FromArgb(255, c, c, c);
-                for (int j = 0; j < brick.Height; j++)
+                for (int j = 0; j < brickBody.Height; j++)
                 {
-                    for (int k = 0; k < brick.Width; k++)
+                    for (int k = 0; k < brickBody.Width; k++)
                     {
-                        if (brick.Body[j, k])
+                        if (brickBody.Body[j, k])
                         {
                             Button b = new Button()
                             {
@@ -54,7 +54,7 @@ namespace Tetris.Converters
                             BindingOperations.SetBinding(b, Button.HeightProperty, binding);
 
                             var bottomRow = item.Fill.Count - 1 - item.Bricks[i].Y;
-                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j);
+                            Grid.SetRow(b, bottomRow - (brickBody.Height - 1) + j);
                             Grid.SetColumn(b, item.Bricks[i].X + k);
                             buttons.Add(b);
                         }   

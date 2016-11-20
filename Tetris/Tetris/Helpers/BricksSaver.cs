@@ -9,7 +9,7 @@ namespace Tetris.Helpers
 {
     class BricksSaver
     {
-        public static string SaveToFile(List<Brick> bricks, int wellWidth)
+        public static string SaveToFile(List<BrickType> bricks, int wellWidth)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -18,12 +18,13 @@ namespace Tetris.Helpers
 
             foreach (var br in bricks)
             {
-                sb.AppendLine($"{br.Width} {br.Height}");
-                for (int i = 0; i < br.Height; i++)
+                var brBody = br.Body();
+                sb.AppendLine($"{brBody.Width} {brBody.Height}");
+                for (int i = 0; i < brBody.Height; i++)
                 {
-                    for (int j = 0; j < br.Width; j++)
+                    for (int j = 0; j < brBody.Width; j++)
                     {
-                        if (br.Body[i, j])
+                        if (brBody.Body[i, j])
                         {
                             sb.Append("1");
                         }
@@ -31,7 +32,7 @@ namespace Tetris.Helpers
                         {
                             sb.Append("0");
                         }
-                        if (j != br.Width - 1)
+                        if (j != brBody.Width - 1)
                             sb.Append(" ");
                     }
                     sb.AppendLine();

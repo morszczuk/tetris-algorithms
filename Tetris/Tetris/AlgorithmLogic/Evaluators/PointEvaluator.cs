@@ -33,7 +33,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
             List<PointCords> probablePoints = new List<PointCords>();
             Stack<KeyValuePair<int, int>> stack = new Stack<KeyValuePair<int, int>>();
 
-            var brick = brickPos.Brick;
+            var brick = brickPos.Body;
             bool[,] visited = new bool[brick.Height, brick.Width];
 
             int row = 0, col = 0;
@@ -104,16 +104,16 @@ namespace Tetris.AlgorithmLogic.Evaluators
 
         private List<SideEnum> GetPossibleNeighbours(int row, int column, BrickPosition brickPos)
         {
-            var brick = brickPos.Brick;
+            var brickBody = brickPos.Body;
             List<SideEnum> list = new List<SideEnum>();
             if (row == 0) list.Add(SideEnum.Up);
-            if (row > 0) if (!brick.Body[row - 1, column]) list.Add(SideEnum.Up);
+            if (row > 0) if (!brickBody.Body[row - 1, column]) list.Add(SideEnum.Up);
             if (column == 0) list.Add(SideEnum.Left);
-            if (column > 0) if (!brick.Body[row, column - 1]) list.Add(SideEnum.Left);
-            if (row == brick.Height - 1) list.Add(SideEnum.Down);
-            if (row < brick.Height - 1) if (!brick.Body[brick.Height - 1, column]) list.Add(SideEnum.Down);
-            if (column == brick.Width - 1) list.Add(SideEnum.Right);
-            if (column > 0) if (!brick.Body[row, brick.Width - 1]) list.Add(SideEnum.Right);
+            if (column > 0) if (!brickBody.Body[row, column - 1]) list.Add(SideEnum.Left);
+            if (row == brickBody.Height - 1) list.Add(SideEnum.Down);
+            if (row < brickBody.Height - 1) if (!brickBody.Body[brickBody.Height - 1, column]) list.Add(SideEnum.Down);
+            if (column == brickBody.Width - 1) list.Add(SideEnum.Right);
+            if (column > 0) if (!brickBody.Body[row, brickBody.Width - 1]) list.Add(SideEnum.Right);
 
             return list;
         }

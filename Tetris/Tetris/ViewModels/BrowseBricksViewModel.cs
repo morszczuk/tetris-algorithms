@@ -11,30 +11,30 @@ namespace Tetris.ViewModels
     public class BrowseBricksViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
-        private BindableCollection<Brick> _bricks;
+        private BindableCollection<BrickType> _brickTypes;
         private string _displayName = "Kolekcja klocków";
         private MainWindowViewModel _mainWindowViewModel;
 
-        public BrowseBricksViewModel(IWindowManager windowManager,List<Brick> bricks, MainWindowViewModel mainWindowViewModel)
+        public BrowseBricksViewModel(IWindowManager windowManager, List<BrickType> brickTypes, MainWindowViewModel mainWindowViewModel)
         {
             _windowManager = windowManager;
-            _bricks = new BindableCollection<Brick>(bricks);
+            _brickTypes = new BindableCollection<BrickType>(brickTypes);
             _mainWindowViewModel = mainWindowViewModel;
         }
 
-        public string DisplayName
+        public override string DisplayName
         {
             get { return _displayName; }
             set { _displayName = value; }
         }
 
-        public BindableCollection<Brick> Bricks
+        public BindableCollection<BrickType> BrickTypes
         {
-            get { return _bricks; }
+            get { return _brickTypes; }
             set
             {
-                _bricks = value;
-                NotifyOfPropertyChange(()=>Bricks);
+                _brickTypes = value;
+                NotifyOfPropertyChange(()=>BrickTypes);
             }
         }
 

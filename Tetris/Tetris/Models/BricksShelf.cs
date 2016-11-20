@@ -6,22 +6,22 @@ namespace Tetris.Models
 {
     public class BricksShelf
     {
-        public Dictionary<Brick, int> Bricks { get; }
-        public BricksShelf(IEnumerable<Brick> bricks)
+        public Dictionary<BrickType, int> Bricks { get; }
+        public BricksShelf(IEnumerable<BrickType> bricks)
         {
-            Bricks = new Dictionary<Brick, int>();
+            Bricks = new Dictionary<BrickType, int>();
             foreach (var brick in bricks)
             {
-                Bricks.Add(brick, brick.Cardinality);
+                Bricks.Add(brick, brick.DefaultCount);
             }
         }
 
         public BricksShelf(BricksShelf bricksShelf)
         {
-            Bricks = new Dictionary<Brick, int>(bricksShelf.Bricks);
+            Bricks = new Dictionary<BrickType, int>(bricksShelf.Bricks);
         }
 
-        public IEnumerable<Brick> AvailableBricks()
+        public IEnumerable<BrickType> AvailableBricks()
         {
             return Bricks.Where(b => b.Value > 0).Select(b => b.Key);
         }

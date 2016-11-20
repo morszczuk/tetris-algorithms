@@ -74,11 +74,11 @@ namespace TetrisSample
             { true, true , true  }
             };
 
-            var bricks = new List<Brick>()
+            var bricks = new List<BrickType>()
             {
-                new Brick(b1),
-                new Brick(b2),
-                new Brick(b3)
+                new BrickType(b1),
+                new BrickType(b2),
+                new BrickType(b3)
             };
             var shelf = new BricksShelf(bricks);
 

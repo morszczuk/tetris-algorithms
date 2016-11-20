@@ -46,12 +46,25 @@ namespace Tetris.ViewModels
             }
         }
 
+        public bool AreComputationsPaused
+        {
+            get
+            {
+                return !AreComputationsRunning;
+            }
+            set
+            {
+                AreComputationsRunning = !value;
+                NotifyOfPropertyChange(() => AreComputationsPaused);
+            }
+        }
+
         public string ComputationsButtonName => AreComputationsRunning ? "TimerPause" : "TimerPlay";
 
 
         public bool IsStep { get; }
 
-        public RunningAlgorithmViewModel(IWindowManager windowManager, List<Brick> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
+        public RunningAlgorithmViewModel(IWindowManager windowManager, List<BrickType> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
         {
             _windowManager = windowManager;
             _mainWindowViewModel = mainWindowViewModel;
@@ -60,7 +73,7 @@ namespace Tetris.ViewModels
 
         }
 
-        public string DisplayName
+        public override string DisplayName
         {
             get { return _displayName; }
             set { _displayName = value; }

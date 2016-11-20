@@ -23,9 +23,9 @@ namespace Tetris.Helpers
         }
 
 
-        public List<Brick> GenerateBricks()
+        public List<BrickType> GenerateBricks()
         {
-            List<Brick> collection = new List<Brick>();
+            List<BrickType> collection = new List<BrickType>();
             int bricksCollected = _maxBricks;
 
             while (bricksCollected > 0)
@@ -44,28 +44,23 @@ namespace Tetris.Helpers
             return collection;
         }
 
-        private bool ValidateBrick(Brick brick, List<Brick> collection)
+        private bool ValidateBrick(BrickType brick, List<BrickType> collection)
         {
-            if (!ValidateConsistency(brick)) return false;
-
-            if (!ValidateSize(brick)) return false;
-
-            return ValidateEqualitySameSizes(brick, collection);
-
+            if (!ValidateConsistency(brick.Body())) return false;
+            if (!ValidateSize(brick.Body())) return false;
+            return collection.All(b => b != brick);
         }
 
-        private bool ValidateEqualitySameSizes(Brick brick, List<Brick> collection)
+        private bool ValidateEqualitySameSizes(BrickType brick, List<BrickType> collection)
         {
             foreach (var cBrick in collection)
             {
                 if (cBrick == brick) return false;
-
-                if (brick == cBrick.Rotate(RotateEnum.Right180)) return false;
             }
             return true;
         }
 
-        private bool ValidateSize(Brick brick)
+        private bool ValidateSize(BrickBody brick)
         {
             int rowMax = int.MinValue;
             int colMax = int.MinValue;
@@ -91,7 +86,7 @@ namespace Tetris.Helpers
         }
 
 
-        private bool ValidateConsistency(Brick brick)
+        private bool ValidateConsistency(BrickBody brick)
         {
             //DFS
             Stack<KeyValuePair<int, int>> stack = new Stack<KeyValuePair<int, int>>();
@@ -166,7 +161,7 @@ namespace Tetris.Helpers
         }
 
 
-        private Brick GenerateRandomBrick()
+        private BrickType GenerateRandomBrick()
         {
             Random r = new Random();
 
@@ -189,7 +184,7 @@ namespace Tetris.Helpers
             }
 
 
-            return new Brick(body);
+            return new BrickType(body);
 
         }
     }

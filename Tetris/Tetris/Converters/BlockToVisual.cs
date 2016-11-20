@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using Tetris.Models;
 
 namespace Tetris.Converters
 {
@@ -18,7 +19,7 @@ namespace Tetris.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = value as bool[,];
+            var item = (value as BrickBody).Body;
 
             var parts = new List<System.Windows.Shapes.Rectangle>();
 

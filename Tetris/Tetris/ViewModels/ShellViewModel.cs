@@ -21,7 +21,7 @@ namespace Tetris.ViewModels
         private string _displayName = "Tetris";
         private int _wellNo = 2;
         private int _wellWidth = 10;
-        private List<Brick> _bricks;
+        private List<BrickType> _bricks;
         private bool _libraryIsVisible = false;
         private MainWindowViewModel _mainWindow;
 
@@ -32,7 +32,7 @@ namespace Tetris.ViewModels
             _mainWindow = mainWindow;
         }
 
-        public string DisplayName
+        public override string DisplayName
         {
             get { return _displayName; }
             set { _displayName = value; }
@@ -64,7 +64,7 @@ namespace Tetris.ViewModels
             }
         }
 
-        public List<Brick> Bricks
+        public List<BrickType> Bricks
         {
             get { return _bricks;
                 

@@ -6,19 +6,24 @@ namespace Tetris.AlgorithmLogic.Positioners
 {
     public class BasicBottomLeftPositioner : IBrickPositioner
     {
-        public IEnumerable<WellState> PlaceBrick(WellState wellState, Brick brick)
+        public IEnumerable<WellState> PlaceBrick(WellState wellState, BrickType brick)
+        {
+            var generatedStates = new List<WellState>(4);
+            foreach(RotateEnum rotation in brick.AvailableRotations)
+                generatedStates.Add(PlaceBrick(wellState, brick, rotation));
+            return generatedStates;
+        }
+
+        private WellState PlaceBrick(WellState wellState, BrickType brickType, RotateEnum rotation)
         {
             for (var y = wellState.FullRows; y <= wellState.Fill.Count; y++)
             {
                 for (var x = 0; x < wellState.Well.Width; x++)
                 {
-                    if (wellState.AddBrick(brick, x, y))
-                    {
-                        return new List<WellState>() { wellState };
-                    }
+                    if (wellState.AddBrick(brickType, x, y, rotation))
+                        return wellState;
                 }
             }
-
             return null;
         }
     }

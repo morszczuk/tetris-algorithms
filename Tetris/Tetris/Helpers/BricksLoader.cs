@@ -21,8 +21,8 @@ namespace Tetris.Helpers
         public FileInputResult ReadFile()
         {          
             ProcessLineZero();
-            Brick brick;
-            var bricks=new List<Brick>();
+            BrickType brick;
+            var bricks=new List<BrickType>();
 
             while ((brick = ProcessBrick()) != null)
             {
@@ -43,7 +43,7 @@ namespace Tetris.Helpers
             _wellWidth = Convert.ToInt32(values[0]);
         }
 
-        private Brick ProcessBrick()
+        private BrickType ProcessBrick()
         {
             var line = GetLine();
             if (line == null) return null;
@@ -62,7 +62,7 @@ namespace Tetris.Helpers
                 }
             }
 
-            return new Brick(brickBody);
+            return new BrickType(brickBody);
         }
         
 

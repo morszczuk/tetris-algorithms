@@ -17,9 +17,11 @@ namespace Tetris.AlgorithmLogic
         
         private readonly IWellStateSelectionStrategy _selectionStrategy;
         private readonly StatesGenerator _statesGenerator;
+        private AlgorithmInput Settings { get; }
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
+            Settings = settings;
             IWellStateEvaluator evaluator = new ColumnFillEvaluator();
             IBrickPositioner positioner = new BasicBottomLeftPositioner();
 
