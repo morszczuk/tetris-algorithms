@@ -17,8 +17,9 @@ namespace Tetris.AlgorithmLogic.Evaluators
         {
             var n = N < wellState.Fill.Count ? N : N - wellState.Fill.Count;
             var tiles = wellState.TilesCount;
-            for (var i = 0; i < n; i++)
-                tiles -= wellState.Fill[wellState.Fill.Count-i-1].Count(t => t);
+            for (var y = 0; y < n; y++)
+                for (var x = 0; x < wellState.Well.Width; x++)
+                    if(wellState.IsFilled(x, y)) tiles--;
             var ratio = (float)tiles / (float)((wellState.Fill.Count - n) * wellState.Well.Width);
             return Convert.ToInt32(ratio * 10000);
         }

@@ -8,7 +8,7 @@ namespace Tetris.Models
         public Well Well { get; }
         public BricksShelf BricksShelf { get; }
         public List<BrickPosition> Bricks { get; }
-        public List<bool[]> Fill { get; }
+        public List<ulong> Fill { get; }
         public int FullRows { get; private set; }
         public int TilesCount { get; private set; }
 
@@ -17,7 +17,7 @@ namespace Tetris.Models
             Well = well;
             BricksShelf = bricksShelf;
             Bricks = new List<BrickPosition>();
-            Fill = new List<bool[]>(10);
+            Fill = new List<ulong>(6);
             FullRows = 0;
         }
 
@@ -25,11 +25,14 @@ namespace Tetris.Models
         {
             Well = wellState.Well;
             Bricks = new List<BrickPosition>(wellState.Bricks);
-            Fill = new List<bool[]>(wellState.Fill.Count);
-            for (var i = 0; i < wellState.Fill.Count; i++)
-                Fill.Add((bool[])wellState.Fill[i].Clone());
+            Fill = new List<ulong>(wellState.Fill);
             FullRows = wellState.FullRows;
             BricksShelf = new BricksShelf(wellState.BricksShelf);
+        }
+
+        public bool IsFilled(int x, int y)
+        {
+            return (Fill[y] & ((uint)1 << x)) != 0;
         }
 
         public bool AddBrick(Brick brick, int x, int y)
@@ -37,34 +40,30 @@ namespace Tetris.Models
             if (IsIntersecting(brick, x, y)) return false;
             TilesCount += brick.TilesCount;
             Bricks.Add(new BrickPosition(brick, x, y));
-            for (var n = 0; n < brick.Height; n++)
+            for (var i = 0; i < brick.Height; i++)
             {
-                if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
-                for (var m = 0; m < brick.Width; m++)
-                {
-                    // We have to insert the brick in the reverse order
-                    if (brick.Body[brick.Height - n - 1, m]) Fill[y + n][x + m] = true;
-                    //Fill[y + n][x + m] = brick.Body[brick.Height - n - 1, m];
-                }
-                // Set index of the last full row
-                if (Fill[y + n].All(el => el)) FullRows++;
+                if (y + i >= Fill.Count) AddRow();
+                var rowWithOffset = brick.BinaryBody[brick.Height - i - 1] << x;
+                Fill[y + i] |= rowWithOffset;
             }
             return true;
         }
 
         public bool IsIntersecting(Brick brick, int x, int y)
         {
-            for (var n = 0; n < brick.Height; n++)
+            for (var i = 0; i < brick.Height; i++)
             {
-                if (y + n >= Fill.Count) Fill.Add(new bool[Well.Width]);
-
-                for (var m = 0; m < brick.Width; m++)
-                {
-                    if (x + m >= Well.Width || Fill[y + n][x + m] && brick.Body[brick.Height - n - 1, m])
-                        return true;
-                }
+                if (y + i >= Fill.Count) return false;
+                var rowWithOffset = brick.BinaryBody[brick.Height - i - 1] << x;
+                if ((Fill[y + i] & rowWithOffset) != 0)
+                    return true;
             }
             return false;
+        }
+
+        private void AddRow()
+        {
+            Fill.Add(ulong.MaxValue << Well.Width);
         }
     }
 

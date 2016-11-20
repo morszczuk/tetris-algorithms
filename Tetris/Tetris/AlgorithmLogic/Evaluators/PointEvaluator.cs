@@ -161,10 +161,9 @@ namespace Tetris.AlgorithmLogic.Evaluators
                     case SideEnum.Up:
                         {
                             if (rowY == wellState.Fill.Count - 1) break;
-                            if (wellState.Fill[rowY + 1][columnX])
+                            if (wellState.IsFilled(columnX, rowY + 1))
                             {
                                 result.Add(new PointCords(columnX, rowY + 1, PointEnum.Neighbour, side));
-
                             }
 
                             break;
@@ -173,27 +172,30 @@ namespace Tetris.AlgorithmLogic.Evaluators
                         {
                             if (rowY == 0)
                                 result.Add(new PointCords(columnX, rowY - 1, PointEnum.Wall, side));
-                            else
-                                if (wellState.Fill[rowY - 1][column])
-                                    result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour, side));
+                            else if (wellState.IsFilled(columnX, rowY - 1))
+                            {
+                                result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour, side));
+                            }
                             break;
                         }
                     case SideEnum.Left:
                         {
                             if (columnX == 0)
                                 result.Add(new PointCords(columnX - 1, rowY, PointEnum.Wall, side));
-                            else
-                                if (wellState.Fill[rowY][columnX - 1])
-                                    result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour, side));
+                            else if (wellState.IsFilled(columnX - 1, rowY))
+                            {
+                                result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour, side));
+                            }
                             break;
                         }
                     case SideEnum.Right:
                         {
                             if (columnX == wellState.Well.Width - 1)
                                 result.Add(new PointCords(columnX + 1, rowY, PointEnum.Wall, side));
-                            else
-                                if (wellState.Fill[rowY][columnX + 1])
-                                    result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour, side));
+                            else if (wellState.IsFilled(columnX + 1, rowY))
+                            {
+                                result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour, side));
+                            }
                             break;
                         }
                 }

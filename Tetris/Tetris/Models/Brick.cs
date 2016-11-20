@@ -9,7 +9,7 @@ namespace Tetris.Models
         public int Height => Body.GetLength(0);
 
         public bool[,] Body { get; }
-        public int[] BinaryBody { get; }
+        public uint[] BinaryBody { get; }
         
         public int TilesCount { get; }
 
@@ -23,14 +23,14 @@ namespace Tetris.Models
                     if (body[i, j]) TilesCount++;
         }
 
-        private static int[] ConvertToBinaryRepresentation(bool[,] body)
+        private static uint[] ConvertToBinaryRepresentation(bool[,] body)
         {
-            var converted = new int[body.GetLength(0)];
+            var converted = new uint[body.GetLength(0)];
             for (var i = 0; i < body.GetLength(0); i++)
             {
                 converted[i] = 0;
                 for (var j = 0; j < body.GetLength(1); ++j)
-                    if (body[i, j]) converted[i] |= 1 << j;
+                    if (body[i, j]) converted[i] |= (uint)1 << j;
             }
             return converted;
         }
