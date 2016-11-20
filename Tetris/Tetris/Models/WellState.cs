@@ -12,6 +12,15 @@ namespace Tetris.Models
         public int FullRows { get; private set; }
         public int TilesCount { get; private set; }
 
+        public int PercentageFilled
+        {
+            get
+            {
+                double per = (double) TilesCount/(double)(Fill.Count*Well.Width);
+                return (int) (per*100);
+            }
+        }
+
         public WellState(Well well, BricksShelf bricksShelf)
         {
             Well = well;
@@ -28,6 +37,7 @@ namespace Tetris.Models
             Fill = new List<ulong>(wellState.Fill);
             FullRows = wellState.FullRows;
             BricksShelf = new BricksShelf(wellState.BricksShelf);
+            TilesCount = wellState.TilesCount;
         }
 
         public bool IsFilled(int x, int y)

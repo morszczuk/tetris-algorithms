@@ -8,8 +8,8 @@ namespace Tetris.AlgorithmLogic.Evaluators
 {
     class PointEvaluator : IWellStateEvaluator
     {
-        private int _startWallPoint = 3;
-        private int _startNeightBourPoint = 3;
+        private int _startWallPoint = 4;
+        private int _startNeightBourPoint = 5;
 
         public int Evaluate(WellState wellState)
         {
