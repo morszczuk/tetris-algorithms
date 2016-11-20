@@ -49,7 +49,7 @@ namespace Tetris.Converters
                             BindingOperations.SetBinding(b, Button.HeightProperty, binding);
 
                             var bottomRow = item.Fill.Count - 1 - item.Bricks[i].Y;
-                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j);
+                            Grid.SetRow(b, bottomRow - (brick.Height - 1) + j +1);
                             Grid.SetColumn(b, item.Bricks[i].X + k);
                             buttons.Add(b);
                         }
@@ -59,12 +59,12 @@ namespace Tetris.Converters
             }
             TextBlock percentageFilled = new TextBlock
             {
-                Text = $"Space covered {item.PercentageFilled} %",
+                Text = $"Well width: {item.Well.Width}, height: {item.Fill.Count} space covered {item.PercentageFilled}%",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 FontWeight = FontWeights.DemiBold
             };
-            Grid.SetRow(percentageFilled, item.Fill.Count);
+            Grid.SetRow(percentageFilled, 0);
             Grid.SetColumnSpan(percentageFilled, item.Well.Width);
             Grid.SetColumn(percentageFilled, 0);
 
