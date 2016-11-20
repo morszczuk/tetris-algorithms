@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Tetris.AlgorithmLogic.Evaluators;
+﻿using System.Collections.Generic;
 using Tetris.AlgorithmLogic.Positioners;
-using Tetris.AlgorithmLogic.Strategies;
 using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic

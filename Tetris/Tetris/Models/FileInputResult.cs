@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Tetris.Models;
 
-namespace Tetris
+namespace Tetris.Models
 {
     class FileInputResult
     {

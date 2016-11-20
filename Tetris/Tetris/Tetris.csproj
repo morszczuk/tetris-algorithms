@@ -119,7 +119,7 @@
     <Compile Include="Enums\AlgorithmsEnum.cs" />
     <Compile Include="Helpers\BricksGenerator.cs" />
     <Compile Include="Helpers\BricksLoader.cs" />
-    <Compile Include="FileInputResult.cs" />
+    <Compile Include="Models\FileInputResult.cs" />
     <Compile Include="Helpers\BricksSaver.cs" />
     <Compile Include="Helpers\DrawHelper.cs" />
     <Compile Include="Helpers\MathHelper.cs" />

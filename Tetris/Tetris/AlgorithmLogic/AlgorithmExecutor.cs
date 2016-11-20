@@ -22,7 +22,7 @@ namespace Tetris.AlgorithmLogic
         public AlgorithmExecutor(AlgorithmInput settings)
         {
             Settings = settings;
-            IWellStateEvaluator evaluator = new ColumnFillEvaluator();
+            IWellStateEvaluator evaluator = new PointEvaluator();//new ColumnFillEvaluator();
             IBrickPositioner positioner = new BasicBottomLeftPositioner();
 
             _selectionStrategy = new TopKStates(settings.WellNo, evaluator);

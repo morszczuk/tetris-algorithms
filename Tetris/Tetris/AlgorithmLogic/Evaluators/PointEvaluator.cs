@@ -2,29 +2,22 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Evaluators
 {
     class PointEvaluator : IWellStateEvaluator
     {
-        private int _startWallPoint = 2;
+        private int _startWallPoint = 3;
         private int _startNeightBourPoint = 3;
-
-
-        List<int> pointsGiven = new List<int>();
-
 
         public int Evaluate(WellState wellState)
         {
             var addedBrick = wellState.Bricks[wellState.Bricks.Count - 1];
-
             var points = CountPoints(wellState, addedBrick);
+            var pointsScaled = points * 1000;
 
-            pointsGiven.Add((int)points);
-            return (int)points;
+            return (int)pointsScaled;
         }
 
         private double CountPoints(WellState wellState, BrickPosition brickPos)
@@ -95,35 +88,70 @@ namespace Tetris.AlgorithmLogic.Evaluators
                 probablePoints.AddRange(GetPossiblePoints(i, j, possibleNeighbours, wellState, brickPos));
             }
 
-            var eliminatedDuplicated = probablePoints.Distinct().ToList();
+            var eliminatedDuplicated = EliminateDuplicated(probablePoints);
 
             double p = eliminatedDuplicated.Sum(point => GetPoints(point.Point.Y, point.PointEn));
 
             return p;
         }
 
+        private IEnumerable<PointCords> EliminateDuplicated(List<PointCords> list)
+        {
+            List<PointCords> result = new List<PointCords>();
+
+
+            bool isInCollection = false;
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int j = 0; j < result.Count; j++)
+                {
+                    if (list[i].Point.Y == result[j].Point.Y && list[i].Point.X == result[j].Point.X &&
+                        list[i].PointEn == result[j].PointEn)
+                    {
+                        isInCollection = true;
+                    }
+                }
+                if (!isInCollection)
+                {
+                    result.Add(list[i]);
+                }
+                isInCollection = false;
+            }
+            return result;
+        }
+
         private List<SideEnum> GetPossibleNeighbours(int row, int column, BrickPosition brickPos)
         {
             var brick = brickPos.Brick;
             List<SideEnum> list = new List<SideEnum>();
-            if (row == 0) list.Add(SideEnum.Up);
-            if (row > 0) if (!brick.Body[row - 1, column]) list.Add(SideEnum.Up);
-            if (column == 0) list.Add(SideEnum.Left);
-            if (column > 0) if (!brick.Body[row, column - 1]) list.Add(SideEnum.Left);
-            if (row == brick.Height - 1) list.Add(SideEnum.Down);
-            if (row < brick.Height - 1) if (!brick.Body[brick.Height - 1, column]) list.Add(SideEnum.Down);
-            if (column == brick.Width - 1) list.Add(SideEnum.Right);
-            if (column > 0) if (!brick.Body[row, brick.Width - 1]) list.Add(SideEnum.Right);
+            if (row == 0)
+                list.Add(SideEnum.Up);
+            else
+                if (!brick.Body[row - 1, column]) list.Add(SideEnum.Up);
+            if (row == brick.Height - 1)
+                list.Add(SideEnum.Down);
+            else
+                if (!brick.Body[row + 1, column]) list.Add(SideEnum.Down);
+
+            if (column == 0)
+                list.Add(SideEnum.Left);
+            else
+                if (!brick.Body[row, column - 1]) list.Add(SideEnum.Left);
+
+            if (column == brick.Width - 1)
+                list.Add(SideEnum.Right);
+            else
+                if (!brick.Body[row, column + 1]) list.Add(SideEnum.Right);
 
             return list;
         }
 
         private List<PointCords> GetPossiblePoints(int row, int column, List<SideEnum> list, WellState wellState, BrickPosition brickPos)
         {
-            double points = 0;
             List<PointCords> result = new List<PointCords>();
+            var brick = brickPos.Brick;
 
-            int rowY = row + brickPos.Y;
+            int rowY = brick.Height - 1 - row + brickPos.Y;
             int columnX = column + brickPos.X;
 
             foreach (var side in list)
@@ -132,60 +160,40 @@ namespace Tetris.AlgorithmLogic.Evaluators
                 {
                     case SideEnum.Up:
                         {
-                            if (rowY == 0)
+                            if (rowY == wellState.Fill.Count - 1) break;
+                            if (wellState.Fill[rowY + 1][columnX])
                             {
-                                result.Add(new PointCords(columnX, rowY - 1, PointEnum.Wall));
-                                //points += GetWallPoints(rowY);
+                                result.Add(new PointCords(columnX, rowY + 1, PointEnum.Neighbour, side));
+
                             }
-                            else
-                            {
-                                if (wellState.Fill[rowY - 1][column])
-                                {
-                                    result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour));
-                                }
-                            }
+
                             break;
                         }
                     case SideEnum.Down:
                         {
-                            if (rowY == wellState.Fill.Count - 1) break;
-                            if (wellState.Fill[rowY + 1][columnX])
-                            {
-                                result.Add(new PointCords(columnX, rowY + 1, PointEnum.Neighbour));
-
-                            }
-
+                            if (rowY == 0)
+                                result.Add(new PointCords(columnX, rowY - 1, PointEnum.Wall, side));
+                            else
+                                if (wellState.Fill[rowY - 1][column])
+                                    result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour, side));
                             break;
                         }
                     case SideEnum.Left:
                         {
                             if (columnX == 0)
-                            {
-                                result.Add(new PointCords(columnX - 1, rowY, PointEnum.Wall));
-                            }
+                                result.Add(new PointCords(columnX - 1, rowY, PointEnum.Wall, side));
                             else
-                            {
                                 if (wellState.Fill[rowY][columnX - 1])
-                                {
-                                    result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour));
-                                }
-                            }
+                                    result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour, side));
                             break;
                         }
                     case SideEnum.Right:
                         {
                             if (columnX == wellState.Well.Width - 1)
-                            {
-                                result.Add(new PointCords(columnX + 1, rowY, PointEnum.Wall));
-
-                            }
+                                result.Add(new PointCords(columnX + 1, rowY, PointEnum.Wall, side));
                             else
-                            {
                                 if (wellState.Fill[rowY][columnX + 1])
-                                {
-                                    result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour));
-                                }
-                            }
+                                    result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour, side));
                             break;
                         }
                 }
@@ -199,12 +207,12 @@ namespace Tetris.AlgorithmLogic.Evaluators
                 case PointEnum.Neighbour:
                     {
                         if (row == 0) return _startNeightBourPoint;
-                        return (1 / row) * _startNeightBourPoint;
+                        return ((double)1 / (double)row) * _startNeightBourPoint;
                     }
                 case PointEnum.Wall:
                     {
                         if (row == 0) return _startNeightBourPoint;
-                        return (1 / row) * _startWallPoint;
+                        return ((double)1 / (double)row) * _startWallPoint;
                     }
 
             }
@@ -226,10 +234,13 @@ namespace Tetris.AlgorithmLogic.Evaluators
             public Point Point { get; set; }
             public PointEnum PointEn { get; set; }
 
-            public PointCords(int x, int y, PointEnum type)
+            private SideEnum Side { get; set; }
+
+            public PointCords(int x, int y, PointEnum type, SideEnum side)
             {
                 PointEn = type;
                 Point = new Point(x, y);
+                Side = side;
             }
         }
 
