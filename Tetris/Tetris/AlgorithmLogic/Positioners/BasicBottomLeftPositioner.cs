@@ -9,7 +9,7 @@ namespace Tetris.AlgorithmLogic.Positioners
         {
             for (var y = wellState.FullRows; y <= wellState.Fill.Count; y++)
             {
-                for (var x = 0; x < wellState.Well.Width; x++)
+                for (var x = 0; x <= (wellState.Well.Width - brick.Width); x++)
                 {
                     if (wellState.AddBrick(brick, x, y))
                     {

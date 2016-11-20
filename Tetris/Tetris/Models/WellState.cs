@@ -62,6 +62,7 @@ namespace Tetris.Models
 
         public bool IsIntersecting(Brick brick, int x, int y)
         {
+            if (x + brick.Width > Well.Width) return true;
             for (var i = 0; i < brick.Height; i++)
             {
                 if (y + i >= Fill.Count) return false;

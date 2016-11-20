@@ -146,12 +146,12 @@ namespace Tetris.ViewModels
             if (AreComputationsFinished) return;
             for (var i = 0; i < StepCount; i++)
             {
+                _executor.MakeStep();
                 if (_executor.IsFinished())
                 {
                     AreComputationsFinished = true;
                     break;
                 }
-                _executor.MakeStep();
             }
             ActiveStates = _executor.ActiveStates;
         }
