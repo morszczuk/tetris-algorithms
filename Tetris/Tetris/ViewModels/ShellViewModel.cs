@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.Helpers;
 using Tetris.Models;
+using Tetris.AlgorithmLogic;
 
 namespace Tetris.ViewModels
 {
@@ -73,7 +74,7 @@ namespace Tetris.ViewModels
                     .Where(p => type.IsAssignableFrom(p)).ToList();
 
                 types.Remove(typeof(IWellStateEvaluator));
-                types.Remove(typeof(FillWithoutTopNEvaluator));//nie ma konstruktora bezparametrowego
+                types.Remove(typeof(FillWithoutTopNEvaluator)); //nie ma konstruktora bezparametrowego
                 return types;
             }
         }
@@ -149,6 +150,16 @@ namespace Tetris.ViewModels
         public void GoAlgorithm()
         {
             _mainWindow.ActivateRunningAlgorithmView(false, SelectedEvaluator);
+        }
+
+        public void LoadAlgorithmStateOnClick()
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Algorithm state file (*.astate)|*.astate";
+            if (openFileDialog.ShowDialog() != true) return;
+            var algorithmState = BinarySerializer.ReadFromBinaryFile<Tuple<List<WellState>, AlgorithmInput>>(openFileDialog.FileName);
+            var item = new RunningAlgorithmViewModel(_windowManager, _mainWindow, algorithmState.Item2, algorithmState.Item1);
+            _mainWindow.ActivateItem(item);
         }
 
     }

@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Tetris.Models
 {
+    [Serializable]
     public class Brick
     {
         public int Width => Body.GetLength(1);

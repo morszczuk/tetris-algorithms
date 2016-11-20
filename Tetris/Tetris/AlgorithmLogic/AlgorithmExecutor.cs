@@ -18,6 +18,7 @@ namespace Tetris.AlgorithmLogic
 
         private readonly IWellStateEvaluator _evaluator;
         private readonly StatesGenerator _statesGenerator;
+        private IEnumerable<WellState> activeStates;
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
@@ -35,6 +36,17 @@ namespace Tetris.AlgorithmLogic
             _evaluator = evaluator;
             _statesGenerator = new StatesGenerator(positioner);
             InitializeActiveStates();
+        }
+
+        public AlgorithmExecutor(AlgorithmInput settings, List<WellState> activeStates) : this(settings)
+        {
+            Settings = settings;
+            _evaluator = (IWellStateEvaluator)Activator.CreateInstance(Settings.EvaluatorType);
+            IBrickPositioner positioner = new BasicBottomLeftPositioner();
+            _statesGenerator = new StatesGenerator(positioner);
+
+            InitializeActiveStates();
+            ActiveStates = activeStates;
         }
 
         public void Reset()

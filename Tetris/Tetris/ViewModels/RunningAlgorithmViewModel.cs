@@ -5,6 +5,9 @@ using Tetris.AlgorithmLogic;
 using Tetris.Enums;
 using Tetris.Models;
 using System.Threading.Tasks;
+using Microsoft.Win32;
+using Tetris.Helpers;
+using System.Linq;
 
 namespace Tetris.ViewModels
 {
@@ -64,6 +67,8 @@ namespace Tetris.ViewModels
         }
 
         private bool _areComputationsFinished;
+        private List<BrickType> brickTypes;
+
         public bool AreComputationsFinished
         {
             get { return _areComputationsFinished; }
@@ -108,6 +113,24 @@ namespace Tetris.ViewModels
             _areComputationsStarted = false;
             _areComputationsPaused = false;
             _areComputationsFinished = false;
+        }
+
+        public RunningAlgorithmViewModel(IWindowManager windowManager, MainWindowViewModel mainWindowViewModel, AlgorithmInput settings, List<WellState> activeStates)
+        {
+            _windowManager = windowManager;
+            _mainWindowViewModel = mainWindowViewModel;
+            _algorithmParameters = settings;
+            _executor = new AlgorithmExecutor(_algorithmParameters, activeStates);
+            _areComputationsStarted = true;
+            _areComputationsPaused = true;
+            _areComputationsFinished = false;
+            ActiveStates = activeStates;
+        }
+
+        public RunningAlgorithmViewModel(IWindowManager _windowManager, List<BrickType> brickTypes)
+        {
+            this._windowManager = _windowManager;
+            this.brickTypes = brickTypes;
         }
 
         public override string DisplayName { get; set; } = "Uruchomiony algorytm";
@@ -159,6 +182,15 @@ namespace Tetris.ViewModels
         public void EndComputationOnClick()
         {
             _mainWindowViewModel.ActivatgeShellView();
+        }
+
+        public void SaveAlgorithmStateOnClick()
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Algorithm state file (*.astate)|*.astate";
+            if (saveFileDialog.ShowDialog() != true) return;
+            var algorithmState = new Tuple<List<WellState>, AlgorithmInput>(ActiveStates.ToList(), _executor.Settings);
+            BinarySerializer.WriteToBinaryFile<Tuple<List<WellState>, AlgorithmInput>>(saveFileDialog.FileName, algorithmState);
         }
     }
 }

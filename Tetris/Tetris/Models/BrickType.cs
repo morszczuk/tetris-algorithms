@@ -7,6 +7,7 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Tetris.Models
 {
+    [Serializable]
     public class BrickType
     {
         public IEnumerable<RotateEnum> AvailableRotations => _rotations.Keys;

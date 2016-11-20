@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Tetris.Models
 {
+    [Serializable]
     public class WellState
     {
         public Well Well { get; }
