@@ -60,7 +60,7 @@ namespace Tetris.Helpers
             {
                 if (cBrick == brick) return false;
 
-                if (brick == cBrick.Rotate(RotateEnum.Right180)) return false;
+                if (brick == BrickType.Rotate90Right(BrickType.Rotate90Right(cBrick))) return false;
             }
             return true;
         }

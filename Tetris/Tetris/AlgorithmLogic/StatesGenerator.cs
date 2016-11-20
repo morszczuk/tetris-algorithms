@@ -18,16 +18,16 @@ namespace Tetris.AlgorithmLogic
             _positioner = positioner;
         }
 
-        public List<WellState> Generate(WellState wellState)
+        public List<WellState> Generate(WellState wellState) 
         {
             var newStates = new List<WellState>();
-            foreach (var brick in wellState.BricksShelf.AvailableBricks())
+            foreach (var brickType in wellState.BricksShelf.AvailableBrickTypes())
             {
-                foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
+                foreach (var rotation in brickType.AvailableRotations)
                 {
                     var tmpState = new WellState(wellState);
-                    tmpState.BricksShelf.Bricks[brick]--;
-                    newStates.AddRange(_positioner.PlaceBrick(tmpState, brick.Rotate(rotation)));
+                    tmpState.BricksShelf.Bricks[brickType]--;
+                    newStates.AddRange(_positioner.PlaceBrick(tmpState, brickType.Brick(rotation)));
                 }
             }
             return newStates;

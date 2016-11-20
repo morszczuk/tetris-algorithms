@@ -26,7 +26,7 @@ namespace TetrisTests.TestHelpers
 
         public static BricksShelf EmptyBrickShelf()
         {
-            return new BricksShelf(new List<Brick>());
+            return new BricksShelf(new List<BrickType>());
         }
 
         public static Brick CreateRectangleBrick(int w, int h)

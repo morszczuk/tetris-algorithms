@@ -66,7 +66,7 @@ namespace Tetris.AlgorithmLogic
 
         public bool IsFinished()
         {
-            return ActiveStates.All(s => !s.BricksShelf.AvailableBricks().Any());
+            return ActiveStates.All(s => !s.BricksShelf.AvailableBrickTypes().Any());
         }
 
     }

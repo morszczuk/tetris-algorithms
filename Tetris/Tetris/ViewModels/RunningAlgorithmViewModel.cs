@@ -14,7 +14,6 @@ namespace Tetris.ViewModels
     public class RunningAlgorithmViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
-        private string _displayName = "Uruchomiony algorytm";
         private MainWindowViewModel _mainWindowViewModel;
 
         private AlgorithmInput _algorithmParameters;
@@ -51,7 +50,7 @@ namespace Tetris.ViewModels
 
         public bool IsStep { get; }
 
-        public RunningAlgorithmViewModel(IWindowManager windowManager, List<Brick> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
+        public RunningAlgorithmViewModel(IWindowManager windowManager, IEnumerable<BrickType> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
         {
             _windowManager = windowManager;
             _mainWindowViewModel = mainWindowViewModel;
@@ -60,18 +59,13 @@ namespace Tetris.ViewModels
 
         }
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-            set { _displayName = value; }
-        }
-
-
+        public override string DisplayName { get; set; } = "Uruchomiony algorytm";
 
 
         public void PlayPauseOnClick()
         {
-            if (AreComputationsRunning = !AreComputationsRunning)
+            AreComputationsRunning = !AreComputationsRunning;
+            if (AreComputationsRunning)
             {
                 var executor = new AlgorithmExecutor(_algorithmParameters);
                 executor.Run();

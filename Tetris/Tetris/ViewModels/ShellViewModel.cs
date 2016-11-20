@@ -18,10 +18,9 @@ namespace Tetris.ViewModels
     public class ShellViewModel :  Conductor<object>, IHaveDisplayName
     {
         private readonly IWindowManager _windowManager;
-        private string _displayName = "Tetris";
         private int _wellNo = 2;
         private int _wellWidth = 10;
-        private List<Brick> _bricks;
+        private List<BrickType> _brickTypes;
         private bool _libraryIsVisible = false;
         private MainWindowViewModel _mainWindow;
 
@@ -32,11 +31,7 @@ namespace Tetris.ViewModels
             _mainWindow = mainWindow;
         }
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-            set { _displayName = value; }
-        }
+        public override string DisplayName { get; set; } = "Tetris";
 
         public int WellWidth
         {
@@ -64,15 +59,16 @@ namespace Tetris.ViewModels
             }
         }
 
-        public List<Brick> Bricks
+        public List<BrickType> BrickTypes
         {
-            get { return _bricks;
-                
+            get
+            {
+                return _brickTypes;    
             }
             set
             {
-                _bricks = value;
-                NotifyOfPropertyChange(() => Bricks);
+                _brickTypes = value;
+                NotifyOfPropertyChange(() => BrickTypes);
             }
         }
 
@@ -88,15 +84,13 @@ namespace Tetris.ViewModels
 
         public void ReadBricks()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
-                var result = loader.ReadFile();
-                _bricks = result.Bricks;
-                WellWidth = result.WellWidth;
-                LibraryIsVisible = true;
-            }
+            var openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() != true) return;
+            var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
+            var result = loader.ReadFile();
+            _brickTypes = result.BrickTypes;
+            WellWidth = result.WellWidth;
+            LibraryIsVisible = true;
         }
         public void BricksLibrary()
         {

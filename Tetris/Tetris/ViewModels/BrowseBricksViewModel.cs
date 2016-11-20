@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Tetris.Models;
 
@@ -11,30 +7,25 @@ namespace Tetris.ViewModels
     public class BrowseBricksViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
-        private BindableCollection<Brick> _bricks;
-        private string _displayName = "Kolekcja klocków";
-        private MainWindowViewModel _mainWindowViewModel;
+        private BindableCollection<BrickType> _brickTypes;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
-        public BrowseBricksViewModel(IWindowManager windowManager,List<Brick> bricks, MainWindowViewModel mainWindowViewModel)
+        public BrowseBricksViewModel(IWindowManager windowManager, IEnumerable<BrickType> brickTypes, MainWindowViewModel mainWindowViewModel)
         {
             _windowManager = windowManager;
-            _bricks = new BindableCollection<Brick>(bricks);
+            _brickTypes = new BindableCollection<BrickType>(brickTypes);
             _mainWindowViewModel = mainWindowViewModel;
         }
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-            set { _displayName = value; }
-        }
+        public override string DisplayName { get; set; } = "Kolekcja klocków";
 
-        public BindableCollection<Brick> Bricks
+        public BindableCollection<BrickType> BrickTypes
         {
-            get { return _bricks; }
+            get { return _brickTypes; }
             set
             {
-                _bricks = value;
-                NotifyOfPropertyChange(()=>Bricks);
+                _brickTypes = value;
+                NotifyOfPropertyChange(()=> BrickTypes);
             }
         }
 

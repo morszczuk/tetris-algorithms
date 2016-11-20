@@ -5,7 +5,7 @@ using Tetris.Models;
 
 namespace Tetris.Helpers
 {
-    class BricksLoader
+    internal class BricksLoader
     {
         private char _separator = ' ';
 
@@ -21,8 +21,8 @@ namespace Tetris.Helpers
         public FileInputResult ReadFile()
         {          
             ProcessLineZero();
-            Brick brick;
-            var bricks=new List<Brick>();
+            BrickType brick;
+            var bricks=new List<BrickType>();
 
             while ((brick = ProcessBrick()) != null)
             {
@@ -44,7 +44,7 @@ namespace Tetris.Helpers
 
         }
 
-        private Brick ProcessBrick()
+        private BrickType ProcessBrick()
         {
             var line = GetLine();
             if (line == null) return null;
@@ -63,7 +63,7 @@ namespace Tetris.Helpers
                 }
             }
 
-            return new Brick(brickBody);
+            return new BrickType(brickBody);
         }
         
 

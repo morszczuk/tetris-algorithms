@@ -7,13 +7,13 @@ namespace Tetris
     {
         public int WellWidth  { get; set; }
 
-        public int BricksNumber => Bricks.Count;
+        public int BricksNumber => BrickTypes.Count;
 
-        public List<Brick> Bricks { get; set; }
+        public List<BrickType> BrickTypes { get; set; }
 
-        public FileInputResult(int wellWidth, List<Brick> bricks)
+        public FileInputResult(int wellWidth, List<BrickType> brickTypes)
         {
-            Bricks = bricks;
+            BrickTypes = brickTypes;
             WellWidth = wellWidth;
         }
     }

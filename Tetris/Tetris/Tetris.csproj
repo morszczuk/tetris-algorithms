@@ -123,6 +123,7 @@
     <Compile Include="Enums\RotateEnum.cs" />
     <Compile Include="Models\BrickPosition.cs" />
     <Compile Include="Models\BricksShelf.cs" />
+    <Compile Include="Models\BrickType.cs" />
     <Compile Include="Models\Well.cs" />
     <Compile Include="Models\WellState.cs" />
     <Compile Include="ViewModels\RunningAlgorithmViewModel.cs" />

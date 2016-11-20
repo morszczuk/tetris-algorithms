@@ -15,7 +15,6 @@ namespace Tetris.ViewModels
     public class MainWindowViewModel : Conductor<object>, IHaveDisplayName
     {
         private readonly IWindowManager _windowManager;
-        private string _displayName = "Tetris";
 
 
         private ShellViewModel _shellViewModel;
@@ -31,15 +30,11 @@ namespace Tetris.ViewModels
             ActivatgeShellView();
         }
 
-        public string DisplayName
-        {
-            get { return _displayName; }
-            set { _displayName = value; }
-        }
+        public override string DisplayName { get; set; } = "Tetris";
 
         public void ActivateLibrary()
         {
-            _browseBricksViewModel = new BrowseBricksViewModel(_windowManager, _shellViewModel.Bricks, this);
+            _browseBricksViewModel = new BrowseBricksViewModel(_windowManager, _shellViewModel.BrickTypes, this);
             ActivateItem(_browseBricksViewModel);
         }
 
@@ -52,7 +47,7 @@ namespace Tetris.ViewModels
         public void ActivateRunningAlgorithmView(bool isStep)
         {
 
-            ActivateItem(new RunningAlgorithmViewModel(_windowManager, _shellViewModel.Bricks, this, isStep,_shellViewModel.WellNo,_shellViewModel.WellWidth));
+            ActivateItem(new RunningAlgorithmViewModel(_windowManager, _shellViewModel.BrickTypes, this, isStep,_shellViewModel.WellNo,_shellViewModel.WellWidth));
 
         }
 
