@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Caliburn.Micro;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.Helpers;
@@ -121,11 +123,18 @@ namespace Tetris.ViewModels
         {
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() != true) return;
-            var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
-            var result = loader.ReadFile();
-            _brickTypes = result.BrickTypes;
-            WellWidth = result.WellWidth;
-            LibraryIsVisible = true;
+            try
+            {
+                var loader = new BricksLoader(new StreamReader(openFileDialog.FileName));
+                var result = loader.ReadFile();
+                _brickTypes = result.BrickTypes;
+                WellWidth = result.WellWidth;
+                LibraryIsVisible = true;
+            }
+            catch (Exception)
+            {
+
+            }
         }
         public void BricksLibrary()
         {
