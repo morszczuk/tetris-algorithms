@@ -34,7 +34,7 @@
                 <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonName}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
             </Button>
         </Grid>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="LightBlue" >
             <!-- Studnie mają tutaj siedzieć -->
             <ItemsControl ItemsSource="{Binding Executor.ActiveStates}">
                 <ItemsControl.ItemsPanel>
@@ -48,13 +48,20 @@
                                 Converter={StaticResource WellStateToVisual}}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <Grid Background="LightBlue" helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
-                                                helpers:GridHelpers.ColumnCount="{Binding Path=Well.Width}" />
+                                    <Grid Background="LightBlue" 
+                                          helpers:GridHelpers.RowCount="{Binding Path=Fill.Count}"
+                                          helpers:GridHelpers.ColumnCount="{Binding Path=Well.Width}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="FrameworkElement.Margin" Value="10"/>
+                        <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
             </ItemsControl>
         </ScrollViewer>
         <controls:FlyoutsControl Grid.Row="1">
@@ -73,16 +80,6 @@
                             Zapisz aktualny stan algorytmu
                         </TextBlock>
                     </StackPanel>
-                    <!--
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Center">
-                        <Button Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
-                            <iconPacks:PackIconModern Kind="Timer1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="LightBlue"/>
-                        </Button>
-                        <TextBlock FontSize="16" FontWeight="Light" Foreground="White" Margin="0, 0, 0, 10">
-                            Przejdź na algorytm krokowy
-                        </TextBlock>
-                    </StackPanel>
-                    -->
                 </Grid>
             </controls:Flyout>
         </controls:FlyoutsControl>

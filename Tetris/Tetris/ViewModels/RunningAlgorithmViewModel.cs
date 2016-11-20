@@ -68,7 +68,10 @@ namespace Tetris.ViewModels
             if (AreComputationsRunning)
             {
                 var executor = new AlgorithmExecutor(_algorithmParameters);
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                 executor.Run();
+                watch.Stop();
+                Console.WriteLine("Time: " + watch.ElapsedMilliseconds);
 
                 Executor = executor;
             }

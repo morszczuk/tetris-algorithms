@@ -14,12 +14,14 @@ namespace Tetris.AlgorithmLogic
     public class AlgorithmExecutor
     {
         public List<WellState> ActiveStates { get; private set; }
-        
+        public AlgorithmInput Settings { get; }
+
         private readonly IWellStateSelectionStrategy _selectionStrategy;
         private readonly StatesGenerator _statesGenerator;
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
+            Settings = settings;
             IWellStateEvaluator evaluator = new ColumnFillEvaluator();
             IBrickPositioner positioner = new BasicBottomLeftPositioner();
 
