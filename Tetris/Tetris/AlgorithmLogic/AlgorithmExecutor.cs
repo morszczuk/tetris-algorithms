@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.AlgorithmLogic.Positioners;
-using Tetris.AlgorithmLogic.Strategies;
 using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic
@@ -15,28 +14,25 @@ namespace Tetris.AlgorithmLogic
     {
         public List<WellState> ActiveStates { get; private set; }
         public AlgorithmInput Settings { get; }
+        public bool IsStopped { get; private set; }
 
-        private readonly IWellStateSelectionStrategy _selectionStrategy;
+        private readonly IWellStateEvaluator _evaluator;
         private readonly StatesGenerator _statesGenerator;
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
             Settings = settings;
-            IWellStateEvaluator evaluator = new PointEvaluator();//new ColumnFillEvaluator();
+            _evaluator = new ColumnFillEvaluator();
             IBrickPositioner positioner = new BasicBottomLeftPositioner();
-
-            _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
             _statesGenerator = new StatesGenerator(positioner);
 
             InitializeActiveStates();
         }
 
-
-
         public AlgorithmExecutor(AlgorithmInput settings, IWellStateEvaluator evaluator, IBrickPositioner positioner)
         {
             Settings = settings;
-            _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
+            _evaluator = evaluator;
             _statesGenerator = new StatesGenerator(positioner);
             InitializeActiveStates();
         }
@@ -53,27 +49,32 @@ namespace Tetris.AlgorithmLogic
             ActiveStates = new List<WellState>() {initialState};
         }
 
-        public void Run()
+        public void Start()
         {
-            while (!IsFinished())
+            IsStopped = false;
+            while (!IsStopped && !IsFinished())
             {
                 MakeStep();
             }
         }
 
+        public void Stop()
+        {
+            IsStopped = true;
+        }
+
         public void MakeStep()
         {
-            var generatedStates = new List<WellState>();
-            foreach (var state in ActiveStates)
-            {
-                generatedStates.AddRange(_statesGenerator.Generate(state));
-            }
-            ActiveStates = _selectionStrategy.Select(generatedStates);
+            ActiveStates = ActiveStates
+                            .AsParallel()
+                            .SelectMany(_statesGenerator.Generate)
+                            .OrderByDescending(_evaluator.Evaluate)
+                            .Take(Settings.WellNo).ToList();
         }
 
         public bool IsFinished()
         {
-            return ActiveStates.All(s => !s.BricksShelf.AvailableBrickTypes().Any());
+            return ActiveStates.All(s => !s.BricksShelf.AvailableBrickTypes.Any());
         }
 
     }

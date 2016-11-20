@@ -6,6 +6,7 @@ namespace Tetris.Models
     public class BricksShelf
     {
         public Dictionary<BrickType, int> Bricks { get; }
+        public IEnumerable<BrickType> AvailableBrickTypes => Bricks.Where(b => b.Value > 0).Select(b => b.Key);
 
         public BricksShelf(IEnumerable<BrickType> bricks)
         {
@@ -19,11 +20,6 @@ namespace Tetris.Models
         public BricksShelf(BricksShelf bricksShelf)
         {
             Bricks = new Dictionary<BrickType, int>(bricksShelf.Bricks);
-        }
-
-        public IEnumerable<BrickType> AvailableBrickTypes()
-        {
-            return Bricks.Where(b => b.Value > 0).Select(b => b.Key);
         }
 
     }

@@ -17,8 +17,8 @@ namespace Tetris.Models
 
         public BrickType(bool[,] body)
         {
-            DefaultCount = 0;
-            var brick = new Brick(body);
+            DefaultCount = 5;
+            var brick = new Brick(body, this);
             _rotations = new Dictionary<RotateEnum, Brick>(4);
             foreach (RotateEnum rotation in Enum.GetValues(typeof(RotateEnum)))
             {
@@ -39,7 +39,7 @@ namespace Tetris.Models
             for (var i = 0; i < brick.Height; i++)
                 for (var j = 0; j < brick.Width; j++)
                     newBody[j, brick.Height - i - 1] = brick.Body[i, j];
-            return new Brick(newBody);
+            return new Brick(newBody, brick.BrickType);
         }
 
         public static bool operator ==(BrickType b1, BrickType b2)

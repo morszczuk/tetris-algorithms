@@ -108,8 +108,6 @@
     <Compile Include="AlgorithmLogic\Positioners\BasicBottomLeftPositioner.cs" />
     <Compile Include="AlgorithmLogic\Positioners\IBrickPositioner.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\HeightEvaluator.cs" />
-    <Compile Include="AlgorithmLogic\Strategies\IWellStateSelectionStrategy.cs" />
-    <Compile Include="AlgorithmLogic\Strategies\TopKStates.cs" />
     <Compile Include="Bootstrapper\AppWindowManager.cs" />
     <Compile Include="Bootstrapper\Bootstrapper.cs" />
     <Compile Include="Converters\WellStateToVisual.cs" />

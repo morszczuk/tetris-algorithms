@@ -12,10 +12,12 @@ namespace Tetris.Models
         public uint[] BinaryBody { get; }
         
         public int TilesCount { get; }
+        public BrickType BrickType { get; }
 
-        public Brick(bool[,] body)
+        public Brick(bool[,] body, BrickType brickType = null)
         {
             Body = body;
+            BrickType = brickType;
             BinaryBody = ConvertToBinaryRepresentation(body);
             TilesCount = 0;
             for (var i=0;i<body.GetLength(0);i++)

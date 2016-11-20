@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Tetris.AlgorithmLogic.Positioners;
 using Tetris.Models;
 
@@ -14,19 +15,26 @@ namespace Tetris.AlgorithmLogic
             _positioner = positioner;
         }
 
-        public List<WellState> Generate(WellState wellState) 
+        public List<WellState> Generate(WellState wellState)
         {
-            var newStates = new List<WellState>();
-            foreach (var brickType in wellState.BricksShelf.AvailableBrickTypes())
-            {
-                foreach (var rotation in brickType.AvailableRotations)
-                {
-                    var tmpState = new WellState(wellState);
-                    tmpState.BricksShelf.Bricks[brickType]--;
-                    newStates.AddRange(_positioner.PlaceBrick(tmpState, brickType.Brick(rotation)));
-                }
-            }
-            return newStates;
+            return wellState.BricksShelf
+                            .AvailableBrickTypes
+                            .AsParallel()
+                            .SelectMany<BrickType, Brick>(BrickRotations)
+                            .SelectMany<Brick, WellState>(brick => StatesWithBrick(wellState, brick))
+                            .ToList();
+        }
+
+        private IEnumerable<Brick> BrickRotations(BrickType brickType)
+        {
+            return brickType.AvailableRotations.Select(rotation => brickType.Brick(rotation));
+        }
+
+        private IEnumerable<WellState> StatesWithBrick(WellState wellState, Brick brick)
+        {
+            var tmpState = new WellState(wellState);
+            tmpState.BricksShelf.Bricks[brick.BrickType]--;
+            return _positioner.PlaceBrick(tmpState, brick);
         }
 
     }

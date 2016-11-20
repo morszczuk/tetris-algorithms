@@ -4,6 +4,7 @@ using Caliburn.Micro;
 using Tetris.AlgorithmLogic;
 using Tetris.Enums;
 using Tetris.Models;
+using System.Threading.Tasks;
 
 namespace Tetris.ViewModels
 {
@@ -15,8 +16,9 @@ namespace Tetris.ViewModels
 
         private readonly AlgorithmInput _algorithmParameters;
         private AlgorithmExecutor _executor;
-        private IEnumerable<WellState> _activeStates;
+        private Task _task;
 
+        private IEnumerable<WellState> _activeStates;
         public IEnumerable<WellState> ActiveStates
         {
             get { return _activeStates; }
@@ -27,24 +29,62 @@ namespace Tetris.ViewModels
             }
         }
 
-        private bool _areComputationsRunning;
-
-        public bool AreComputationsRunning
+        private bool _areComputationsStarted;
+        public bool AreComputationsStarted
         {
-            get
-            {
-                return _areComputationsRunning;
-            }
+            get { return _areComputationsStarted; }
             set
             {
-                _areComputationsRunning = value;
-                NotifyOfPropertyChange(() => AreComputationsRunning);
+                _areComputationsStarted = value;
+                NotifyOfPropertyChange(() => AreComputationsStarted);
                 NotifyOfPropertyChange(() => ComputationsButtonName);
             }
         }
 
-        public string ComputationsButtonName => AreComputationsRunning ? "TimerPause" : "TimerPlay";
+        private bool _areComputationsPaused;
+        public bool AreComputationsPaused
+        {
+            get { return _areComputationsPaused; }
+            set
+            {
+                Console.WriteLine(value ? "Pausing..." : "Resuming...");
+                _areComputationsPaused = value;
+                NotifyOfPropertyChange(() => AreComputationsPaused);
+                NotifyOfPropertyChange(() => ComputationsButtonName);
 
+                if (_areComputationsPaused)
+                {
+                    StopComputations();
+                }
+                else
+                {
+                    StartComputations();
+                }
+            }
+        }
+
+        private bool _areComputationsFinished;
+        public bool AreComputationsFinished
+        {
+            get { return _areComputationsFinished; }
+            private set
+            {
+                _areComputationsFinished = value;
+                NotifyOfPropertyChange(() => AreComputationsFinished);
+                NotifyOfPropertyChange(() => ComputationsButtonName);
+            }
+        }
+
+        public string ComputationsButtonName
+        {
+            get
+            {
+                if (AreComputationsFinished) return "TimerCheck";
+                if (!AreComputationsStarted) return "TimerPlay";
+                if (AreComputationsPaused) return "TimerResume;";
+                return "TimerPause";
+            }
+        }
 
         public bool IsStep { get; }
         public int StepCount { get; set; } = 1;
@@ -56,32 +96,53 @@ namespace Tetris.ViewModels
             IsStep = isStep;
             _algorithmParameters = new AlgorithmInput(new BricksShelf(bricks), wellNo, wellWidth, isStep ? AlgorithmsEnum.Step : AlgorithmsEnum.Continuous);
             _executor = new AlgorithmExecutor(_algorithmParameters);
+
+            _areComputationsStarted = false;
+            _areComputationsPaused = false;
+            _areComputationsFinished = false;
         }
 
         public override string DisplayName { get; set; } = "Uruchomiony algorytm";
 
         public void ToggleRunnningAlgorithmOnClick()
         {
-            AreComputationsRunning = !AreComputationsRunning;
-            if (AreComputationsRunning)
+            if (AreComputationsFinished) return;
+            if (!AreComputationsStarted)
             {
-                var watch = System.Diagnostics.Stopwatch.StartNew();
-                _executor.Run();
-                watch.Stop();
-                Console.WriteLine("Time: " + watch.ElapsedMilliseconds);
-                ActiveStates = _executor.ActiveStates;
-            }
-            else
+                AreComputationsStarted = true;
+                AreComputationsPaused = false;
+            } else
             {
-                _executor.Reset();
+                AreComputationsPaused = !AreComputationsPaused;
             }
         }
 
+        public void StartComputations()
+        {
+            _task = new Task(() => _executor.Start());
+            _task.ContinueWith((t) => {
+                AreComputationsFinished = _executor.IsFinished();
+                ActiveStates = _executor.ActiveStates;
+            });
+            _task.Start();
+        }
+
+        public void StopComputations()
+        {
+            _executor.Stop();
+        }
+
+
         public void MakeStepOnClick()
         {
+            if (AreComputationsFinished) return;
             for (var i = 0; i < StepCount; i++)
             {
-                if (_executor.IsFinished()) break;
+                if (_executor.IsFinished())
+                {
+                    AreComputationsFinished = true;
+                    break;
+                }
                 _executor.MakeStep();
             }
             ActiveStates = _executor.ActiveStates;
