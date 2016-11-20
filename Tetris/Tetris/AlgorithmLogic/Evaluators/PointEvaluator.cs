@@ -8,7 +8,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
 {
     class PointEvaluator : IWellStateEvaluator
     {
-        private int _startWallPoint = 4;
+        private int _startWallPoint = 3;
         private int _startNeightBourPoint = 5;
 
         public int Evaluate(WellState wellState)
@@ -208,12 +208,12 @@ namespace Tetris.AlgorithmLogic.Evaluators
             {
                 case PointEnum.Neighbour:
                     {
-                        if (row == 0) return _startNeightBourPoint;
+                        if (row <= 0) return _startNeightBourPoint;
                         return ((double)1 / (double)row) * _startNeightBourPoint;
                     }
                 case PointEnum.Wall:
                     {
-                        if (row == 0) return _startNeightBourPoint;
+                        if (row <= 0) return _startNeightBourPoint;
                         return ((double)1 / (double)row) * _startWallPoint;
                     }
 
