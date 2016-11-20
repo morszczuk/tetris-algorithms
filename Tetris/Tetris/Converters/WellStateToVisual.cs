@@ -34,7 +34,7 @@ namespace Tetris.Converters
                 var brick = item.Bricks[i].Brick;
                 if (_colorStep * colorCounter > 255) colorCounter -= i;
                 byte c = (byte)(_colorStep * colorCounter);
-                var colour = Color.FromArgb(255, c, c, c);
+                var color = i < item.Bricks.Count - 1 ? Color.FromArgb(255, c, c, c) : Color.FromArgb(255, 255, 255, 102);
                 for (int j = 0; j < brick.Height; j++)
                 {
                     for (int k = 0; k < brick.Width; k++)
@@ -43,7 +43,7 @@ namespace Tetris.Converters
                         {
                             Button b = new Button()
                             {
-                                Background = new SolidColorBrush(colour)
+                                Background = new SolidColorBrush(color)
                             };
 
                             Binding binding = new Binding()

@@ -25,21 +25,21 @@
                 <iconPacks:PackIconModern Kind="TimerStop" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
             </Button>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <controls:NumericUpDown Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}" Minimum="1" Value="1" Height="40" Width="100"/>
-                <Button Margin="10 0 0 0" Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                <controls:NumericUpDown Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}" Minimum="1" Value="{Binding StepCount, Mode=TwoWay}" Height="40" Width="100"/>
+                <Button x:Name="MakeStepOnClick" Margin="10 0 0 0" Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                     <iconPacks:PackIconModern Kind="TimerForward" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
                 </Button>
             </StackPanel>
-            <Button x:Name="PlayPauseOnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+            <Button x:Name="ToggleRunnningAlgorithmOnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                 <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonName}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
             </Button>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="LightBlue" >
             <!-- Studnie mają tutaj siedzieć -->
-            <ItemsControl ItemsSource="{Binding Executor.ActiveStates}">
+            <ItemsControl ItemsSource="{Binding ActiveStates}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="{Binding Executor.Settings.WellNo}" />
+                        <UniformGrid Columns="{Binding ActiveStates.Count}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

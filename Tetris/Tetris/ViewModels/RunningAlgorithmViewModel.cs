@@ -16,16 +16,17 @@ namespace Tetris.ViewModels
         private readonly IWindowManager _windowManager;
         private MainWindowViewModel _mainWindowViewModel;
 
-        private AlgorithmInput _algorithmParameters;
+        private readonly AlgorithmInput _algorithmParameters;
         private AlgorithmExecutor _executor;
+        private IEnumerable<WellState> _activeStates;
 
-        public AlgorithmExecutor Executor
+        public IEnumerable<WellState> ActiveStates
         {
-            get { return _executor; }
-            set
+            get { return _activeStates; }
+            private set
             {
-                _executor = value;
-                NotifyOfPropertyChange(() => Executor);
+                _activeStates = value;
+                NotifyOfPropertyChange(() => ActiveStates);
             }
         }
 
@@ -49,6 +50,7 @@ namespace Tetris.ViewModels
 
 
         public bool IsStep { get; }
+        public int StepCount { get; set; } = 1;
 
         public RunningAlgorithmViewModel(IWindowManager windowManager, IEnumerable<BrickType> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
         {
@@ -56,29 +58,36 @@ namespace Tetris.ViewModels
             _mainWindowViewModel = mainWindowViewModel;
             IsStep = isStep;
             _algorithmParameters = new AlgorithmInput(new BricksShelf(bricks), wellNo, wellWidth, isStep ? AlgorithmsEnum.Step : AlgorithmsEnum.Continuous);
-
+            _executor = new AlgorithmExecutor(_algorithmParameters);
         }
 
         public override string DisplayName { get; set; } = "Uruchomiony algorytm";
 
-
-        public void PlayPauseOnClick()
+        public void ToggleRunnningAlgorithmOnClick()
         {
             AreComputationsRunning = !AreComputationsRunning;
             if (AreComputationsRunning)
             {
-                var executor = new AlgorithmExecutor(_algorithmParameters);
                 var watch = System.Diagnostics.Stopwatch.StartNew();
-                executor.Run();
+                _executor.Run();
                 watch.Stop();
                 Console.WriteLine("Time: " + watch.ElapsedMilliseconds);
-
-                Executor = executor;
+                ActiveStates = _executor.ActiveStates;
             }
             else
             {
-                Executor = null;
+                _executor.Reset();
             }
+        }
+
+        public void MakeStepOnClick()
+        {
+            for (var i = 0; i < StepCount; i++)
+            {
+                if (_executor.IsFinished()) break;
+                _executor.MakeStep();
+            }
+            ActiveStates = _executor.ActiveStates;
         }
 
         public void EndComputationOnClick()

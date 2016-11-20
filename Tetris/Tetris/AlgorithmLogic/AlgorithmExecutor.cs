@@ -28,24 +28,29 @@ namespace Tetris.AlgorithmLogic
             _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
             _statesGenerator = new StatesGenerator(positioner);
 
-            InitializeActiveStates(settings);
+            InitializeActiveStates();
         }
+
+
 
         public AlgorithmExecutor(AlgorithmInput settings, IWellStateEvaluator evaluator, IBrickPositioner positioner)
         {
+            Settings = settings;
             _selectionStrategy = new TopKStates(settings.WellNo, evaluator);
             _statesGenerator = new StatesGenerator(positioner);
-
-            InitializeActiveStates(settings);
+            InitializeActiveStates();
         }
 
-        private void InitializeActiveStates(AlgorithmInput settings)
+        public void Reset()
         {
-            var well = new Well(settings.WellWidth);
-            var initialState = new WellState(well, settings.BricksShelf);
-            ActiveStates = new List<WellState>();
-            for (var i = 0; i < settings.WellNo; i++)
-                ActiveStates.Add(initialState);
+            InitializeActiveStates();
+        }
+
+        private void InitializeActiveStates()
+        {
+            var well = new Well(Settings.WellWidth);
+            var initialState = new WellState(well, Settings.BricksShelf);
+            ActiveStates = new List<WellState>() {initialState};
         }
 
         public void Run()
