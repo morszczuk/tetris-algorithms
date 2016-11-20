@@ -42,7 +42,7 @@ namespace TetrisSample
             {
                 Draw(ConsoleColor.White);
                 for (var x = 0; x < width; x++)
-                    Draw(wellState.Fill[y][x] ? ConsoleColor.Yellow : ConsoleColor.Black);
+                    Draw(wellState.IsFilled(x,y) ? ConsoleColor.Yellow : ConsoleColor.Black);
                 Draw(ConsoleColor.White);
                 Console.WriteLine("");
             }

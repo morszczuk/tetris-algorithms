@@ -11,7 +11,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
             {
                 for (var y = wellState.Fill.Count - 1; y >= 0; y--)
                 {
-                    if (wellState.Fill[y][x])
+                    if (wellState.IsFilled(x, y))
                     {
                         value += y;
                         break;

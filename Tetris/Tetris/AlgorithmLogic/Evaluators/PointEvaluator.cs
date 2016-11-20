@@ -139,7 +139,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                             }
                             else
                             {
-                                if (wellState.Fill[rowY - 1][column])
+                                if (wellState.IsFilled(column, rowY - 1))
                                 {
                                     result.Add(new PointCords(columnX, rowY - 1, PointEnum.Neighbour));
                                 }
@@ -149,7 +149,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                     case SideEnum.Down:
                         {
                             if (rowY == wellState.Fill.Count - 1) break;
-                            if (wellState.Fill[rowY + 1][columnX])
+                            if (wellState.IsFilled(columnX, rowY + 1))
                             {
                                 result.Add(new PointCords(columnX, rowY + 1, PointEnum.Neighbour));
 
@@ -165,7 +165,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                             }
                             else
                             {
-                                if (wellState.Fill[rowY][columnX - 1])
+                                if (wellState.IsFilled(columnX - 1, rowY))
                                 {
                                     result.Add(new PointCords(columnX - 1, rowY, PointEnum.Neighbour));
                                 }
@@ -181,7 +181,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                             }
                             else
                             {
-                                if (wellState.Fill[rowY][columnX + 1])
+                                if (wellState.IsFilled(columnX + 1, rowY))
                                 {
                                     result.Add(new PointCords(columnX + 1, rowY, PointEnum.Neighbour));
                                 }
