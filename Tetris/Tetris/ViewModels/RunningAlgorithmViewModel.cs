@@ -49,12 +49,20 @@ namespace Tetris.ViewModels
         public bool IsStep { get; }
         public int StepCount { get; set; } = 1;
 
-        public RunningAlgorithmViewModel(IWindowManager windowManager, IEnumerable<BrickType> bricks, MainWindowViewModel mainWindowViewModel, bool isStep, int wellNo, int wellWidth)
+        public RunningAlgorithmViewModel(IWindowManager windowManager,
+            IEnumerable<BrickType> bricks,
+            MainWindowViewModel mainWindowViewModel,
+            bool isStep, int wellNo, int wellWidth,
+            Type evaluator)
         {
             _windowManager = windowManager;
             _mainWindowViewModel = mainWindowViewModel;
             IsStep = isStep;
-            _algorithmParameters = new AlgorithmInput(new BricksShelf(bricks), wellNo, wellWidth, isStep ? AlgorithmsEnum.Step : AlgorithmsEnum.Continuous);
+            _algorithmParameters = new AlgorithmInput(new BricksShelf(bricks),
+                wellNo,
+                wellWidth,
+                isStep ? AlgorithmsEnum.Step : AlgorithmsEnum.Continuous,
+                evaluator);
             _executor = new AlgorithmExecutor(_algorithmParameters);
         }
 

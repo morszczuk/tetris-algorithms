@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using Caliburn.Micro;
 using Microsoft.Win32;
+using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.Helpers;
 using Tetris.Models;
 
@@ -10,7 +14,7 @@ namespace Tetris.ViewModels
 {
     [Export(typeof(ShellViewModel))]
 
-    public class ShellViewModel :  Conductor<object>, IHaveDisplayName
+    public class ShellViewModel : Conductor<object>, IHaveDisplayName
     {
         private readonly IWindowManager _windowManager;
         private int _wellNo = 2;
@@ -18,12 +22,15 @@ namespace Tetris.ViewModels
         private List<BrickType> _brickTypes;
         private bool _libraryIsVisible = false;
         private MainWindowViewModel _mainWindow;
+        private Type _selectedEvaluator;
 
 
         public ShellViewModel(IWindowManager windowManager, MainWindowViewModel mainWindow)
         {
             _windowManager = windowManager;
             _mainWindow = mainWindow;
+
+            SelectedEvaluator = Evaluators[0];
         }
 
         public override string DisplayName { get; set; } = "Tetris";
@@ -54,11 +61,40 @@ namespace Tetris.ViewModels
             }
         }
 
+        public List<Type> Evaluators
+        {
+            get
+            {
+                var type = typeof(IWellStateEvaluator);
+                var types = AppDomain.CurrentDomain.GetAssemblies()
+                    .SelectMany(s => s.GetTypes())
+                    .Where(p => type.IsAssignableFrom(p)).ToList();
+
+                types.Remove(typeof(IWellStateEvaluator));
+                types.Remove(typeof(FillWithoutTopNEvaluator));//nie ma konstruktora bezparametrowego
+                return types;
+            }
+        }
+
+        public Type SelectedEvaluator
+        {
+            get
+            {
+                return _selectedEvaluator;
+            }
+            set
+            {
+                _selectedEvaluator = value;
+                NotifyOfPropertyChange(() => SelectedEvaluator);
+            }
+        }
+
+
         public List<BrickType> BrickTypes
         {
             get
             {
-                return _brickTypes;    
+                return _brickTypes;
             }
             set
             {
@@ -66,6 +102,8 @@ namespace Tetris.ViewModels
                 NotifyOfPropertyChange(() => BrickTypes);
             }
         }
+
+
 
         public bool LibraryIsVisible
         {
@@ -76,6 +114,8 @@ namespace Tetris.ViewModels
                 NotifyOfPropertyChange(() => LibraryIsVisible);
             }
         }
+
+
 
         public void ReadBricks()
         {
@@ -94,12 +134,12 @@ namespace Tetris.ViewModels
 
         public void GoAlgorithmByStep()
         {
-            _mainWindow.ActivateRunningAlgorithmView(true);
+            _mainWindow.ActivateRunningAlgorithmView(true,SelectedEvaluator);
         }
 
         public void GoAlgorithm()
         {
-            _mainWindow.ActivateRunningAlgorithmView(false);
+            _mainWindow.ActivateRunningAlgorithmView(false, SelectedEvaluator);
         }
 
     }

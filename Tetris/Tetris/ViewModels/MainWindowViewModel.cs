@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Caliburn.Micro;
 
 namespace Tetris.ViewModels
@@ -19,7 +20,6 @@ namespace Tetris.ViewModels
         {
             _windowManager = new WindowManager();
 
-
             ActivatgeShellView();
         }
 
@@ -37,10 +37,16 @@ namespace Tetris.ViewModels
             ActivateItem(_shellViewModel);
         }
 
-        public void ActivateRunningAlgorithmView(bool isStep)
+        public void ActivateRunningAlgorithmView(bool isStep,Type evaluator)
         {
 
-            ActivateItem(new RunningAlgorithmViewModel(_windowManager, _shellViewModel.BrickTypes, this, isStep,_shellViewModel.WellNo,_shellViewModel.WellWidth));
+            ActivateItem(new RunningAlgorithmViewModel(_windowManager,
+                _shellViewModel.BrickTypes,
+                this,
+                isStep,
+                _shellViewModel.WellNo,
+                _shellViewModel.WellWidth,
+                evaluator));
 
         }
 

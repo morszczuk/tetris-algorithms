@@ -57,12 +57,12 @@ namespace Tetris.Converters
                 }
                 colorCounter++;
             }
-            TextBlock percentageFilled = new TextBlock {
+            TextBlock percentageFilled = new TextBlock
+            {
                 Text = $"Space covered {item.PercentageFilled} %",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 FontWeight = FontWeights.DemiBold
-
             };
             Grid.SetRow(percentageFilled, item.Fill.Count);
             Grid.SetColumnSpan(percentageFilled, item.Well.Width);
