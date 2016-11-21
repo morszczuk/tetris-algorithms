@@ -19,11 +19,15 @@ namespace Tetris.Converters
 
             var parts = new List<System.Windows.Shapes.Rectangle>();
 
-            var partWidth = (200) / BlocksMaxWidth;
-            var partHeight = (200) / BlocksMaxHeight;
+            int blockWidth = Math.Max(BlocksMaxWidth, item.GetLength(1));
+            int blockHeight = Math.Max(BlocksMaxHeight, item.GetLength(0));
 
-            var startWidth = (BlocksMaxWidth - item.GetLength(1)) / 2;
-            var startHeight = (BlocksMaxHeight - item.GetLength(0)) / 2;
+
+            var partWidth = (200) / blockWidth;
+            var partHeight = (200) / blockHeight;
+
+            var startWidth = (blockWidth - item.GetLength(1)) / 2;
+            var startHeight = (blockHeight - item.GetLength(0)) / 2;
 
             for (var i = 0; i < item.GetLength(0); i++)
             {
