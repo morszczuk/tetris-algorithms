@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{34280401-7A30-4120-AF36-89CA883C1173}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tetris</RootNamespace>
     <AssemblyName>Tetris</AssemblyName>
@@ -111,7 +111,9 @@
     <Compile Include="Bootstrapper\AppWindowManager.cs" />
     <Compile Include="Bootstrapper\Bootstrapper.cs" />
     <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="Converters\WellStateToStatus.cs" />
     <Compile Include="Converters\WellStateToVisual.cs" />
+    <Compile Include="Converters\WithIndex.cs.cs" />
     <Compile Include="Helpers\BinarySerializer.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
     <Compile Include="Models\Brick.cs" />

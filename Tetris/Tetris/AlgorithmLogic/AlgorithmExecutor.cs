@@ -18,7 +18,6 @@ namespace Tetris.AlgorithmLogic
 
         private readonly IWellStateEvaluator _evaluator;
         private readonly StatesGenerator _statesGenerator;
-        private IEnumerable<WellState> activeStates;
 
         public AlgorithmExecutor(AlgorithmInput settings)
         {
