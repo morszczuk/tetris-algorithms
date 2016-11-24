@@ -12,7 +12,7 @@ namespace TetrisTests.Helpers
         {
             BricksGenerator generator = new BricksGenerator(10, 5, 5, 0);
             var list = generator.GenerateBricks();
-            Assert.IsTrue(list.Count==0);
+            Assert.IsTrue(list.Count == 0);
         }
         [TestMethod]
         public void BricksGeneratorOneBrick()
