@@ -38,7 +38,6 @@
             </Button>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="LightBlue" >
-            <!-- Studnie mają tutaj siedzieć -->
             <ItemsControl ItemsSource="{Binding ActiveStates, Converter={StaticResource WithIndex}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

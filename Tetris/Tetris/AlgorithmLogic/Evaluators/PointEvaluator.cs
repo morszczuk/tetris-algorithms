@@ -8,14 +8,15 @@ namespace Tetris.AlgorithmLogic.Evaluators
 {
     class PointEvaluator : IWellStateEvaluator
     {
-        private int _startWallPoint = 3;
-        private int _startNeightBourPoint = 5;
+        private readonly int _startWallPoint = 3;
+        private readonly int _startNeightBourPoint = 5;
+        private readonly int _scaleConst = 1000;
 
         public int Evaluate(WellState wellState)
         {
             var addedBrick = wellState.Bricks[wellState.Bricks.Count - 1];
             var points = CountPoints(wellState, addedBrick);
-            var pointsScaled = points * 1000;
+            var pointsScaled = points * _scaleConst;
 
             return (int)pointsScaled;
         }
@@ -23,7 +24,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
         private double CountPoints(WellState wellState, BrickPosition brickPos)
         {
             //DFS
-            List<PointCords> probablePoints = new List<PointCords>();
+            List<PointCords> points = new List<PointCords>();
             Stack<KeyValuePair<int, int>> stack = new Stack<KeyValuePair<int, int>>();
 
             var brick = brickPos.Brick;
@@ -58,7 +59,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                     if (brick.Body[i, j - 1] && !visited[i, j - 1])
                     {
                         stack.Push(new KeyValuePair<int, int>(i, j - 1));
-
                         visited[i, j - 1] = true;
                     }
                 }
@@ -68,8 +68,6 @@ namespace Tetris.AlgorithmLogic.Evaluators
                     {
                         stack.Push(new KeyValuePair<int, int>(i, j + 1));
                         visited[i, j + 1] = true;
-
-
                     }
                 }
                 if (i + 1 < brick.Height)
@@ -82,47 +80,42 @@ namespace Tetris.AlgorithmLogic.Evaluators
                 }
                 visited[i, j] = true;
 
-                var possibleNeighbours = GetPossibleNeighbours(i, j, brickPos);
-
-
-                probablePoints.AddRange(GetPossiblePoints(i, j, possibleNeighbours, wellState, brickPos));
+                var possibleNeighbours = GetPossibleNeighbours(i, j, brickPos.Brick);
+                points.AddRange(VerifyPossiblePoints(i, j, possibleNeighbours, wellState, brickPos));
             }
 
-            var eliminatedDuplicated = EliminateDuplicated(probablePoints);
+            var eliminatedDuplicatedPoints = EliminateDuplicats(points);
 
-            double p = eliminatedDuplicated.Sum(point => GetPoints(point.Point.Y, point.PointEn));
+            double p = eliminatedDuplicatedPoints.Sum(point => GetPoints(point.Point.Y, point.PointEn));
 
             return p;
         }
 
-        private IEnumerable<PointCords> EliminateDuplicated(List<PointCords> list)
+        private IEnumerable<PointCords> EliminateDuplicats(List<PointCords> list)
         {
             List<PointCords> result = new List<PointCords>();
-
-
             bool isInCollection = false;
-            for (int i = 0; i < list.Count; i++)
+            foreach (PointCords t in list)
             {
-                for (int j = 0; j < result.Count; j++)
+                foreach (PointCords t1 in result)
                 {
-                    if (list[i].Point.Y == result[j].Point.Y && list[i].Point.X == result[j].Point.X &&
-                        list[i].PointEn == result[j].PointEn)
+                    if (t.Point.Y == t1.Point.Y && t.Point.X == t1.Point.X &&
+                        t.PointEn == t1.PointEn)
                     {
                         isInCollection = true;
                     }
                 }
                 if (!isInCollection)
                 {
-                    result.Add(list[i]);
+                    result.Add(t);
                 }
                 isInCollection = false;
             }
             return result;
         }
 
-        private List<SideEnum> GetPossibleNeighbours(int row, int column, BrickPosition brickPos)
+        private List<SideEnum> GetPossibleNeighbours(int row, int column, Brick brick)
         {
-            var brick = brickPos.Brick;
             List<SideEnum> list = new List<SideEnum>();
             if (row == 0)
                 list.Add(SideEnum.Up);
@@ -146,7 +139,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return list;
         }
 
-        private List<PointCords> GetPossiblePoints(int row, int column, List<SideEnum> list, WellState wellState, BrickPosition brickPos)
+        private List<PointCords> VerifyPossiblePoints(int row, int column, List<SideEnum> list, WellState wellState, BrickPosition brickPos)
         {
             List<PointCords> result = new List<PointCords>();
             var brick = brickPos.Brick;
@@ -233,9 +226,8 @@ namespace Tetris.AlgorithmLogic.Evaluators
 
         class PointCords
         {
-            public Point Point { get; set; }
-            public PointEnum PointEn { get; set; }
-
+            public Point Point { get; private set; }
+            public PointEnum PointEn { get; private set; }
             private SideEnum Side { get; set; }
 
             public PointCords(int x, int y, PointEnum type, SideEnum side)
@@ -245,6 +237,5 @@ namespace Tetris.AlgorithmLogic.Evaluators
                 Side = side;
             }
         }
-
     }
 }

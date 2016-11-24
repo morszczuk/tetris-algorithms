@@ -10,8 +10,8 @@ namespace Tetris.Converters
 {
     class BlockToVisual : IValueConverter
     {
-        private const int BlocksMaxHeight = 8;
-        private const int BlocksMaxWidth = 8;
+        private const int _blocksMaxHeight = 8;
+        private const int _blocksMaxWidth = 8;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -19,8 +19,8 @@ namespace Tetris.Converters
 
             var parts = new List<System.Windows.Shapes.Rectangle>();
 
-            int blockWidth = Math.Max(BlocksMaxWidth, item.GetLength(1));
-            int blockHeight = Math.Max(BlocksMaxHeight, item.GetLength(0));
+            int blockWidth = Math.Max(_blocksMaxWidth, item.GetLength(1));
+            int blockHeight = Math.Max(_blocksMaxHeight, item.GetLength(0));
 
 
             var partWidth = (200) / blockWidth;
