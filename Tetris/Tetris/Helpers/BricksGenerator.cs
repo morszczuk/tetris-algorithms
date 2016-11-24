@@ -7,7 +7,7 @@ namespace Tetris.Helpers
     /// <summary>
     /// Classes generates collection of bricks for given field, max width, max height and number of bricks - parameters should be used with caution
     /// </summary>
-    class BricksGenerator
+    public class BricksGenerator
     {
         private readonly int _maxBricks;
         private readonly int _field;

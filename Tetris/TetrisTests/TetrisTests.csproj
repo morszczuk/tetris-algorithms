@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AlgorithmLogic\Evaluators\FillEvaluatorTest.cs" />
     <Compile Include="AlgorithmLogic\Evaluators\PointEvaluatorTest.cs" />
+    <Compile Include="Helpers\BricksGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\AlgorithmTestHelper.cs" />
   </ItemGroup>
