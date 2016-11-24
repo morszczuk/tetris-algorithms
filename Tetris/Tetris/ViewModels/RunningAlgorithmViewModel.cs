@@ -15,10 +15,10 @@ namespace Tetris.ViewModels
     public class RunningAlgorithmViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
-        private MainWindowViewModel _mainWindowViewModel;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
         private readonly AlgorithmInput _algorithmParameters;
-        private AlgorithmExecutor _executor;
+        private readonly AlgorithmExecutor _executor;
         private Task _task;
 
         private IEnumerable<WellState> _activeStates;

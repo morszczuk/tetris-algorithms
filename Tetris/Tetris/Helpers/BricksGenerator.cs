@@ -4,6 +4,9 @@ using Tetris.Models;
 
 namespace Tetris.Helpers
 {
+    /// <summary>
+    /// Classes generates collection of bricks for given field, max width, max height and number of bricks - parameters should be used with caution
+    /// </summary>
     class BricksGenerator
     {
         private readonly int _maxBricks;
@@ -19,7 +22,10 @@ namespace Tetris.Helpers
             _maxBricks = maxBricks;
         }
 
-
+        /// <summary>
+        /// Generates random bricks then validate and add to collection if validation returns true, doing such until number of bricks are reached
+        /// </summary>
+        /// <returns>List of bricks</returns>
         public List<Brick> GenerateBricks()
         {
             List<Brick> collection = new List<Brick>();
@@ -37,10 +43,16 @@ namespace Tetris.Helpers
                     bricksCollected--;
                 }
             }
-
             return collection;
         }
 
+
+        /// <summary>
+        /// Brick validations runned here
+        /// </summary>
+        /// <param name="brick"> brick to test</param>
+        /// <param name="collection"> collection </param>
+        /// <returns>true if brick is properly generated</returns>
         private bool ValidateBrick(Brick brick, List<Brick> collection)
         {
             if (!ValidateConsistency(brick)) return false;
@@ -48,9 +60,14 @@ namespace Tetris.Helpers
             if (!ValidateSize(brick)) return false;
 
             return ValidateEqualitySameSizes(brick, collection);
-
         }
 
+        /// <summary>
+        /// Validates equality of same sized bricks
+        /// </summary>
+        /// <param name="brick">tested brick</param>
+        /// <param name="collection">rest of bricks</param>
+        /// <returns>true if brick is not in collection</returns>
         private bool ValidateEqualitySameSizes(Brick brick, List<Brick> collection)
         {
             foreach (var cBrick in collection)
@@ -62,6 +79,11 @@ namespace Tetris.Helpers
             return true;
         }
 
+        /// <summary>
+        /// Validates size of bricks
+        /// </summary>
+        /// <param name="brick">Tested brick</param>
+        /// <returns>true if is properly generated</returns>
         private bool ValidateSize(Brick brick)
         {
             int rowMax = int.MinValue;
@@ -87,7 +109,11 @@ namespace Tetris.Helpers
             return (rowMax == brick.Height - 1 && colMax == brick.Width - 1 && rowMin == 0 && colMin == 0);
         }
 
-
+        /// <summary>
+        /// Validates consistency of brick using DFS
+        /// </summary>
+        /// <param name="brick">tested brick</param>
+        /// <returns>true if consistent</returns>
         private bool ValidateConsistency(Brick brick)
         {
             //DFS
@@ -162,7 +188,10 @@ namespace Tetris.Helpers
 
         }
 
-
+        /// <summary>
+        /// Generate random brick
+        /// </summary>
+        /// <returns>Generated brick</returns>
         private Brick GenerateRandomBrick()
         {
             Random r = new Random();

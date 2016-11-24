@@ -6,10 +6,15 @@ namespace Tetris.Helpers
 {
     class BricksSaver
     {
+        /// <summary>
+        /// Generate file's content
+        /// </summary>
+        /// <param name="bricks">collection</param>
+        /// <param name="wellWidth">Well's width</param>
+        /// <returns>file's content as string</returns>
         public static string SaveToFile(List<Brick> bricks, int wellWidth)
         {
             StringBuilder sb = new StringBuilder();
-
 
             sb.AppendLine($"{wellWidth} {bricks.Count}");
 
@@ -20,14 +25,7 @@ namespace Tetris.Helpers
                 {
                     for (int j = 0; j < br.Width; j++)
                     {
-                        if (br.Body[i, j])
-                        {
-                            sb.Append("1");
-                        }
-                        else
-                        {
-                            sb.Append("0");
-                        }
+                        sb.Append(br.Body[i, j] ? "1" : "0");
                         if (j != br.Width - 1)
                             sb.Append(" ");
                     }

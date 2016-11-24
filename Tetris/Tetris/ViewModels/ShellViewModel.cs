@@ -21,7 +21,7 @@ namespace Tetris.ViewModels
         private int _wellWidth = 10;
         private List<BrickType> _brickTypes;
         private bool _libraryIsVisible = false;
-        private MainWindowViewModel _mainWindow;
+        private readonly MainWindowViewModel _mainWindow;
         private Type _selectedEvaluator;
 
 

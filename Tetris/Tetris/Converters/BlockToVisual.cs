@@ -8,8 +8,14 @@ using Tetris.Models;
 
 namespace Tetris.Converters
 {
+    /// <summary>
+    /// Converts Brick as Canvas
+    /// </summary>
     class BlockToVisual : IValueConverter
     {
+        /// <summary>
+        /// consts used for better visual experience - normalize size of every canvas drawn
+        /// </summary>
         private const int _blocksMaxHeight = 8;
         private const int _blocksMaxWidth = 8;
 

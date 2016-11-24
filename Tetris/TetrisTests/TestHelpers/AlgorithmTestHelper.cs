@@ -24,6 +24,21 @@ namespace TetrisTests.TestHelpers
             return wellState;
         }
 
+        public static WellState CreateWellStateWithOneBrick(int width, int height)
+        {
+            var wellState = new WellState(new Well(width), EmptyBrickShelf());
+            var brick = CreateRectangleBrick(width, 1);
+            wellState.AddBrick(brick, 0, 0);
+            return wellState;
+        }
+        public static WellState CreateWellStateWithNBricks(int width, int height,int n)
+        {
+            var wellState = new WellState(new Well(width), EmptyBrickShelf());
+            var brick = CreateRectangleBrick(width, 1);
+            for (var y = 0; y < n; y++)
+                wellState.AddBrick(brick, 0, y);
+            return wellState;
+        }
         public static BricksShelf EmptyBrickShelf()
         {
             return new BricksShelf(new List<BrickType>());

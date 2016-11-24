@@ -2,6 +2,9 @@
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// All information within file loaded
+    /// </summary>
     class FileInputResult
     {
         public int WellWidth  { get; set; }

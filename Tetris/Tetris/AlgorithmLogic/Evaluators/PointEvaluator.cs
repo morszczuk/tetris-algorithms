@@ -6,14 +6,23 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Evaluators
 {
-    class PointEvaluator : IWellStateEvaluator
+    /// <summary>
+    /// Algorythm of counting points for given WellState
+    /// </summary>
+    public class PointEvaluator : IWellStateEvaluator
     {
-        private readonly int _startWallPoint = 3;
-        private readonly int _startNeightBourPoint = 5;
-        private readonly int _scaleConst = 1000;
+        public readonly int _startWallPoint = 3;
+        public readonly int _startNeightBourPoint = 5;
+        public readonly int _scaleConst = 1000;
 
+        /// <summary>
+        /// Starter for points counting
+        /// </summary>
+        /// <param name="wellState">Given WellState with added brick</param>
+        /// <returns>Number of points as an int</returns>
         public int Evaluate(WellState wellState)
         {
+            if (wellState.Bricks.Count == 0) return 0;
             var addedBrick = wellState.Bricks[wellState.Bricks.Count - 1];
             var points = CountPoints(wellState, addedBrick);
             var pointsScaled = points * _scaleConst;
@@ -21,6 +30,12 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return (int)pointsScaled;
         }
 
+        /// <summary>
+        /// Returns points for given well and brick
+        /// </summary>
+        /// <param name="wellState">wellstate</param>
+        /// <param name="brickPos">brick with its position in well</param>
+        /// <returns>Returns points as double</returns>
         private double CountPoints(WellState wellState, BrickPosition brickPos)
         {
             //DFS
@@ -91,6 +106,11 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return p;
         }
 
+        /// <summary>
+        /// Eliminates duplicates within collection of PointCords
+        /// </summary>
+        /// <param name="list">List of points to verify</param>
+        /// <returns>returns enumeration of PointCords</returns>
         private IEnumerable<PointCords> EliminateDuplicats(List<PointCords> list)
         {
             List<PointCords> result = new List<PointCords>();
@@ -114,6 +134,13 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return result;
         }
 
+        /// <summary>
+        /// Tests one tile of brick and returns its possible neighbours - other bricks/walls
+        /// </summary>
+        /// <param name="row">Row as an int</param>
+        /// <param name="column">Column as an int</param>
+        /// <param name="brick">Brick to test</param>
+        /// <returns>List of SideEnum</returns>
         private List<SideEnum> GetPossibleNeighbours(int row, int column, Brick brick)
         {
             List<SideEnum> list = new List<SideEnum>();
@@ -139,6 +166,15 @@ namespace Tetris.AlgorithmLogic.Evaluators
             return list;
         }
 
+        /// <summary>
+        /// Verify possible points
+        /// </summary>
+        /// <param name="row">Row as an int</param>
+        /// <param name="column">Column as an int</param>
+        /// <param name="list">List of sides to test</param>
+        /// <param name="wellState">WellState</param>
+        /// <param name="brickPos">Tested Brick</param>
+        /// <returns>Returns List of veryfied PointsCords</returns>
         private List<PointCords> VerifyPossiblePoints(int row, int column, List<SideEnum> list, WellState wellState, BrickPosition brickPos)
         {
             List<PointCords> result = new List<PointCords>();
@@ -195,6 +231,13 @@ namespace Tetris.AlgorithmLogic.Evaluators
             }
             return result;
         }
+
+        /// <summary>
+        /// Function with logic of points given for given row
+        /// </summary>
+        /// <param name="row">Row as an int</param>
+        /// <param name="pointEnum">Type of Point</param>
+        /// <returns>returns single point</returns>
         private double GetPoints(int row, PointEnum pointEnum)
         {
             switch (pointEnum)
@@ -206,7 +249,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
                     }
                 case PointEnum.Wall:
                     {
-                        if (row <= 0) return _startNeightBourPoint;
+                        if (row <= 0) return _startWallPoint;
                         return ((double)1 / (double)row) * _startWallPoint;
                     }
 
@@ -214,16 +257,24 @@ namespace Tetris.AlgorithmLogic.Evaluators
             throw new Exception();
         }
 
-        public enum SideEnum
+        /// <summary>
+        /// 4 sides of brick's tile
+        /// </summary>
+        private enum SideEnum
         {
             Left, Right, Up, Down
         }
-
+        /// <summary>
+        /// Type of points
+        /// </summary>
         private enum PointEnum
         {
             Neighbour, Wall
         }
 
+        /// <summary>
+        /// Helper class
+        /// </summary>
         class PointCords
         {
             public Point Point { get; private set; }

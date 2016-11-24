@@ -5,6 +5,9 @@ using Tetris.Models;
 
 namespace Tetris.Helpers
 {
+    /// <summary>
+    /// Loader of bricks with given schema
+    /// </summary>
     internal class BricksLoader
     {
         private char _separator = ' ';
@@ -13,11 +16,18 @@ namespace Tetris.Helpers
 
         private int _wellWidth;
 
+        /// <summary>
+        /// Loads bricks with given stream
+        /// </summary>
+        /// <param name="stream">stream with brick's data</param>
         public BricksLoader(StreamReader stream)
         {
             _stream = stream;
         }
-
+        /// <summary>
+        /// Returns all data from given stream
+        /// </summary>
+        /// <returns></returns>
         public FileInputResult ReadFile()
         {          
             ProcessLineZero();
@@ -65,7 +75,5 @@ namespace Tetris.Helpers
 
             return new BrickType(brickBody);
         }
-        
-
     }
 }
