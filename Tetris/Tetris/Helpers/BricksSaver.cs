@@ -4,7 +4,7 @@ using Tetris.Models;
 
 namespace Tetris.Helpers
 {
-    class BricksSaver
+    public class BricksSaver
     {
         /// <summary>
         /// Generate file's content

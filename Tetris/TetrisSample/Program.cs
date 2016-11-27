@@ -13,16 +13,16 @@ namespace TetrisSample
     {
         public static void Main(string[] args)
         {
-            var brickShelf = GenerateBricksShelf();
-            var input = new AlgorithmInput(brickShelf, 2, 10, AlgorithmsEnum.Continuous);
+            //var brickShelf = GenerateBricksShelf();
+            //var input = new AlgorithmInput(brickShelf, 2, 10, AlgorithmsEnum.Continuous);
 
-            var executor = new AlgorithmExecutor(input);
-            executor.Run();
+            //var executor = new AlgorithmExecutor(input);
+            //executor.Run();
 
-            foreach (var wellState in executor.ActiveStates)
-                PrintState(wellState);
+            //foreach (var wellState in executor.ActiveStates)
+            //    PrintState(wellState);
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private static void Draw(ConsoleColor color)

@@ -8,7 +8,7 @@ namespace Tetris.Helpers
     /// <summary>
     /// Loader of bricks with given schema
     /// </summary>
-    internal class BricksLoader
+    public class BricksLoader
     {
         private char _separator = ' ';
 
