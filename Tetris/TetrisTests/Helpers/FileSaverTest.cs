@@ -29,6 +29,14 @@ namespace TetrisTests.Helpers
 
             var firstLine = saveString.Split(' ');
             Assert.IsTrue(firstLine[0] == _wellWidth.ToString());
+            Assert.IsTrue(saveString.Length > (_maxBricks * _maxBricks / 2 + _wellWidth) * 2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void InCorrectFileSaveTest()
+        {
+            var saveString = BricksSaver.SaveToFile(null, _wellWidth);
         }
 
     }

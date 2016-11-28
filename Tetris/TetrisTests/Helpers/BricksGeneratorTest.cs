@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tetris.Helpers;
 
 namespace TetrisTests.Helpers
@@ -17,7 +16,7 @@ namespace TetrisTests.Helpers
         [TestMethod]
         public void BricksGeneratorOneBrick()
         {
-            BricksGenerator generator = new BricksGenerator(10, 5, 5, 1);
+            BricksGenerator generator = new BricksGenerator(3, 2, 2, 1);
             var list = generator.GenerateBricks();
             Assert.IsTrue(list.Count == 1);
         }
