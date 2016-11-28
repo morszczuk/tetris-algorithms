@@ -116,6 +116,7 @@
     <Compile Include="Converters\WithIndex.cs.cs" />
     <Compile Include="Helpers\BinarySerializer.cs" />
     <Compile Include="Helpers\GridHelpers.cs" />
+    <Compile Include="Helpers\MessageBox.cs" />
     <Compile Include="Models\Brick.cs" />
     <Compile Include="Converters\BlockToVisual.cs" />
     <Compile Include="Enums\AlgorithmsEnum.cs" />

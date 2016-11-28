@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Windows;
 using Caliburn.Micro;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
 using Tetris.AlgorithmLogic.Evaluators;
 using Tetris.Helpers;
@@ -18,6 +21,10 @@ namespace Tetris.ViewModels
     [Export(typeof(ShellViewModel))]
     public class ShellViewModel : Conductor<object>, IHaveDisplayName
     {
+        private const string _errorTitle = "Error";
+        private const string _incorrectFile = "Niewłaściwy format pliku";
+
+
         private readonly IWindowManager _windowManager;
         private int _wellNo = 2;
         private int _wellWidth = 10;
@@ -134,6 +141,8 @@ namespace Tetris.ViewModels
             }
             catch (Exception)
             {
+                Tetris.Helpers.MessageBox.ShowMessage(Application.Current.MainWindow, _errorTitle,
+                    _incorrectFile, MessageDialogStyle.Affirmative);
 
             }
         }
@@ -155,14 +164,23 @@ namespace Tetris.ViewModels
 
         public void LoadAlgorithmStateOnClick()
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Algorithm state file (*.astate)|*.astate";
-            if (openFileDialog.ShowDialog() != true) return;
-            var algorithmState = BinarySerializer.ReadFromBinaryFile<Tuple<List<WellState>, AlgorithmInput>>(openFileDialog.FileName);
-            BrickTypes = BrickType.GetBrickTypes(algorithmState.Item2.BricksShelf).ToList();
-            LibraryIsVisible = true;
-            var item = new RunningAlgorithmViewModel(_windowManager, _mainWindow, algorithmState.Item2, algorithmState.Item1);
-            _mainWindow.ActivateItem(item);
+            try
+            {
+                var openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Algorithm state file (*.astate)|*.astate";
+                if (openFileDialog.ShowDialog() != true) return;
+                var algorithmState = BinarySerializer.ReadFromBinaryFile<Tuple<List<WellState>, AlgorithmInput>>(openFileDialog.FileName);
+                BrickTypes = BrickType.GetBrickTypes(algorithmState.Item2.BricksShelf).ToList();
+                LibraryIsVisible = true;
+                var item = new RunningAlgorithmViewModel(_windowManager, _mainWindow, algorithmState.Item2, algorithmState.Item1);
+                _mainWindow.ActivateItem(item);
+            }
+            catch
+            {
+                Tetris.Helpers.MessageBox.ShowMessage(Application.Current.MainWindow, _errorTitle,
+   _incorrectFile, MessageDialogStyle.Affirmative);
+            }
+
         }
 
         #endregion
