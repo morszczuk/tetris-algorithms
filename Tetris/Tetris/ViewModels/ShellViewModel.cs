@@ -12,8 +12,10 @@ using Tetris.AlgorithmLogic;
 
 namespace Tetris.ViewModels
 {
+    /// <summary>
+    /// Start view model
+    /// </summary>
     [Export(typeof(ShellViewModel))]
-
     public class ShellViewModel : Conductor<object>, IHaveDisplayName
     {
         private readonly IWindowManager _windowManager;
@@ -32,6 +34,8 @@ namespace Tetris.ViewModels
 
             SelectedEvaluator = Evaluators[0];
         }
+
+        #region BindingProperties
 
         public override string DisplayName { get; set; } = "Tetris";
 
@@ -71,7 +75,7 @@ namespace Tetris.ViewModels
                     .Where(p => type.IsAssignableFrom(p)).ToList();
 
                 types.Remove(typeof(IWellStateEvaluator));
-                types.Remove(typeof(FillWithoutTopNEvaluator)); //nie ma konstruktora bezparametrowego
+                types.Remove(typeof(FillWithoutTopNEvaluator));
                 return types;
             }
         }
@@ -89,7 +93,6 @@ namespace Tetris.ViewModels
             }
         }
 
-
         public List<BrickType> BrickTypes
         {
             get
@@ -103,8 +106,6 @@ namespace Tetris.ViewModels
             }
         }
 
-
-
         public bool LibraryIsVisible
         {
             get { return _libraryIsVisible; }
@@ -114,8 +115,10 @@ namespace Tetris.ViewModels
                 NotifyOfPropertyChange(() => LibraryIsVisible);
             }
         }
+        #endregion
 
 
+        #region ButtonClicks
 
         public void ReadBricks()
         {
@@ -134,6 +137,7 @@ namespace Tetris.ViewModels
 
             }
         }
+
         public void BricksLibrary()
         {
             _mainWindow.ActivateLibrary();
@@ -141,7 +145,7 @@ namespace Tetris.ViewModels
 
         public void GoAlgorithmByStep()
         {
-            _mainWindow.ActivateRunningAlgorithmView(true,SelectedEvaluator);
+            _mainWindow.ActivateRunningAlgorithmView(true, SelectedEvaluator);
         }
 
         public void GoAlgorithm()
@@ -159,5 +163,6 @@ namespace Tetris.ViewModels
             _mainWindow.ActivateItem(item);
         }
 
+        #endregion
     }
 }

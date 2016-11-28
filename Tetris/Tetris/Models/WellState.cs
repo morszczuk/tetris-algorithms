@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// Representation of well with bricks
+    /// </summary>
     [Serializable]
     public class WellState
     {
@@ -14,6 +17,9 @@ namespace Tetris.Models
         public int FullRows { get; private set; }
         public int TilesCount { get; private set; }
 
+        /// <summary>
+        /// Space covered
+        /// </summary>
         public int PercentageFilled
         {
             get
@@ -42,11 +48,23 @@ namespace Tetris.Models
             TilesCount = wellState.TilesCount;
         }
 
+        /// <summary>
+        /// Checks if well(x,y) is filled with brick
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsFilled(int x, int y)
         {
             return (Fill[y] & ((uint)1 << x)) != 0;
         }
-
+        /// <summary>
+        /// AddBrick to x,y
+        /// </summary>
+        /// <param name="brick">adding brick</param>
+        /// <param name="x">x pos</param>
+        /// <param name="y">y pos</param>
+        /// <returns>returns true if brick could be added in x,y</returns>
         public bool AddBrick(Brick brick, int x, int y)
         {
             if (IsIntersecting(brick, x, y)) return false;
@@ -61,8 +79,14 @@ namespace Tetris.Models
             }
             return true;
         }
-
-        public bool IsIntersecting(Brick brick, int x, int y)
+        /// <summary>
+        /// Checks if brick is intersecting with walls or other bricks
+        /// </summary>
+        /// <param name="brick"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        private bool IsIntersecting(Brick brick, int x, int y)
         {
             if (x + brick.Width > Well.Width) return true;
             for (var i = 0; i < brick.Height; i++)

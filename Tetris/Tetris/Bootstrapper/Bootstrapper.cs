@@ -13,6 +13,9 @@ using Tetris.Views;
 
 namespace Tetris.Bootstrapper
 {
+    /// <summary>
+    /// Basic bootstrapper for proper Caliburn.Micro working
+    /// </summary>
     public class Bootstrapper : Caliburn.Micro.BootstrapperBase
     {
         public Bootstrapper()
@@ -25,6 +28,4 @@ namespace Tetris.Bootstrapper
             DisplayRootViewFor<MainWindowViewModel>();
         }
     }
-
-    
 }

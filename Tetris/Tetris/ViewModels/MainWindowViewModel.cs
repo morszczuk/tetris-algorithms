@@ -4,6 +4,9 @@ using Caliburn.Micro;
 
 namespace Tetris.ViewModels
 {
+    /// <summary>
+    /// MainWindow - view model manager
+    /// </summary>
     [Export(typeof(MainWindowViewModel))]
 
     public class MainWindowViewModel : Conductor<object>, IHaveDisplayName
@@ -24,6 +27,7 @@ namespace Tetris.ViewModels
         }
 
         public override string DisplayName { get; set; } = "Tetris";
+        #region viewModelsActivations
 
         public void ActivateLibrary()
         {
@@ -37,7 +41,7 @@ namespace Tetris.ViewModels
             ActivateItem(_shellViewModel);
         }
 
-        public void ActivateRunningAlgorithmView(bool isStep,Type evaluator)
+        public void ActivateRunningAlgorithmView(bool isStep, Type evaluator)
         {
 
             ActivateItem(new RunningAlgorithmViewModel(_windowManager,
@@ -49,6 +53,6 @@ namespace Tetris.ViewModels
                 evaluator));
 
         }
-
+        #endregion
     }
 }

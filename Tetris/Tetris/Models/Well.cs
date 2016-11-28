@@ -2,6 +2,9 @@
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// Representation of single well
+    /// </summary>
     [Serializable]
     public class Well
     {

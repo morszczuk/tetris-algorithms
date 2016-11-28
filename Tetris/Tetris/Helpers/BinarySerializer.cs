@@ -2,9 +2,11 @@
 
 namespace Tetris.Helpers
 {
+    /// <summary>
+    /// Serializers
+    /// </summary>
     public class BinarySerializer
     {
-
         public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
         {
             using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
@@ -22,6 +24,5 @@ namespace Tetris.Helpers
                 return (T)binaryFormatter.Deserialize(stream);
             }
         }
-
     }
 }

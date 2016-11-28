@@ -3,7 +3,7 @@
 namespace Tetris.Models
 {
     /// <summary>
-    /// All information within file loaded
+    /// All information about file loaded
     /// </summary>
     public class FileInputResult
     {

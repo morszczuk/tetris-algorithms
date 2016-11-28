@@ -4,6 +4,9 @@ using Tetris.Models;
 
 namespace Tetris.ViewModels
 {
+    /// <summary>
+    /// Bricks library view model
+    /// </summary>
     public class BrowseBricksViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
@@ -23,6 +26,7 @@ namespace Tetris.ViewModels
                 EveryCardinality = enumerator.Current.DefaultCount;
         }
 
+        #region BindingProperties
         public int EveryCardinality
         {
             get { return _everyCardinality; }
@@ -44,6 +48,9 @@ namespace Tetris.ViewModels
                 NotifyOfPropertyChange(() => BrickTypes);
             }
         }
+        #endregion
+
+        #region ButtonOnClicks
 
         public void BackButton()
         {
@@ -58,5 +65,6 @@ namespace Tetris.ViewModels
             }
             BrickTypes = new BindableCollection<BrickType>(BrickTypes);
         }
+        #endregion
     }
 }

@@ -3,6 +3,9 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Evaluators
 {
+    /// <summary>
+    /// Basic evaluator comparing by % of space covered
+    /// </summary>
     public class FillEvaluator : IWellStateEvaluator
     {
         public static readonly int MaxValue = 10000;

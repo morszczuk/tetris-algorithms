@@ -4,6 +4,10 @@ using System.Windows.Controls;
 
 namespace Tetris.Helpers
 {
+    /// <summary>
+    /// https://rachel53461.wordpress.com/2011/09/17/wpf-grids-rowcolumn-count-properties/
+    /// Helper for binding values to column/row properties
+    /// </summary>
     public class GridHelpers
     {
         #region RowCount Property

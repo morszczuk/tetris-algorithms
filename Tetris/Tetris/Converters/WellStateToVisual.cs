@@ -16,11 +16,15 @@ using Image = System.Windows.Controls.Image;
 
 namespace Tetris.Converters
 {
+    /// <summary>
+    /// Converter to generate graphic representation of well - canvas
+    /// </summary>
     class WellStateToVisual : IValueConverter
     {
-
+        /// <summary>
+        /// Difference between colors of two bricks in RGB
+        /// </summary>
         private readonly int _colorStep = 30;
-
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         { 

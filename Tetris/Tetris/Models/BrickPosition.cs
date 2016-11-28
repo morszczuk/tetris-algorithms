@@ -2,6 +2,9 @@
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// Brick with its position in well
+    /// </summary>
     [Serializable]
     public class BrickPosition
     {

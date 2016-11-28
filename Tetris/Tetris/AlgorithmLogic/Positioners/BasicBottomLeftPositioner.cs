@@ -3,6 +3,9 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Positioners
 {
+    /// <summary>
+    /// Allways tries to position brick at the most bottom and left position
+    /// </summary>
     public class BasicBottomLeftPositioner : IBrickPositioner
     {
         public IEnumerable<WellState> PlaceBrick(WellState wellState, Brick brick)

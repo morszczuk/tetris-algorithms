@@ -5,6 +5,9 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic
 {
+    /// <summary>
+    /// Generates new wellstates using given positioner
+    /// </summary>
     public class StatesGenerator
     {
 
@@ -14,7 +17,11 @@ namespace Tetris.AlgorithmLogic
         {
             _positioner = positioner;
         }
-
+        /// <summary>
+        /// Paraller method for generating new wellstate
+        /// </summary>
+        /// <param name="wellState"></param>
+        /// <returns></returns>
         public List<WellState> Generate(WellState wellState)
         {
             return wellState.BricksShelf

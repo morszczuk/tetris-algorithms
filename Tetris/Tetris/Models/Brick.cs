@@ -10,8 +10,14 @@ namespace Tetris.Models
         public int Height => Body.GetLength(0);
 
         public bool[,] Body { get; }
+        /// <summary>
+        /// Binary representation
+        /// </summary>
         public uint[] BinaryBody { get; }
         
+        /// <summary>
+        /// Number of trues in Body
+        /// </summary>
         public int TilesCount { get; }
         public BrickType BrickType { get; }
 

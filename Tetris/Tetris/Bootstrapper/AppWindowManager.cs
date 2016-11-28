@@ -11,6 +11,9 @@ using MahApps.Metro.Controls;
 
 namespace Tetris.Bootstrapper
 {
+    /// <summary>
+    /// Caliburn.Micro AppWindowManager 
+    /// </summary>
     [Export(typeof(IWindowManager))]
     public class AppWindowManager : MetroWindowManager
     {

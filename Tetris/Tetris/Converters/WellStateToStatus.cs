@@ -10,6 +10,9 @@ using Tetris.Models;
 
 namespace Tetris.Converters
 {
+    /// <summary>
+    /// Converter for generating information about well such as space covered height and width
+    /// </summary>
     public class WellStateToStatus : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

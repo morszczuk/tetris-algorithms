@@ -11,7 +11,9 @@ using System.Linq;
 
 namespace Tetris.ViewModels
 {
-
+    /// <summary>
+    /// Simulation view model
+    /// </summary>
     public class RunningAlgorithmViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
@@ -21,7 +23,16 @@ namespace Tetris.ViewModels
         private readonly AlgorithmExecutor _executor;
         private Task _task;
 
+
+        private bool _areComputationsPaused;
+        private bool _areComputationsFinished;
+        private List<BrickType> _brickTypes;
+        private bool _areComputationsStarted;
         private IEnumerable<WellState> _activeStates;
+
+
+        #region BindingProperties
+
         public IEnumerable<WellState> ActiveStates
         {
             get { return _activeStates; }
@@ -32,7 +43,6 @@ namespace Tetris.ViewModels
             }
         }
 
-        private bool _areComputationsStarted;
         public bool AreComputationsStarted
         {
             get { return _areComputationsStarted; }
@@ -44,7 +54,6 @@ namespace Tetris.ViewModels
             }
         }
 
-        private bool _areComputationsPaused;
         public bool AreComputationsPaused
         {
             get { return _areComputationsPaused; }
@@ -66,8 +75,6 @@ namespace Tetris.ViewModels
             }
         }
 
-        private bool _areComputationsFinished;
-        private List<BrickType> brickTypes;
 
         public bool AreComputationsFinished
         {
@@ -93,6 +100,10 @@ namespace Tetris.ViewModels
 
         public bool IsStep { get; }
         public int StepCount { get; set; } = 1;
+
+        public override string DisplayName { get; set; } = "Uruchomiony algorytm";
+
+        #endregion
 
         public RunningAlgorithmViewModel(IWindowManager windowManager,
             IEnumerable<BrickType> bricks,
@@ -130,10 +141,13 @@ namespace Tetris.ViewModels
         public RunningAlgorithmViewModel(IWindowManager _windowManager, List<BrickType> brickTypes)
         {
             this._windowManager = _windowManager;
-            this.brickTypes = brickTypes;
+            this._brickTypes = brickTypes;
         }
 
-        public override string DisplayName { get; set; } = "Uruchomiony algorytm";
+
+
+
+        #region ButtonClicks
 
         public void ToggleRunnningAlgorithmOnClick()
         {
@@ -142,7 +156,8 @@ namespace Tetris.ViewModels
             {
                 AreComputationsStarted = true;
                 AreComputationsPaused = false;
-            } else
+            }
+            else
             {
                 AreComputationsPaused = !AreComputationsPaused;
             }
@@ -151,7 +166,8 @@ namespace Tetris.ViewModels
         public void StartComputations()
         {
             _task = new Task(() => _executor.Start());
-            _task.ContinueWith((t) => {
+            _task.ContinueWith((t) =>
+            {
                 AreComputationsFinished = _executor.IsFinished();
                 ActiveStates = _executor.ActiveStates;
             });
@@ -162,7 +178,6 @@ namespace Tetris.ViewModels
         {
             _executor.Stop();
         }
-
 
         public void MakeStepOnClick()
         {
@@ -186,11 +201,11 @@ namespace Tetris.ViewModels
 
         public void SaveAlgorithmStateOnClick()
         {
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Algorithm state file (*.astate)|*.astate";
+            var saveFileDialog = new SaveFileDialog { Filter = "Algorithm state file (*.astate)|*.astate" };
             if (saveFileDialog.ShowDialog() != true) return;
             var algorithmState = new Tuple<List<WellState>, AlgorithmInput>(ActiveStates.ToList(), _executor.Settings);
             BinarySerializer.WriteToBinaryFile<Tuple<List<WellState>, AlgorithmInput>>(saveFileDialog.FileName, algorithmState);
         }
+        #endregion
     }
 }
