@@ -12,8 +12,19 @@ namespace Tetris.AlgorithmLogic
 {
     public class AlgorithmExecutor
     {
+        /// <summary>
+        /// List of k WellStates in the current algorithm step
+        /// </summary>
         public List<WellState> ActiveStates { get; private set; }
+
+        /// <summary>
+        /// AlgorithmInput object passed in constructor as algorithm initialization settings
+        /// </summary>
         public AlgorithmInput Settings { get; }
+
+        /// <summary>
+        /// Marks if continuous algorithm calculations are stopped
+        /// </summary>
         public bool IsStopped { get; private set; }
 
         private readonly IWellStateEvaluator _evaluator;
@@ -48,6 +59,9 @@ namespace Tetris.AlgorithmLogic
             ActiveStates = activeStates;
         }
 
+        /// <summary>
+        /// Resets algorithm state
+        /// </summary>
         public void Reset()
         {
             InitializeActiveStates();
@@ -60,6 +74,9 @@ namespace Tetris.AlgorithmLogic
             ActiveStates = new List<WellState>() {initialState};
         }
 
+        /// <summary>
+        /// Starts continuous calculations
+        /// </summary>
         public void Start()
         {
             IsStopped = false;
@@ -69,11 +86,17 @@ namespace Tetris.AlgorithmLogic
             }
         }
 
+        /// <summary>
+        /// Stops continuous calculations
+        /// </summary>
         public void Stop()
         {
             IsStopped = true;
         }
 
+        /// <summary>
+        /// Makes one step of the algorithm
+        /// </summary>
         public void MakeStep()
         {
             ActiveStates = ActiveStates
@@ -83,6 +106,10 @@ namespace Tetris.AlgorithmLogic
                             .Take(Settings.WellNo).ToList();
         }
 
+        /// <summary>
+        /// Checks if algorithm is finished
+        /// </summary>
+        /// <returns>true if algorithm is finshed</returns>
         public bool IsFinished()
         {
             return ActiveStates.All(s => !s.BricksShelf.AvailableBrickTypes.Any());

@@ -11,9 +11,9 @@ namespace Tetris.AlgorithmLogic.Evaluators
     /// </summary>
     public class PointEvaluator : IWellStateEvaluator
     {
-        public readonly int _startWallPoint = 3;
-        public readonly int _startNeightBourPoint = 5;
-        public readonly int _scaleConst = 1000;
+        public const int StartWallPoint = 3;
+        public const int StartNeightBourPoint = 5;
+        public const int ScaleConst = 1000;
 
         /// <summary>
         /// Starter for points counting
@@ -25,7 +25,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
             if (wellState.Bricks.Count == 0) return 0;
             var addedBrick = wellState.Bricks[wellState.Bricks.Count - 1];
             var points = CountPoints(wellState, addedBrick);
-            var pointsScaled = points * _scaleConst;
+            var pointsScaled = points * ScaleConst;
 
             return (int)pointsScaled;
         }
@@ -244,13 +244,13 @@ namespace Tetris.AlgorithmLogic.Evaluators
             {
                 case PointEnum.Neighbour:
                     {
-                        if (row <= 0) return _startNeightBourPoint;
-                        return ((double)1 / (double)row) * _startNeightBourPoint;
+                        if (row <= 0) return StartNeightBourPoint;
+                        return ((double)1 / (double)row) * StartNeightBourPoint;
                     }
                 case PointEnum.Wall:
                     {
-                        if (row <= 0) return _startWallPoint;
-                        return ((double)1 / (double)row) * _startWallPoint;
+                        if (row <= 0) return StartWallPoint;
+                        return ((double)1 / (double)row) * StartWallPoint;
                     }
 
             }

@@ -2,6 +2,10 @@
 
 namespace Tetris.AlgorithmLogic.Evaluators
 {
+    /// <summary>
+    /// Evaluator that calculates the global height of the well and 
+    /// combines it with the height of each column
+    /// </summary>
     public class ColumnFillEvaluator : IWellStateEvaluator
     {
         public int Evaluate(WellState wellState)

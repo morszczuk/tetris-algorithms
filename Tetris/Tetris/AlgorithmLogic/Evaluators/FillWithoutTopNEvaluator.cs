@@ -4,6 +4,9 @@ using Tetris.Models;
 
 namespace Tetris.AlgorithmLogic.Evaluators
 {
+    /// <summary>
+    /// Basic evaluator comparing by % of space covered without considering top N rows
+    /// </summary>
     public class FillWithoutTopNEvaluator : IWellStateEvaluator
     {
         public int N { get; private set;  }
@@ -15,6 +18,7 @@ namespace Tetris.AlgorithmLogic.Evaluators
 
         public int Evaluate(WellState wellState)
         {
+            if (wellState.Fill.Count == 0) return 0;
             var n = N < wellState.Fill.Count ? N : N - wellState.Fill.Count;
             var tiles = wellState.TilesCount;
             for (var y = 0; y < n; y++)

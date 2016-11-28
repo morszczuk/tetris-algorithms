@@ -11,7 +11,7 @@ namespace Tetris.AlgorithmLogic
     public class AlgorithmInput
     {
         /// <summary>
-        /// Bricks collection
+        /// Bricks collection with its' count
         /// </summary>
         public BricksShelf BricksShelf { get; set; }
 
@@ -31,10 +31,13 @@ namespace Tetris.AlgorithmLogic
         public AlgorithmsEnum AlgorithmType { get; set; }
 
         /// <summary>
-        /// Evaluator
+        /// Evaluator used to rank well states
         /// </summary>
         public Type EvaluatorType { get; set; }
 
+        /// <summary>
+        /// True if algorithm is in a step mode
+        /// </summary>
         public bool IsStep { get; set; }
 
         public AlgorithmInput(BricksShelf bricksShelf, int wellNo, int wellWidth, AlgorithmsEnum type,Type evalType,bool isStep)

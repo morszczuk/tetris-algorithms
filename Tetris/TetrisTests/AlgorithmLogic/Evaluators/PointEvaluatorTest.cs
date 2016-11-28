@@ -26,7 +26,7 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         {
             var evaluator = new PointEvaluator();
             var fullWellState = AlgorithmTestHelper.CreateWellStateWithOneBrick(10, 1);
-            Assert.AreEqual(12 * evaluator._startWallPoint * evaluator._scaleConst, evaluator.Evaluate(fullWellState));
+            Assert.AreEqual(12 * PointEvaluator.StartWallPoint * PointEvaluator.ScaleConst, evaluator.Evaluate(fullWellState));
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
             var evaluator = new PointEvaluator();
             var fullWellState = AlgorithmTestHelper.CreateWellStateWithNBricks(10, 1, 2);
 
-            var points = ((2 * evaluator._startWallPoint) + (10 * evaluator._startNeightBourPoint)) * evaluator._scaleConst;
+            var points = ((2 * PointEvaluator.StartWallPoint) + (10 * PointEvaluator.StartNeightBourPoint)) * PointEvaluator.ScaleConst;
             Assert.AreEqual(points, evaluator.Evaluate(fullWellState));
         }
 
@@ -45,7 +45,7 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
             var evaluator = new PointEvaluator();
             var fullWellState = AlgorithmTestHelper.CreateWellStateWithNBricks(10, 1, 3);
 
-            var points = ((1 * evaluator._startWallPoint) + (10 * evaluator._startNeightBourPoint)) * evaluator._scaleConst;
+            var points = ((1 * PointEvaluator.StartWallPoint) + (10 * PointEvaluator.StartNeightBourPoint)) * PointEvaluator.ScaleConst;
             Assert.AreEqual(points, evaluator.Evaluate(fullWellState));
         }
         [TestMethod]
@@ -53,9 +53,9 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         {
             var evaluator = new PointEvaluator();
             var fullWellState = AlgorithmTestHelper.CreateWellStateWithNBricks(10, 1, 4);
-            var wallPoints =  ((double)2/(double)3)*(double) evaluator._startWallPoint;
-            var neighPoints = (10/2*(double) evaluator._startNeightBourPoint);
-            var points = (wallPoints+ neighPoints) * evaluator._scaleConst;
+            var wallPoints =  ((double)2/(double)3)*(double)PointEvaluator.StartWallPoint;
+            var neighPoints = (10/2*(double)PointEvaluator.StartNeightBourPoint);
+            var points = (wallPoints+ neighPoints) * PointEvaluator.ScaleConst;
             Assert.AreEqual(points, evaluator.Evaluate(fullWellState));
         }
 
@@ -64,9 +64,9 @@ namespace TetrisTests.AlgorithmLogic.Evaluators
         {
             var evaluator = new PointEvaluator();
             var fullWellState = AlgorithmTestHelper.CreateWellStateWithNBricks(10, 1, 5);
-            var wallPoints = ((double)2 / (double)4) * (double)evaluator._startWallPoint;
-            var neighPoints = ((double)10/(double)3 * (double)evaluator._startNeightBourPoint);
-            var points = (int)((wallPoints + neighPoints) * evaluator._scaleConst);
+            var wallPoints = ((double)2 / (double)4) * (double)PointEvaluator.StartWallPoint;
+            var neighPoints = ((double)10/(double)3 * (double)PointEvaluator.StartNeightBourPoint);
+            var points = (int)((wallPoints + neighPoints) * PointEvaluator.ScaleConst);
             Assert.AreEqual(points, evaluator.Evaluate(fullWellState));
         }
     }

@@ -20,8 +20,8 @@ namespace Tetris.AlgorithmLogic
         /// <summary>
         /// Paraller method for generating new wellstate
         /// </summary>
-        /// <param name="wellState"></param>
-        /// <returns></returns>
+        /// <param name="wellState">Source well state</param>
+        /// <returns>List of new generated well states after positioning each of avaliable bricks with each possible rotation.</returns>
         public List<WellState> Generate(WellState wellState)
         {
             return wellState.BricksShelf
