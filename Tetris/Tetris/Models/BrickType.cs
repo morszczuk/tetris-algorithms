@@ -29,6 +29,11 @@ namespace Tetris.Models
             }
         }
 
+        public static IEnumerable<BrickType> GetBrickTypes(BricksShelf shelf)
+        {
+            return shelf.Bricks.Select(s => s.Key).ToList();
+        }
+
         public Brick Brick(RotateEnum rotation = RotateEnum.Right0)
         {
             return _rotations[rotation];
