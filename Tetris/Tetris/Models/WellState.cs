@@ -82,9 +82,9 @@ namespace Tetris.Models
         /// <summary>
         /// Checks if brick is intersecting with walls or other bricks
         /// </summary>
-        /// <param name="brick"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="brick">brick</param>
+        /// <param name="x">column</param>
+        /// <param name="y">row</param>
         /// <returns></returns>
         private bool IsIntersecting(Brick brick, int x, int y)
         {
@@ -99,6 +99,9 @@ namespace Tetris.Models
             return false;
         }
 
+        /// <summary>
+        /// Adds row into the well
+        /// </summary>
         private void AddRow()
         {
             Fill.Add(ulong.MaxValue << Well.Width);
