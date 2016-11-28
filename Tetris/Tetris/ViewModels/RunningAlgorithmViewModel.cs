@@ -63,18 +63,8 @@ namespace Tetris.ViewModels
                 _areComputationsPaused = value;
                 NotifyOfPropertyChange(() => AreComputationsPaused);
                 NotifyOfPropertyChange(() => ComputationsButtonName);
-
-                if (_areComputationsPaused)
-                {
-                    StopComputations();
-                }
-                else
-                {
-                    StartComputations();
-                }
             }
         }
-
 
         public bool AreComputationsFinished
         {
@@ -93,7 +83,7 @@ namespace Tetris.ViewModels
             {
                 if (AreComputationsFinished) return "TimerCheck";
                 if (!AreComputationsStarted) return "TimerPlay";
-                if (AreComputationsPaused) return "TimerResume;";
+                if (AreComputationsPaused) return "TimerResume";
                 return "TimerPause";
             }
         }
@@ -118,7 +108,7 @@ namespace Tetris.ViewModels
                 wellNo,
                 wellWidth,
                 isStep ? AlgorithmsEnum.Step : AlgorithmsEnum.Continuous,
-                evaluator);
+                evaluator,isStep);
             _executor = new AlgorithmExecutor(_algorithmParameters);
 
             _areComputationsStarted = false;
@@ -136,6 +126,15 @@ namespace Tetris.ViewModels
             _areComputationsPaused = true;
             _areComputationsFinished = false;
             ActiveStates = activeStates;
+            IsStep = settings.IsStep;
+            if (!activeStates[0].BricksShelf.AvailableBrickTypes.Any())
+            {
+                AreComputationsFinished = true;
+            }
+            else
+            {
+                AreComputationsFinished = false;
+            }
         }
 
         public RunningAlgorithmViewModel(IWindowManager _windowManager, List<BrickType> brickTypes)
@@ -143,9 +142,6 @@ namespace Tetris.ViewModels
             this._windowManager = _windowManager;
             this._brickTypes = brickTypes;
         }
-
-
-
 
         #region ButtonClicks
 
@@ -156,10 +152,12 @@ namespace Tetris.ViewModels
             {
                 AreComputationsStarted = true;
                 AreComputationsPaused = false;
+                StartComputations();
             }
             else
             {
                 AreComputationsPaused = !AreComputationsPaused;
+                StopComputations();
             }
         }
 
@@ -170,6 +168,7 @@ namespace Tetris.ViewModels
             {
                 AreComputationsFinished = _executor.IsFinished();
                 ActiveStates = _executor.ActiveStates;
+                AreComputationsPaused = true;
             });
             _task.Start();
         }
@@ -182,6 +181,7 @@ namespace Tetris.ViewModels
         public void MakeStepOnClick()
         {
             if (AreComputationsFinished) return;
+            AreComputationsPaused = false;
             for (var i = 0; i < StepCount; i++)
             {
                 _executor.MakeStep();
@@ -192,6 +192,7 @@ namespace Tetris.ViewModels
                 }
             }
             ActiveStates = _executor.ActiveStates;
+            AreComputationsPaused = true;
         }
 
         public void EndComputationOnClick()

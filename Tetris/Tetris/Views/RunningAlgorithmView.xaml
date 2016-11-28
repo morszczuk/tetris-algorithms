@@ -32,12 +32,15 @@
                 <Button x:Name="MakeStepOnClick" Margin="10 0 0 0" Visibility="{Binding Path=IsStep, Converter={StaticResource btvc}}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                     <iconPacks:PackIconModern Kind="TimerForward" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
                 </Button>
+                <Button x:Name="SaveAlgorithmStateOnClick" Margin="10 0 0 0" IsEnabled="{Binding Path=AreComputationsPaused}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
+                    <iconPacks:PackIconModern Kind="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
+                </Button>
             </StackPanel>
             <Button x:Name="ToggleRunnningAlgorithmOnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                 <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonName}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
             </Button>
         </Grid>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden" Background="LightBlue" >
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="LightBlue" >
             <ItemsControl ItemsSource="{Binding ActiveStates, Converter={StaticResource WithIndex}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -80,25 +83,7 @@
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
         </ScrollViewer>
-        <controls:FlyoutsControl Grid.Row="1">
-            <controls:Flyout Position="Right" Width="400" IsOpen="{Binding AreComputationsPaused}" Theme="Accent" Header="Algorytm zastopowany">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-                        <Button x:Name="SaveAlgorithmStateOnClick" Margin="0, 20, 0, 10"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="LightBlue" BorderThickness="3">
-                            <iconPacks:PackIconModern Kind="Disk" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="LightBlue"/>
-                        </Button>
-                        <TextBlock FontSize="16" FontWeight="Light" Foreground="White" Margin="0, 0, 0, 10">
-                            Zapisz aktualny stan algorytmu
-                        </TextBlock>
-                    </StackPanel>
-                </Grid>
-            </controls:Flyout>
-        </controls:FlyoutsControl>
+        
     </Grid>
 </UserControl>
 

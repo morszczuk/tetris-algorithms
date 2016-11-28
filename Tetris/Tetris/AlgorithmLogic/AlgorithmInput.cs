@@ -35,13 +35,16 @@ namespace Tetris.AlgorithmLogic
         /// </summary>
         public Type EvaluatorType { get; set; }
 
-        public AlgorithmInput(BricksShelf bricksShelf, int wellNo, int wellWidth, AlgorithmsEnum type,Type evalType)
+        public bool IsStep { get; set; }
+
+        public AlgorithmInput(BricksShelf bricksShelf, int wellNo, int wellWidth, AlgorithmsEnum type,Type evalType,bool isStep)
         {
             BricksShelf = bricksShelf;
             WellWidth = wellWidth;
             WellNo = wellNo;
             AlgorithmType = type;
             EvaluatorType = evalType;
+            IsStep = isStep;
         }
 
     }
