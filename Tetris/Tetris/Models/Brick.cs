@@ -3,15 +3,28 @@ using System.Linq;
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// Class that stores brick body representation
+    /// after all rotations and transformations.
+    /// Apart from the bool amtrix reprsesntation
+    /// it has also binary representation (array of uint)
+    /// </summary>
     [Serializable]
     public class Brick
     {
+        /// <summary>
+        /// Width of the brick representation
+        /// </summary>
         public int Width => Body.GetLength(1);
+
+        /// <summary>
+        /// Height of the brick representation
+        /// </summary>
         public int Height => Body.GetLength(0);
 
         public bool[,] Body { get; }
         /// <summary>
-        /// Binary representation
+        /// Binary representation of the brick
         /// </summary>
         public uint[] BinaryBody { get; }
         
@@ -19,6 +32,10 @@ namespace Tetris.Models
         /// Number of trues in Body
         /// </summary>
         public int TilesCount { get; }
+
+        /// <summary>
+        /// Reference to parent BrickType
+        /// </summary>
         public BrickType BrickType { get; }
 
         public Brick(bool[,] body, BrickType brickType = null)

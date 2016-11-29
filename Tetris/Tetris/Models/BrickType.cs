@@ -7,6 +7,9 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Tetris.Models
 {
+    /// <summary>
+    /// Object that calculates and stores possible rotations for brick type
+    /// </summary>
     [Serializable]
     public class BrickType
     {
@@ -29,16 +32,31 @@ namespace Tetris.Models
             }
         }
 
+        /// <summary>
+        /// Extract brick types for given bricks shelf
+        /// </summary>
+        /// <param name="shelf">BricksShelf with brick types</param>
+        /// <returns>List of BrickTypes extracted from BricksShelf</returns>
         public static IEnumerable<BrickType> GetBrickTypes(BricksShelf shelf)
         {
             return shelf.Bricks.Select(s => s.Key).ToList();
         }
 
+        /// <summary>
+        /// Returns Brick for given BrickType rotation
+        /// </summary>
+        /// <param name="rotation">One of possible brick rotations</param>
+        /// <returns>Brick representation after applying rotation</returns>
         public Brick Brick(RotateEnum rotation = RotateEnum.Right0)
         {
             return _rotations[rotation];
         }
 
+        /// <summary>
+        /// Rotates the given brick 90 degrees clockwise
+        /// </summary>
+        /// <param name="brick">Brick to be rotated</param>
+        /// <returns>new Brick with rotated body</returns>
         public static Brick Rotate90Right(Brick brick)
         {
             var newBody = new bool[brick.Width, brick.Height];

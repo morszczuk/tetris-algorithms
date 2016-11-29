@@ -10,11 +10,34 @@ namespace Tetris.Models
     [Serializable]
     public class WellState
     {
+        /// <summary>
+        /// Reference to the well
+        /// </summary>
         public Well Well { get; }
+
+        /// <summary>
+        /// Bricks to be placed
+        /// </summary>
         public BricksShelf BricksShelf { get; }
+
+        /// <summary>
+        /// List of positions of already placed bricks
+        /// </summary>
         public List<BrickPosition> Bricks { get; }
+
+        /// <summary>
+        /// Binary representation of well's fill
+        /// </summary>
         public List<ulong> Fill { get; }
+
+        /// <summary>
+        /// Index of the last fully filled row
+        /// </summary>
         public int FullRows { get; private set; }
+
+        /// <summary>
+        /// Number of all occupied tiles in the well
+        /// </summary>
         public int TilesCount { get; private set; }
 
         /// <summary>
@@ -85,7 +108,7 @@ namespace Tetris.Models
         /// <param name="brick">brick</param>
         /// <param name="x">column</param>
         /// <param name="y">row</param>
-        /// <returns></returns>
+        /// <returns>true if brick is intersecting</returns>
         private bool IsIntersecting(Brick brick, int x, int y)
         {
             if (x + brick.Width > Well.Width) return true;

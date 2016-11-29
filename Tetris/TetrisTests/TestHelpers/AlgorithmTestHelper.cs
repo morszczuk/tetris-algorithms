@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tetris.AlgorithmLogic.Evaluators;
+using Tetris.AlgorithmLogic.Positioners;
 using Tetris.Models;
 
 namespace TetrisTests.TestHelpers
@@ -52,6 +54,31 @@ namespace TetrisTests.TestHelpers
                     body[y,x] = true;
             return new Brick(body);
         }
-       
+
+        public static BricksShelf CreateBricksShelfWithNRectangleBricks(int n)
+        {
+            var types = new List<BrickType>(n);
+            for (var i = 0; i < n; i++)
+                types.Add(new BrickType(CreateRectangleBrick(i+1, i+2).Body));
+            return new BricksShelf(types);
+        }
+
+        public class MockEvaluator : IWellStateEvaluator
+        {
+            public int Evaluate(WellState wellState)
+            {
+                return wellState.Fill.Count;
+            }
+        }
+
+        public class MockPositioner : IBrickPositioner
+        {
+            public IEnumerable<WellState> PlaceBrick(WellState wellState, Brick brick)
+            {
+                wellState.AddBrick(brick, 0, 0);
+                return new List<WellState>() { wellState };
+            }
+        }
+
     }
 }
