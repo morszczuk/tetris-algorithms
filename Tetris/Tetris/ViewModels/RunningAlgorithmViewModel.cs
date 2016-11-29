@@ -29,6 +29,7 @@ namespace Tetris.ViewModels
         private List<BrickType> _brickTypes;
         private bool _areComputationsStarted;
         private IEnumerable<WellState> _activeStates;
+        private int _lastComputationTime = 0;
 
 
         #region BindingProperties
@@ -88,6 +89,18 @@ namespace Tetris.ViewModels
             }
         }
 
+        public int LastComputationTime
+        {
+            get
+            {
+                return _lastComputationTime;
+            }
+            set
+            {
+                _lastComputationTime = value;
+                NotifyOfPropertyChange(() => LastComputationTime);
+            }
+        }
         public bool IsStep { get; }
         public int StepCount { get; set; } = 1;
 
@@ -122,7 +135,7 @@ namespace Tetris.ViewModels
             _mainWindowViewModel = mainWindowViewModel;
             _algorithmParameters = settings;
             _executor = new AlgorithmExecutor(_algorithmParameters, activeStates);
-            _areComputationsStarted = true;
+            _areComputationsStarted = false;
             _areComputationsPaused = true;
             _areComputationsFinished = false;
             ActiveStates = activeStates;
@@ -156,6 +169,7 @@ namespace Tetris.ViewModels
             }
             else
             {
+                AreComputationsStarted = false;
                 AreComputationsPaused = !AreComputationsPaused;
                 StopComputations();
             }
@@ -163,12 +177,16 @@ namespace Tetris.ViewModels
 
         public void StartComputations()
         {
+            var startTime = DateTime.Now;
             _task = new Task(() => _executor.Start());
             _task.ContinueWith((t) =>
             {
                 AreComputationsFinished = _executor.IsFinished();
                 ActiveStates = _executor.ActiveStates;
                 AreComputationsPaused = true;
+                var endtime = DateTime.Now;
+                var interval = endtime - startTime;
+                LastComputationTime = interval.Milliseconds;
             });
             _task.Start();
         }
@@ -182,6 +200,8 @@ namespace Tetris.ViewModels
         {
             if (AreComputationsFinished) return;
             AreComputationsPaused = false;
+            var startTime = DateTime.Now;
+
             for (var i = 0; i < StepCount; i++)
             {
                 _executor.MakeStep();
@@ -193,6 +213,9 @@ namespace Tetris.ViewModels
             }
             ActiveStates = _executor.ActiveStates;
             AreComputationsPaused = true;
+            var endtime = DateTime.Now;
+            var interval = endtime - startTime;
+            LastComputationTime = interval.Milliseconds;
         }
 
         public void EndComputationOnClick()

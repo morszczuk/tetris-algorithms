@@ -19,7 +19,7 @@ namespace Tetris.Converters
         {
             var item = value as WellState;
             if (item == null) return "";
-            var text = $"Well width: {item.Well.Width}, height: {item.Fill.Count} space covered {item.PercentageFilled}%";
+            var text = $"Szerokość: {item.Well.Width}, wysokość: {item.Fill.Count} pokrycie: {item.PercentageFilled}%";
             return text;
         }
 

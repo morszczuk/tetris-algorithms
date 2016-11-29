@@ -122,6 +122,8 @@ namespace Tetris.ViewModels
                 NotifyOfPropertyChange(() => LibraryIsVisible);
             }
         }
+
+
         #endregion
 
 

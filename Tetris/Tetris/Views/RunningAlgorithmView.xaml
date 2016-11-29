@@ -35,6 +35,8 @@
                 <Button x:Name="SaveAlgorithmStateOnClick" Margin="10 0 0 0" IsEnabled="{Binding Path=AreComputationsPaused}"  Width="80" Height="80" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                     <iconPacks:PackIconModern Kind="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" Height="40" Foreground="White"/>
                 </Button>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontWeight="DemiBold">Czas ostatniej operacji(ms): </TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="10" FontWeight="DemiBold" Text="{Binding Path=LastComputationTime}"></TextBlock>
             </StackPanel>
             <Button x:Name="ToggleRunnningAlgorithmOnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Width="80" Height="80" Margin="0 5 10 0" Style="{DynamicResource MetroCircleButtonStyle}" BorderBrush="White" BorderThickness="3">
                 <iconPacks:PackIconModern  Kind="{Binding ComputationsButtonName}" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="40" Height="40" Foreground="White"/>
