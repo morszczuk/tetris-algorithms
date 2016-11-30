@@ -96,7 +96,7 @@ namespace Tetris.Models
             for (var i = 0; i < brick.Height; i++)
             {
                 if (y + i >= Fill.Count) AddRow();
-                var rowWithOffset = brick.BinaryBody[brick.Height - i - 1] << x;
+                ulong rowWithOffset = (ulong) brick.BinaryBody[brick.Height - i - 1] << x;
                 Fill[y + i] |= rowWithOffset;
                 if (Fill[y + i] == ulong.MaxValue) FullRows = y + i;
             }
@@ -115,7 +115,7 @@ namespace Tetris.Models
             for (var i = 0; i < brick.Height; i++)
             {
                 if (y + i >= Fill.Count) return false;
-                var rowWithOffset = brick.BinaryBody[brick.Height - i - 1] << x;
+                ulong rowWithOffset = (ulong) brick.BinaryBody[brick.Height - i - 1] << x;
                 if ((Fill[y + i] & rowWithOffset) != 0)
                     return true;
             }
