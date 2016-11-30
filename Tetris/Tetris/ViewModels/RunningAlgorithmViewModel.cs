@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Caliburn.Micro;
 using Tetris.AlgorithmLogic;
 using Tetris.Enums;
@@ -177,17 +178,17 @@ namespace Tetris.ViewModels
 
         public void StartComputations()
         {
-            var startTime = DateTime.Now;
+            var stopWatch = new Stopwatch();
             _task = new Task(() => _executor.Start());
             _task.ContinueWith((t) =>
             {
                 AreComputationsFinished = _executor.IsFinished();
                 ActiveStates = _executor.ActiveStates;
                 AreComputationsPaused = true;
-                var endtime = DateTime.Now;
-                var interval = endtime - startTime;
-                LastComputationTime = interval.Milliseconds;
+                stopWatch.Stop();
+                LastComputationTime = (int) stopWatch.Elapsed.TotalMilliseconds;
             });
+            stopWatch.Start();
             _task.Start();
         }
 
@@ -200,8 +201,8 @@ namespace Tetris.ViewModels
         {
             if (AreComputationsFinished) return;
             AreComputationsPaused = false;
-            var startTime = DateTime.Now;
-
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
             for (var i = 0; i < StepCount; i++)
             {
                 _executor.MakeStep();
@@ -213,9 +214,8 @@ namespace Tetris.ViewModels
             }
             ActiveStates = _executor.ActiveStates;
             AreComputationsPaused = true;
-            var endtime = DateTime.Now;
-            var interval = endtime - startTime;
-            LastComputationTime = interval.Milliseconds;
+            stopWatch.Stop();
+            LastComputationTime = (int)stopWatch.Elapsed.TotalMilliseconds;
         }
 
         public void EndComputationOnClick()
